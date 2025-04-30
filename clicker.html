@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clicker Tusi | Juego</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive;
+            background-color: #ffc0cb;
+            color: #ff007f;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: linear-gradient(45deg, #ff007f, #ff69b4);
+            padding: 15px;
+            color: white;
+        }
+        .game-container {
+            margin: 20px auto;
+            max-width: 500px;
+        }
+        #clicker-btn {
+            background: #ff007f;
+            color: white;
+            border: none;
+            padding: 30px;
+            border-radius: 50%;
+            font-size: 2em;
+            cursor: pointer;
+            transition: all 0.1s;
+            box-shadow: 0 10px 0 #d81b60;
+        }
+        #clicker-btn:active {
+            transform: translateY(5px);
+            box-shadow: 0 5px 0 #d81b60;
+        }
+        #score {
+            font-size: 3em;
+            margin: 20px;
+        }
+        .btn {
+            background: #ff007f;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            margin: 10px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn.back {
+            background: #9c27b0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🖱️ Clicker Tusi 🖱️</h1>
+    </header>
+
+    <div class="game-container">
+        <div id="score">0</div>
+        <button id="clicker-btn">¡CLICKEA!</button>
+        <div>
+            <button id="resetBtn" class="btn">Reiniciar</button>
+            <a href="lista-juegos.html" class="btn back">🎮 Volver a Juegos</a>
+            <a href="index.html" class="btn back">🏠 Volver a Inicio</a>
+        </div>
+    </div>
+
+    <script>
+        let score = 0;
+        const scoreDisplay = document.getElementById('score');
+        const clickerBtn = document.getElementById('clicker-btn');
+        
+        clickerBtn.addEventListener('click', () => {
+            score++;
+            scoreDisplay.textContent = score;
+            
+            if (score % 10 === 0) {
+                clickerBtn.textContent = `¡${score} clicks!`;
+                setTimeout(() => { clickerBtn.textContent = '¡CLICKEA!'; }, 500);
+            }
+        });
+        
+        document.getElementById('resetBtn').addEventListener('click', () => {
+            score = 0;
+            scoreDisplay.textContent = score;
+        });
+    </script>
+</body>
+</html>

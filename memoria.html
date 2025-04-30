@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memoria Tusini | Juego</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive;
+            background-color: #ffc0cb;
+            color: #ff007f;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: linear-gradient(45deg, #ff007f, #ff69b4);
+            padding: 15px;
+            color: white;
+        }
+        .game-container {
+            margin: 20px auto;
+            max-width: 500px;
+        }
+        #memory-board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 20px auto;
+        }
+        .card {
+            height: 80px;
+            background: #ff69b4;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .card.flipped {
+            background: white;
+            color: #ff007f;
+        }
+        .card.matched {
+            background: #4caf50;
+            cursor: default;
+        }
+        .btn {
+            background: #ff007f;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            margin: 10px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn.back {
+            background: #9c27b0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🧠 Memoria Tusini 🧠</h1>
+    </header>
+
+    <div class="game-container">
+        <p>Intentos: <span id="attempts">0</span> | Pares: <span id="matches">0/6</span></p>
+        <div id="memory-board"></div>
+        <div>
+            <button id="restartBtn" class="btn">Reiniciar</button>
+            <a href="lista-juegos.html" class="btn back">🎮 Volver a Juegos</a>
+            <a href="index.html" class="btn back">🏠 Volver a Inicio</a>
+        </div>
+    </div>
+
+    <script>
+        const emojis = ['🐍', '🌸', '💖', '🎵', '🌈', '🦄'];
+        const cards = [...emojis, ...emojis];
+        let flippedCards = [];
+        let matchedPairs = 0;
+        let attempts = 0;
+
+        function initGame() {
+            const board = document.getElementById('memory-board');
+            board.innerHTML = '';
+            flippedCards = [];
+            matchedPairs = 0;
+            attempts = 0;
+            document.getElementById('attempts').textContent = attempts;
+            document.getElementById('matches').textContent = `${matchedPairs}/6`;
+            
+            // Barajar cartas
+            const shuffledCards = cards.sort(() => Math.random() - 0.5);
+            
+            shuffledCards.forEach((emoji, index) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.dataset.index = index;
+                card.dataset.emoji = emoji;
+                card.addEventListener('click', flipCard);
+                board.appendChild(card);
+            });
+        }
+
+        function flipCard() {
+            if (flippedCards.length < 2 && !this.classList.contains('flipped') && !this.classList.contains('matched')) {
+                this.classList.add('flipped');
+                this.textContent = this.dataset.emoji;
+                flippedCards.push(this);
+                
+                if (flippedCards.length === 2) {
+                    attempts++;
+                    document.getElementById('attempts').textContent = attempts;
+                    setTimeout(checkMatch, 500);
+                }
+            }
+        }
+
+        function checkMatch() {
+            const [card1, card2] = flippedCards;
+            
+            if (card1.dataset.emoji === card2.dataset.emoji) {
+                card1.classList.add('matched');
+                card2.classList.add('matched');
+                matchedPairs++;
+                document.getElementById('matches').textContent = `${matchedPairs}/6`;
+                
+                if (matchedPairs === 6) {
+                    setTimeout(() => alert(`¡Ganaste en ${attempts} intentos!`), 300);
+                }
+            } else {
+                card1.classList.remove('flipped');
+                card2.classList.remove('flipped');
+                card1.textContent = '';
+                card2.textContent = '';
+            }
+            
+            flippedCards = [];
+        }
+
+        document.getElementById('restartBtn').addEventListener('click', initGame);
+        initGame();
+    </script>
+</body>
+</html>

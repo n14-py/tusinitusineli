@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Tusini | Juego</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive;
+            background-color: #ffc0cb;
+            color: #ff007f;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: linear-gradient(45deg, #ff007f, #ff69b4);
+            padding: 15px;
+            color: white;
+        }
+        .game-container {
+            margin: 20px auto;
+            max-width: 500px;
+        }
+        #quiz-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .option-btn {
+            background: #ff69b4;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .option-btn:hover {
+            background: #ff007f;
+        }
+        #quiz-result {
+            min-height: 30px;
+            font-weight: bold;
+        }
+        .btn {
+            background: #ff007f;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            margin: 10px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn.back {
+            background: #9c27b0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>❓ Quiz Tusini ❓</h1>
+    </header>
+
+    <div class="game-container">
+        <div id="quiz-question" class="game-info">Cargando pregunta...</div>
+        <div id="quiz-options"></div>
+        <div id="quiz-result"></div>
+        <div>
+            <button id="nextBtn" class="btn" style="display: none;">Siguiente</button>
+            <a href="lista-juegos.html" class="btn back">🎮 Volver a Juegos</a>
+            <a href="index.html" class="btn back">🏠 Volver a Inicio</a>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "¿De qué color es el Tusini original?",
+                options: ["Rosa", "Azul", "Verde", "Negro"],
+                answer: 0
+            },
+            {
+                question: "¿En qué red social se hizo viral?",
+                options: ["TikTok", "Facebook", "Twitter", "LinkedIn"],
+                answer: 0
+            },
+            {
+                question: "¿Qué significa 'Tusini Tusineli'?",
+                options: ["Nada", "Todo", "Un baile", "Un país"],
+                answer: 0
+            }
+        ];
+        
+        let currentQuestion = 0;
+        let score = 0;
+
+        function loadQuestion() {
+            const question = questions[currentQuestion];
+            document.getElementById('quiz-question').textContent = question.question;
+            
+            const optionsDiv = document.getElementById('quiz-options');
+            optionsDiv.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option;
+                button.onclick = () => checkAnswer(index);
+                optionsDiv.appendChild(button);
+            });
+            
+            document.getElementById('quiz-result').textContent = '';
+            document.getElementById('nextBtn').style.display = 'none';
+        }
+
+        function checkAnswer(selectedIndex) {
+            const correctIndex = questions[currentQuestion].answer;
+            const resultDiv = document.getElementById('quiz-result');
+            
+            if (selectedIndex === correctIndex) {
+                resultDiv.textContent = '✅ ¡Correcto! +1 punto Tusini.';
+                resultDiv.style.color = '#4caf50';
+                score++;
+            } else {
+                resultDiv.textContent = `❌ Incorrecto. La respuesta era "${questions[currentQuestion].options[correctIndex]}".`;
+                resultDiv.style.color = '#ff007f';
+            }
+            
+            document.getElementById('nextBtn').style.display = 'inline-block';
+        }
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                loadQuestion();
+            } else {
+                alert(`¡Quiz completado! Puntuación: ${score}/${questions.length}`);
+                currentQuestion = 0;
+                score = 0;
+                loadQuestion();
+            }
+        });
+
+        loadQuestion();
+    </script>
+</body>
+</html>

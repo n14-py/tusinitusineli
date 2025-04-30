@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juegos de Tusini Tusineli</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive;
+            background-color: #ffc0cb;
+            color: #ff007f;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: linear-gradient(45deg, #ff007f, #ff69b4);
+            padding: 20px;
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 0, 127, 0.3);
+        }
+        h1 {
+            font-size: 2.5em;
+            text-shadow: 3px 3px 0 white;
+        }
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .game-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(255, 0, 127, 0.2);
+            transition: transform 0.3s;
+        }
+        .game-card:hover {
+            transform: translateY(-10px);
+        }
+        .game-card img {
+            width: 100%;
+            border-radius: 10px;
+            border: 3px solid #ff69b4;
+        }
+        .btn {
+            background: #ff007f;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            margin-top: 15px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .back-btn {
+            background: #9c27b0;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🎮 Juegos de Tusini 🎮</h1>
+        <p>Elige tu favorito y empieza a jugar</p>
+    </header>
+
+    <a href="index.html" class="btn back-btn">🏠 Volver al Inicio</a>
+
+
+
+        <div class="game-card">
+           
+            <h3>🧠 Memoria Tusini</h3>
+            <p>Encuentra las parejas de memes.</p>
+            <a href="memoria.html" class="btn">Jugar</a>
+        </div>
+
+        <div class="game-card">
+           
+            <h3>❓ Quiz Tusini</h3>
+            <p>Demuestra que eres un experto.</p>
+            <a href="quiz.html" class="btn">Jugar</a>
+        </div>
+
+        <div class="game-card">
+            
+            <h3>🖱️ Clicker Tusi</h3>
+            <p>Haz clic sin parar.</p>
+            <a href="clicker.html" class="btn">Jugar</a>
+        </div>
+
+  
+
+    <footer>
+        <p>© 2024 Tusini Games | ¡Diversión asegurada!</p>
+    </footer>
+</body>
+</html>

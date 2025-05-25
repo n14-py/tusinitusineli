@@ -3,210 +3,1116 @@
 <head>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5461370198299696"
      crossorigin="anonymous"></script>
-    <meta property="og:title" content="Tusini Tusineli 💖 | El meme rosa más viral de TikTok">
-  <meta property="og:description" content="Bailá con el Tusi, mirá memes, escuchá el audio viral y compartí con tus amigos 💃🕺">
-  <meta property="og:image" content="https://cdn.glitch.global/40f7c47b-7399-41bb-b341-4c1468c49396/ChatGPT%20Image%2029%20abr%202025%2C%2023_46_04.png?v=1745981182326">
-  <meta property="og:url" content="https://tusinitusineli.com">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="monetag" content="7477cb3565e25801748341f3db5f7b33">
-    <title>Tusini Tusineli | Meme Viral Rosado</title>
+    <title>TusiniTusineli.com - Juegos Gratis Online</title>
     <style>
-        body {
-            font-family: 'Quicksand', sans-serif;
-            background-color: #ffc0cb; /* Rosa claro */
-            color: #ff007f; /* Rosa fuerte */
+        :root {
+            --primary-color: #4a148c;
+            --secondary-color: #7b1fa2;
+            --accent-color: #e91e63;
+            --pink-accent: #ff4081;
+            --light-color: #f3e5f5;
+            --dark-color: #12005e;
+            --text-color: #333;
+            --text-light: #fff;
+        }
+        
+        * {
             margin: 0;
             padding: 0;
-            text-align: center;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: var(--text-color);
+        }
+        
+        body.fullscreen-mode {
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            height: 100%;
         }
         
         header {
-            background: linear-gradient(45deg, #ff007f, #ff69b4);
-            padding: 20px;
-            color: white;
-            box-shadow: 0 4px 15px rgba(255, 0, 127, 0.3);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-light);
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            animation: fadeInDown 0.5s ease-out;
         }
         
-        h1 {
-            font-size: 3em;
-            margin: 0;
-            text-shadow: 3px 3px 0 #ffffff;
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
         
-        .container {
-            padding: 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        
-        .meme-gallery {
+        .search-container {
             display: flex;
-            flex-wrap: wrap;
+            justify-content: center;
+            margin: 1rem 0;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        #search-input {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 20px 0 0 20px;
+            width: 70%;
+            max-width: 500px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        #search-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--pink-accent);
+        }
+        
+        #search-button {
+            padding: 0.5rem 1rem;
+            border: none;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 0 20px 20px 0;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        #search-button:hover {
+            background-color: var(--pink-accent);
+            transform: scale(1.02);
+        }
+        
+        .categories {
+            display: flex;
+            overflow-x: auto;
+            padding: 0.5rem;
+            background-color: var(--light-color);
+            margin-bottom: 1rem;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-color) var(--light-color);
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .categories::-webkit-scrollbar {
+            height: 6px;
+        }
+        
+        .categories::-webkit-scrollbar-track {
+            background: var(--light-color);
+        }
+        
+        .categories::-webkit-scrollbar-thumb {
+            background-color: var(--primary-color);
+            border-radius: 6px;
+        }
+        
+        .category {
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            background-color: white;
+            border-radius: 20px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .category:hover, .category.active {
+            background-color: var(--pink-accent);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+        }
+        
+        .game-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .game-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            animation: fadeInUp 0.5s ease-out;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .game-thumbnail {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            background-color: #eee;
+            transition: transform 0.3s;
+        }
+        
+        .game-card:hover .game-thumbnail {
+            transform: scale(1.03);
+        }
+        
+        .game-info {
+            padding: 1rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .game-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+        }
+        
+        .game-description {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+            line-height: 1.4;
+        }
+        
+        .game-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 0.5rem;
+        }
+        
+        .play-button, .fullscreen-button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        
+        .play-button {
+            background-color: var(--primary-color);
+            color: white;
+            flex: 1;
+        }
+        
+        .fullscreen-button {
+            background-color: var(--accent-color);
+            color: white;
+            flex: 1;
+        }
+        
+        .play-button:hover {
+            background-color: var(--dark-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .fullscreen-button:hover {
+            background-color: var(--pink-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .game-viewer {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 85%;
+            height: 75%;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .game-viewer.fullscreen {
+            width: 100%;
+            height: 100%;
+            border-radius: 0;
+            top: 0;
+            left: 0;
+            transform: none;
+        }
+        
+        .game-viewer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .viewer-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .viewer-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .viewer-control-button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+        
+        .viewer-control-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+        
+        .close-viewer {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            border-radius: 50%;
+        }
+        
+        .close-viewer:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+        
+        .game-iframe-container {
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+        
+        .game-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            position: relative;
+            z-index: 1;
+            background-color: #f0f0f0;
+        }
+        
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            z-index: 5;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--pink-accent);
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 1rem;
+        }
+        
+        .loading-text {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+        
+        .loading-timer {
+            font-size: 1rem;
+            color: #ccc;
+        }
+        
+        .fullscreen-exit {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            z-index: 1001;
+            display: none;
+            transition: all 0.3s;
+        }
+        
+        .fullscreen-exit:hover {
+            background: rgba(0, 0, 0, 0.9);
+        }
+        
+        .tusini-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: linear-gradient(135deg, var(--pink-accent), var(--accent-color));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 -3px 10px rgba(0,0,0,0.2);
+            animation: slideUp 0.5s ease-out;
+        }
+        
+        .tusini-banner-content {
+            display: flex;
+            align-items: center;
             justify-content: center;
             gap: 15px;
-            margin: 20px 0;
+            width: 100%;
+            max-width: 800px;
+            padding: 0 15px;
+            white-space: nowrap;
         }
         
-        .meme-img {
-            width: 200px;
-            height: 200px;
-            object-fit: cover;
-            border: 5px solid #ff007f;
-            border-radius: 10px;
-            transition: transform 0.3s;
-            cursor: pointer;
-        }
-        
-        .meme-img:hover {
-            transform: scale(1.1) rotate(5deg);
-            border-color: #ff69b4;
-        }
-        
-        .audio-section {
-            background: linear-gradient(45deg, #ff1493, #ff6b9d);
-            padding: 20px;
-            border-radius: 15px;
-            margin: 20px 0;
-            color: white;
-            box-shadow: 0 4px 10px rgba(255, 20, 147, 0.3);
-        }
-        
-        .audio-player {
-            margin: 10px;
-            width: 80%;
-            max-width: 400px;
-        }
-        
-        .domain-sale {
-            background: linear-gradient(45deg, #ff007f, #ff94c2);
-            color: white;
-            padding: 15px;
-            border-radius: 15px;
-            display: inline-block;
-            margin: 20px auto;
+        .tusini-logo {
             font-weight: bold;
-            box-shadow: 0 4px 10px rgba(255, 0, 127, 0.3);
-            border: 2px dashed white;
-        }
-        
-        .btn {
-            background-color: #ff007f;
             color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.2em;
-            cursor: pointer;
-            margin: 10px;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-block;
-            box-shadow: 0 4px 8px rgba(255, 0, 127, 0.3);
+            font-size: 1.2rem;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
         }
         
-        .btn:hover {
-            background-color: #ff69b4;
-            transform: translateY(-3px);
+        .tusini-text {
+            color: white;
+            font-size: 0.95rem;
+        }
+        
+        .tusini-link {
+            background-color: white;
+            color: var(--pink-accent);
+            padding: 5px 15px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .tusini-link:hover {
+            background-color: #f8bbd0;
+            color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+        
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+            backdrop-filter: blur(3px);
         }
         
         footer {
-            background: linear-gradient(45deg, #ff007f, #ff69b4);
+            background: linear-gradient(135deg, var(--dark-color), var(--primary-color));
             color: white;
-            padding: 15px;
-            margin-top: 20px;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
         }
         
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 2em;
+        footer p {
+            font-size: 0.9rem;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
             }
-            .meme-img {
-                width: 150px;
-                height: 150px;
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .game-container {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .game-viewer:not(.fullscreen) {
+                width: 95%;
+                height: 65%;
+            }
+            
+            .game-title {
+                font-size: 1rem;
+            }
+            
+            .game-description {
+                font-size: 0.85rem;
+            }
+            
+            .play-button, .fullscreen-button {
+                padding: 0.5rem;
+                font-size: 0.8rem;
+            }
+            
+            .tusini-banner {
+                display: none;
+            }
+            
+            /* Mejor experiencia de juego en móvil */
+            .game-viewer.fullscreen {
+                height: 100vh !important;
+                width: 100vw !important;
+            }
+            
+            .game-iframe {
+                height: calc(100vh - 50px) !important;
+                width: 100vw !important;
+            }
+            
+            /* Ocultar la barra de direcciones en móvil */
+            .fullscreen-mode {
+                position: fixed;
+                overflow: hidden;
+                height: 100%;
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .game-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .game-viewer:not(.fullscreen) {
+                height: 60%;
+                width: 95%;
+            }
+            
+            .categories {
+                padding: 0.5rem 0.3rem;
+            }
+            
+            .category {
+                padding: 0.4rem 0.8rem;
+                margin: 0 0.3rem;
+                font-size: 0.8rem;
+            }
+            
+            #search-input {
+                width: 65%;
+                padding: 0.5rem;
+            }
+            
+            #search-button {
+                padding: 0.5rem;
+            }
+            
+            .loading-text {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+            
+            .viewer-title {
+                font-size: 0.9rem;
+                max-width: 60%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            
+            .viewer-control-button, .close-viewer {
+                width: 28px;
+                height: 28px;
+                font-size: 0.9rem;
             }
         }
     </style>
 </head>
-
-
 <body>
     <header>
-        <h1>💖 Tusini Tusineli 💖</h1>
-        <p>El meme más rosado y random de TikTok</p>
+        <div class="logo">TusiniTusineli.com</div>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Buscar juegos...">
+            <button id="search-button">Buscar</button>
+        </div>
     </header>
     
-    <div class="container">
-        <section>
-            <h2>¿Qué es Tusini Tusineli?</h2>
-            <p>¡Es el audio que hizo bailar al mundo con su ritmo rosa y su nombre sin sentido! 🌈✨</p>
-        </section>
-        
-<div class="audio-section">
-  <h2>🎵 Escucha el audio viral 🎵</h2>
-  <audio id="tusiAudio" class="audio-player" controls autoplay muted>
-    <source src="https://cdn.glitch.global/40f7c47b-7399-41bb-b341-4c1468c49396/tiktokio.com_kpjpLLqLf4SsbsvmauGa.mp3?v=1745980615750" type="audio/mpeg">
-    Tu navegador no soporta audio.
-  </audio>
-  <p><em>¡Presiona en cualquier parte para que el Tusi te posea con sonido!</em></p>
-</div>
-
-<script>
-  const audio = document.getElementById('tusiAudio');
-
-  // Detecta la primera interacción del usuario
-  document.addEventListener('click', () => {
-    audio.muted = false;
-    audio.play();
-  }, { once: true }); // Solo una vez
-</script>
-
-
-        
-        <h2>📸 Galería de Memes Rosados 📸</h2>
-        <div class="meme-gallery">
-            <img src="https://cdn.glitch.global/40f7c47b-7399-41bb-b341-4c1468c49396/ChatGPT%20Image%2029%20abr%202025%2C%2023_46_04.png?v=1745981182326" alt="Tusini 1" class="meme-img">
-            <img src="https://cdn.glitch.global/40f7c47b-7399-41bb-b341-4c1468c49396/ChatGPT%20Image%2029%20abr%202025%2C%2023_50_33.png?v=1745981446092" alt="Tusini 2" class="meme-img">
-            <img src="https://cdn.glitch.global/40f7c47b-7399-41bb-b341-4c1468c49396/ChatGPT%20Image%2029%20abr%202025%2C%2023_53_14.png?v=1745981613605" alt="Tusini 3" class="meme-img">
-
-        </div>
-        
-      <a href="https://www.godaddy.com/es/domainsearch/find?itc=dlp_domain&domainToCheck=tusinitusineli&tmskey=1dom_03_buydomain" target="_blank" style="text-decoration: none; color: inherit;">
-  <div class="domain-sale" style="cursor: pointer;">
-      <h3>🚀 ¡DOMINIO EN VENTA! 🚀</h3>
-      <p><strong>tusinitusineli.com</strong> <em>(Click aquí)</em></p>
-      <p>💰 Precio: $5,000 USD 💰</p>
-  </div>
-</a>
-
-        
-        <a href="lista-juegos.html" class="btn">🎮 Juegos Random de Tusini 🎮</a>
+    <div class="categories">
+        <div class="category active" data-category="all">Todos</div>
+        <div class="category" data-category="action">Acción</div>
+        <div class="category" data-category="adventure">Aventura</div>
+        <div class="category" data-category="puzzle">Puzzle</div>
+        <div class="category" data-category="racing">Carreras</div>
+        <div class="category" data-category="shooter">Shooter</div>
+        <div class="category" data-category="simulator">Simulador</div>
+        <div class="category" data-category="io">.io</div>
     </div>
     
+    <div class="main-container">
+        <h2>Juegos Populares</h2>
+        <div class="game-container" id="game-container">
+            <!-- Juegos se insertarán aquí dinámicamente -->
+        </div>
+    </div>
+    
+    <div class="overlay" id="overlay"></div>
+    
+    <div class="game-viewer" id="game-viewer">
+        <div class="game-viewer-header">
+            <div class="viewer-title" id="viewer-title">Juego</div>
+            <div class="viewer-controls">
+                <button class="viewer-control-button" id="toggle-fullscreen" title="Pantalla completa">⛶</button>
+                <button class="close-viewer" id="close-viewer" title="Cerrar">&times;</button>
+            </div>
+        </div>
+        <div class="game-iframe-container">
+            <div class="loading-overlay" id="loading-overlay">
+                <div class="loading-spinner"></div>
+                <div class="loading-text">TusiniTusineli.com está cargando tu juego</div>
+                <div class="loading-timer" id="loading-timer">5 segundos restantes</div>
+            </div>
+            <iframe class="game-iframe" id="game-iframe" frameborder="0" allow="gamepad *;"></iframe>
+        </div>
+    </div>
+    
+    <div class="tusini-banner" id="tusini-banner">
+        <div class="tusini-banner-content">
+            <div class="tusini-logo">TusiniTusineli.com</div>
+            <div class="tusini-text">¡Disfruta de más juegos gratis!</div>
+            <a href="#" class="tusini-link">Ver todos</a>
+        </div>
+    </div>
+    
+    <button class="fullscreen-exit" id="fullscreen-exit">Salir de pantalla completa</button>
+    
     <footer>
-        <p>© 2025 Tusini Tusineli | Hecho con 💖 y mucho Tusi.</p>
+        <p>&copy; 2023 TusiniTusineli.com - Todos los derechos reservados</p>
     </footer>
     
     <script>
-        // Efecto random al hacer clic en imágenes
-        document.querySelectorAll('.meme-img').forEach(img => {
-            img.addEventListener('click', () => {
-                const colors = ['#ff007f', '#ff69b4', '#ff1493', '#ff94c2', '#ff00aa'];
-                const randomColor = colors[Math.floor(Math.random() * colors.length)];
-                img.style.borderColor = randomColor;
+        // Datos de los juegos
+        const games = [
+            {
+                title: "Italian Brainrot Quiz",
+                description: "Pon a prueba tus conocimientos con este divertido quiz italiano.",
+                thumbnail: "https://imgs.crazygames.com/italianbrainrotquiz-io_16x9/20250522065211/italianbrainrotquiz-io_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/italianbrainrotquiz-io",
+                category: "puzzle"
+            },
+            {
+                title: "Italian Brainrot Clicker",
+                description: "Juego de clicker con temática italiana.",
+                thumbnail: "https://imgs.crazygames.com/italian-brainrot-clicker-usp_16x9/20250430033904/italian-brainrot-clicker-usp_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/italian-brainrot-clicker-usp",
+                category: "io"
+            },
+            {
+                title: "Tung Tung Sahur Obby",
+                description: "Supera los obstáculos en este desafío de plataformas.",
+                thumbnail: "https://imgs.crazygames.com/tung-tung-sahur-obby-challenge_16x9/20250520041244/tung-tung-sahur-obby-challenge_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/tung-tung-sahur-obby-challenge",
+                category: "adventure"
+            },
+            {
+                title: "Prison Escape",
+                description: "Escapa de la prisión en este emocionante juego.",
+                thumbnail: "https://imgs.crazygames.com/prison-escape-lnj_16x9/20250509092652/prison-escape-lnj_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/prison-escape-lnj",
+                category: "action"
+            },
+            {
+                title: "Death City Zombie",
+                description: "Sobrevive a la invasión zombie en la ciudad.",
+                thumbnail: "https://imgs.crazygames.com/death-city-zombie-invasion-liq_16x9/20241017024657/death-city-zombie-invasion-liq_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/death-city-zombie-invasion-liq",
+                category: "shooter"
+            },
+            {
+                title: "Bullet Force",
+                description: "Juego de disparos multijugador en primera persona.",
+                thumbnail: "https://imgs.crazygames.com/bullet-force-multiplayer_16x9/20250422192901/bullet-force-multiplayer_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/bullet-force-multiplayer",
+                category: "shooter"
+            },
+            {
+                title: "Rally Racer Dirt",
+                description: "Carreras de rally en terrenos difíciles.",
+                thumbnail: "https://imgs.crazygames.com/rally-racer-dirt_16x9/20250227034748/rally-racer-dirt_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/rally-racer-dirt",
+                category: "racing"
+            },
+            {
+                title: "Truck Driving Simulator",
+                description: "Simulador de conducción de camiones.",
+                thumbnail: "https://imgs.crazygames.com/truck-driving-simulator-game_16x9/20241022081951/truck-driving-simulator-game_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/truck-driving-simulator-game",
+                category: "simulator"
+            },
+            {
+                title: "Fortzone Battle Royale",
+                description: "Battle Royale con construcción de fortalezas.",
+                thumbnail: "https://imgs.crazygames.com/fortzone-battle-royale-xkd_16x9/20250513044222/fortzone-battle-royale-xkd_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/fortzone-battle-royale-xkd",
+                category: "action"
+            },
+            {
+                title: "Count Masters",
+                description: "Juego de stickman con multitudes.",
+                thumbnail: "https://imgs.crazygames.com/count-masters-stickman-games_16x9/20250220041115/count-masters-stickman-games_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/count-masters-stickman-games",
+                category: "io"
+            },
+            {
+                title: "Bridge Race",
+                description: "Carrera para construir puentes y llegar primero.",
+                thumbnail: "https://imgs.crazygames.com/bridge-race_16x9/20241227062023/bridge-race_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/bridge-race",
+                category: "io"
+            },
+            {
+                title: "Solar Smash",
+                description: "Simulador de destrucción planetaria.",
+                thumbnail: "https://imgs.crazygames.com/solar-smash_16x9/20240722073047/solar-smash_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/solar-smash",
+                category: "simulator"
+            },
+            {
+                title: "Fighter Aircraft Pilot",
+                description: "Conviértete en piloto de combate.",
+                thumbnail: "https://imgs.crazygames.com/fighter-aircraft-pilotb.png?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/fighter-aircraft-pilot",
+                category: "simulator"
+            },
+            {
+                title: "Traffic Rider",
+                description: "Juego de motocicletas en tráfico real.",
+                thumbnail: "https://imgs.crazygames.com/traffic-rider-vvq_16x9/20250328101418/traffic-rider-vvq_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/traffic-rider-vvq",
+                category: "racing"
+            },
+            {
+                title: "Attack of Duty",
+                description: "Juego de disparos estilo Call of Duty.",
+                thumbnail: "https://imgs.crazygames.com/attack-of-duty_16x9/20240606142630/attack-of-duty_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/attack-of-duty",
+                category: "shooter"
+            },
+            {
+                title: "Roling Balls Sea Race",
+                description: "Carrera de bolas rodantes en el mar.",
+                thumbnail: "https://imgs.crazygames.com/roling-balls-sea-race_16x9/20241029074138/roling-balls-sea-race_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/roling-balls-sea-race",
+                category: "racing"
+            },
+            {
+                title: "Screw Out Bolts",
+                description: "Juego de destornillar tuercas y tornillos.",
+                thumbnail: "https://imgs.crazygames.com/screw-out-bolts-and-nuts_16x9/20250507101325/screw-out-bolts-and-nuts_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/screw-out-bolts-and-nuts",
+                category: "puzzle"
+            },
+            {
+                title: "Squid Game Online",
+                description: "Juegos del calamar en versión online.",
+                thumbnail: "https://imgs.crazygames.com/squid-game-online_16x9/20250403161318/squid-game-online_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/squid-game-online",
+                category: "io"
+            },
+            {
+                title: "Paper.io 2",
+                description: "Conquista territorio en este juego .io.",
+                thumbnail: "https://imgs.crazygames.com/paper-io-2_16x9/20250214024143/paper-io-2_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/paper-io-2",
+                category: "io"
+            },
+            {
+                title: "Amazing Crime",
+                description: "Aventura de stickman en el mundo del crimen.",
+                thumbnail: "https://imgs.crazygames.com/amazing-crime-strange-stickman-rope-vice-vegas.png?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/amazing-crime-strange-stickman",
+                category: "adventure"
+            },
+            {
+                title: "Metrage",
+                description: "Juego de estrategia y medición.",
+                thumbnail: "https://imgs.crazygames.com/games/metrage/thumb-1562259732086.png?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/metrage",
+                category: "puzzle"
+            }
+        ];
+        
+        // Elementos del DOM
+        const gameContainer = document.getElementById('game-container');
+        const searchInput = document.getElementById('search-input');
+        const searchButton = document.getElementById('search-button');
+        const categories = document.querySelectorAll('.category');
+        const gameViewer = document.getElementById('game-viewer');
+        const gameIframe = document.getElementById('game-iframe');
+        const overlay = document.getElementById('overlay');
+        const closeViewer = document.getElementById('close-viewer');
+        const viewerTitle = document.getElementById('viewer-title');
+        const toggleFullscreen = document.getElementById('toggle-fullscreen');
+        const loadingOverlay = document.getElementById('loading-overlay');
+        const loadingTimer = document.getElementById('loading-timer');
+        const fullscreenExit = document.getElementById('fullscreen-exit');
+        const tusiniBanner = document.getElementById('tusini-banner');
+        
+        // Variables de estado
+        let isFullscreen = false;
+        let currentGameUrl = '';
+        let loadingInterval;
+        let secondsLeft = 5; // Reducido a 5 segundos
+        
+        // Mostrar juegos
+        function displayGames(gamesToShow) {
+            gameContainer.innerHTML = '';
+            
+            if (gamesToShow.length === 0) {
+                gameContainer.innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:2rem;">No se encontraron juegos que coincidan con tu búsqueda.</p>';
+                return;
+            }
+            
+            gamesToShow.forEach(game => {
+                const gameCard = document.createElement('div');
+                gameCard.className = 'game-card';
+                gameCard.dataset.category = game.category;
                 
-                const messages = [
-                    "¡Tusini power! 💖",
-                    "¿Qué significa? Nadie lo sabe 🤪",
-                    "¡Tusineli takeover!",
-                    "Rosa es el nuevo negro 🌸",
-                    "Viral por siempre 🚀"
-                ];
-                alert(messages[Math.floor(Math.random() * messages.length)]);
+                gameCard.innerHTML = `
+                    <img src="${game.thumbnail}" alt="${game.title}" class="game-thumbnail" onerror="this.src='https://via.placeholder.com/300x150/7b1fa2/ffffff?text=${encodeURIComponent(game.title)}'">
+                    <div class="game-info">
+                        <div class="game-title">${game.title}</div>
+                        <div class="game-description">${game.description}</div>
+                        <div class="game-actions">
+                            <button class="play-button" data-url="${game.url}" data-title="${game.title}">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8 5V19L19 12L8 5Z" fill="white"/>
+                                </svg>
+                                Jugar
+                            </button>
+                            <button class="fullscreen-button" data-url="${game.url}" data-title="${game.title}">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M7 14H5V19H10V17H7V14ZM5 10H7V7H10V5H5V10ZM17 17H14V19H19V14H17V17ZM14 5V7H17V10H19V5H14Z" fill="white"/>
+                                </svg>
+                                Pantalla
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                gameContainer.appendChild(gameCard);
+            });
+            
+            // Agregar event listeners a los botones
+            setupGameButtons();
+        }
+        
+        // Configurar botones de juego
+        function setupGameButtons() {
+            document.querySelectorAll('.play-button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const url = e.target.closest('button').getAttribute('data-url');
+                    const title = e.target.closest('button').getAttribute('data-title');
+                    openGameViewer(url, title, false);
+                });
+            });
+            
+            document.querySelectorAll('.fullscreen-button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const url = e.target.closest('button').getAttribute('data-url');
+                    const title = e.target.closest('button').getAttribute('data-title');
+                    openGameViewer(url, title, true);
+                });
+            });
+        }
+        
+        // Mostrar temporizador de carga
+        function startLoadingTimer() {
+            secondsLeft = 5;
+            loadingTimer.textContent = `${secondsLeft} segundos restantes`;
+            loadingOverlay.style.display = 'flex';
+            
+            loadingInterval = setInterval(() => {
+                secondsLeft--;
+                loadingTimer.textContent = `${secondsLeft} segundos restantes`;
+                
+                if (secondsLeft <= 0) {
+                    clearInterval(loadingInterval);
+                    loadingOverlay.style.display = 'none';
+                }
+            }, 1000);
+        }
+        
+        // Ocultar el footer de Crazy Games en PC
+        function hideCrazyGamesFooter() {
+            // Solo en PC
+            if (window.innerWidth > 768) {
+                const style = document.createElement('style');
+                style.innerHTML = `
+                    iframe.game-iframe {
+                        margin-bottom: -50px !important;
+                        overflow: hidden !important;
+                    }
+                    
+                    iframe.game-iframe body > div:last-child,
+                    iframe.game-iframe #footer,
+                    iframe.game-iframe .footer,
+                    iframe.game-iframe .crazygames-footer {
+                        display: none !important;
+                        height: 0 !important;
+                        visibility: hidden !important;
+                    }
+                    
+                    iframe.game-iframe #game-container {
+                        padding-bottom: 0 !important;
+                        margin-bottom: 0 !important;
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+        
+        // Abrir visor de juego
+        function openGameViewer(url, title, fullscreen) {
+            currentGameUrl = url;
+            viewerTitle.textContent = title;
+            gameViewer.style.display = 'flex';
+            overlay.style.display = 'block';
+            document.body.classList.add('fullscreen-mode');
+            
+            // Mostrar banner solo en PC
+            tusiniBanner.style.display = window.innerWidth > 768 ? 'flex' : 'none';
+            
+            // Iniciar temporizador de carga reducido
+            startLoadingTimer();
+            
+            // Cargar el iframe después de 5 segundos
+            setTimeout(() => {
+                gameIframe.src = url;
+                // Ocultar el footer de Crazy Games en PC
+                hideCrazyGamesFooter();
+                
+                // En móviles, forzar pantalla completa real
+                if (window.innerWidth <= 768 && fullscreen) {
+                    toggleFullscreenMode();
+                }
+            }, 5000);
+            
+            if (fullscreen && window.innerWidth > 768) {
+                toggleFullscreenMode();
+            }
+        }
+        
+        // Alternar modo pantalla completa
+        function toggleFullscreenMode() {
+            isFullscreen = !isFullscreen;
+            
+            if (isFullscreen) {
+                gameViewer.classList.add('fullscreen');
+                toggleFullscreen.textContent = '⛶';
+                fullscreenExit.style.display = 'block';
+                
+                // Ajustes especiales para móvil
+                if (window.innerWidth <= 768) {
+                    document.documentElement.requestFullscreen().catch(err => {
+                        console.error('Error al intentar pantalla completa:', err);
+                    });
+                    
+                    // Ocultar la UI del navegador en móvil
+                    setTimeout(() => {
+                        window.scrollTo(0, 1);
+                    }, 100);
+                }
+            } else {
+                gameViewer.classList.remove('fullscreen');
+                toggleFullscreen.textContent = '⛶';
+                fullscreenExit.style.display = 'none';
+                
+                // Salir de pantalla completa en móvil
+                if (window.innerWidth <= 768 && document.fullscreenElement) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+        
+        // Cerrar visor de juego
+        function closeGameViewer() {
+            gameIframe.src = '';
+            gameViewer.style.display = 'none';
+            gameViewer.classList.remove('fullscreen');
+            overlay.style.display = 'none';
+            document.body.classList.remove('fullscreen-mode');
+            isFullscreen = false;
+            fullscreenExit.style.display = 'none';
+            tusiniBanner.style.display = 'none';
+            clearInterval(loadingInterval);
+            
+            // Salir de pantalla completa si está activa
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+            }
+        }
+        
+        // Filtrar juegos por categoría
+        function filterByCategory(category) {
+            if (category === 'all') {
+                displayGames(games);
+            } else {
+                const filteredGames = games.filter(game => game.category === category);
+                displayGames(filteredGames);
+            }
+        }
+        
+        // Buscar juegos
+        function searchGames() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            if (searchTerm === '') {
+                displayGames(games);
+                return;
+            }
+            
+            const filteredGames = games.filter(game => 
+                game.title.toLowerCase().includes(searchTerm) || 
+                game.description.toLowerCase().includes(searchTerm)
+            );
+            
+            displayGames(filteredGames);
+        }
+        
+        // Event listeners
+        categories.forEach(category => {
+            category.addEventListener('click', () => {
+                categories.forEach(c => c.classList.remove('active'));
+                category.classList.add('active');
+                filterByCategory(category.dataset.category);
             });
         });
+        
+        searchButton.addEventListener('click', searchGames);
+        
+        searchInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                searchGames();
+            }
+        });
+        
+        closeViewer.addEventListener('click', closeGameViewer);
+        overlay.addEventListener('click', closeGameViewer);
+        toggleFullscreen.addEventListener('click', toggleFullscreenMode);
+        fullscreenExit.addEventListener('click', toggleFullscreenMode);
+        
+        // Manejar tecla ESC para salir de pantalla completa
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && isFullscreen) {
+                toggleFullscreenMode();
+            }
+        });
+        
+        // Manejar cambios de pantalla completa en móvil
+        document.addEventListener('fullscreenchange', () => {
+            if (window.innerWidth <= 768) {
+                if (document.fullscreenElement) {
+                    gameViewer.classList.add('fullscreen');
+                    fullscreenExit.style.display = 'block';
+                } else {
+                    gameViewer.classList.remove('fullscreen');
+                    fullscreenExit.style.display = 'none';
+                }
+            }
+        });
+        
+        // Inicializar
+        displayGames(games);
     </script>
 </body>
 </html>

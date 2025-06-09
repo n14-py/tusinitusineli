@@ -363,25 +363,39 @@
             z-index: 5;
         }
         
-        .loading-spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: var(--pink-accent);
-            animation: spin 1s ease-in-out infinite;
-            margin-bottom: 1rem;
+        .ad-container {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 90%;
+            width: 100%;
         }
         
-        .loading-text {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            text-align: center;
+        .ad-text {
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+        
+        .ad-placeholder {
+            width: 100%;
+            height: 250px;
+            background: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
         }
         
         .loading-timer {
             font-size: 1rem;
             color: #ccc;
+            margin-top: 1rem;
         }
         
         .fullscreen-exit {
@@ -549,7 +563,6 @@
                 display: none;
             }
             
-            /* Mejor experiencia de juego en móvil */
             .game-viewer.fullscreen {
                 height: 100vh !important;
                 width: 100vw !important;
@@ -560,12 +573,19 @@
                 width: 100vw !important;
             }
             
-            /* Ocultar la barra de direcciones en móvil */
             .fullscreen-mode {
                 position: fixed;
                 overflow: hidden;
                 height: 100%;
                 width: 100%;
+            }
+            
+            .ad-container {
+                max-width: 95%;
+            }
+            
+            .ad-placeholder {
+                height: 180px;
             }
         }
         
@@ -602,9 +622,16 @@
                 padding: 0.5rem;
             }
             
-            .loading-text {
+            .ad-placeholder {
+                height: 120px;
+            }
+            
+            .ad-text {
                 font-size: 1rem;
-                padding: 0 1rem;
+            }
+            
+            .loading-timer {
+                font-size: 0.9rem;
             }
             
             .viewer-title {
@@ -662,9 +689,22 @@
         </div>
         <div class="game-iframe-container">
             <div class="loading-overlay" id="loading-overlay">
-                <div class="loading-spinner"></div>
-                <div class="loading-text">tusinitusineli.com está cargando tu juego</div>
-                <div class="loading-timer" id="loading-timer">5 segundos restantes</div>
+                <div class="ad-container">
+                    <div class="ad-text">¡Disfruta de este juego en tusinitusineli.com!</div>
+                    <!-- Anuncio de Google AdSense -->
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5461370198299696"
+                            crossorigin="anonymous"></script>
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-5461370198299696"
+                         data-ad-slot="1234567890"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                    <div class="loading-timer" id="loading-timer">El juego comenzará en 5 segundos...</div>
+                </div>
             </div>
             <iframe class="game-iframe" id="game-iframe" frameborder="0" allow="gamepad *;"></iframe>
         </div>
@@ -672,7 +712,7 @@
 
     <amp-auto-ads type="adsense"
         data-ad-client="ca-pub-5461370198299696">
-</amp-auto-ads>
+    </amp-auto-ads>
     
     <div class="tusini-banner" id="tusini-banner">
         <div class="tusini-banner-content">
@@ -860,7 +900,7 @@
         let isFullscreen = false;
         let currentGameUrl = '';
         let loadingInterval;
-        let secondsLeft = 5; // Reducido a 5 segundos
+        let secondsLeft = 5;
         
         // Mostrar juegos
         function displayGames(gamesToShow) {
@@ -924,15 +964,18 @@
             });
         }
         
-        // Mostrar temporizador de carga
+        // Mostrar temporizador de carga con anuncio
         function startLoadingTimer() {
             secondsLeft = 5;
-            loadingTimer.textContent = `${secondsLeft} segundos restantes`;
+            loadingTimer.textContent = `El juego comenzará en ${secondsLeft} segundos...`;
             loadingOverlay.style.display = 'flex';
+            
+            // Cargar el anuncio
+            (adsbygoogle = window.adsbygoogle || []).push({});
             
             loadingInterval = setInterval(() => {
                 secondsLeft--;
-                loadingTimer.textContent = `${secondsLeft} segundos restantes`;
+                loadingTimer.textContent = `El juego comenzará en ${secondsLeft} segundos...`;
                 
                 if (secondsLeft <= 0) {
                     clearInterval(loadingInterval);
@@ -943,7 +986,6 @@
         
         // Ocultar el footer de Crazy Games en PC
         function hideCrazyGamesFooter() {
-            // Solo en PC
             if (window.innerWidth > 768) {
                 const style = document.createElement('style');
                 style.innerHTML = `
@@ -981,13 +1023,12 @@
             // Mostrar banner solo en PC
             tusiniBanner.style.display = window.innerWidth > 768 ? 'flex' : 'none';
             
-            // Iniciar temporizador de carga reducido
+            // Iniciar temporizador de carga con anuncio
             startLoadingTimer();
             
             // Cargar el iframe después de 5 segundos
             setTimeout(() => {
                 gameIframe.src = url;
-                // Ocultar el footer de Crazy Games en PC
                 hideCrazyGamesFooter();
                 
                 // En móviles, forzar pantalla completa real
@@ -1010,13 +1051,11 @@
                 toggleFullscreen.textContent = '⛶';
                 fullscreenExit.style.display = 'block';
                 
-                // Ajustes especiales para móvil
                 if (window.innerWidth <= 768) {
                     document.documentElement.requestFullscreen().catch(err => {
                         console.error('Error al intentar pantalla completa:', err);
                     });
                     
-                    // Ocultar la UI del navegador en móvil
                     setTimeout(() => {
                         window.scrollTo(0, 1);
                     }, 100);
@@ -1026,7 +1065,6 @@
                 toggleFullscreen.textContent = '⛶';
                 fullscreenExit.style.display = 'none';
                 
-                // Salir de pantalla completa en móvil
                 if (window.innerWidth <= 768 && document.fullscreenElement) {
                     document.exitFullscreen();
                 }
@@ -1045,7 +1083,6 @@
             tusiniBanner.style.display = 'none';
             clearInterval(loadingInterval);
             
-            // Salir de pantalla completa si está activa
             if (document.fullscreenElement) {
                 document.exitFullscreen();
             }
@@ -1099,14 +1136,12 @@
         toggleFullscreen.addEventListener('click', toggleFullscreenMode);
         fullscreenExit.addEventListener('click', toggleFullscreenMode);
         
-        // Manejar tecla ESC para salir de pantalla completa
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && isFullscreen) {
                 toggleFullscreenMode();
             }
         });
         
-        // Manejar cambios de pantalla completa en móvil
         document.addEventListener('fullscreenchange', () => {
             if (window.innerWidth <= 768) {
                 if (document.fullscreenElement) {

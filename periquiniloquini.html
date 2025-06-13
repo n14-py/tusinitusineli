@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tusini Monedas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e84393;
+            --secondary: #fd79a8;
+            --accent: #fab1a0;
+            --dark: #2d3436;
+            --light: #fff9fa;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #d63031;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--secondary);
+            animation: fadeInDown 0.5s ease;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .coins {
+            background-color: var(--warning);
+            color: var(--dark);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .coins:hover {
+            transform: scale(1.05);
+        }
+
+        .coins i {
+            font-size: 18px;
+        }
+
+        main {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            animation: fadeIn 0.8s ease;
+        }
+
+        @media (min-width: 768px) {
+            main {
+                grid-template-columns: 1fr 2fr;
+            }
+        }
+
+        .earn-coins {
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .earn-coins:hover {
+            transform: translateY(-5px);
+        }
+
+        .section-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: var(--primary);
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 10px;
+        }
+
+        .earn-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            transition: all 0.3s ease;
+        }
+
+        .earn-option:hover {
+            background-color: rgba(232, 67, 147, 0.05);
+            border-radius: 8px;
+            padding: 15px 10px;
+        }
+
+        .earn-option:last-child {
+            border-bottom: none;
+        }
+
+        .earn-details {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .earn-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+
+        .earn-amount {
+            background-color: var(--warning);
+            color: var(--dark);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .btn {
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #d63073;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #e84393;
+            transform: translateY(-2px);
+        }
+
+        .btn-accent {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        .btn-accent:hover {
+            background-color: #f8a58d;
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            background-color: #b2bec3;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .videos-section {
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .videos-section:hover {
+            transform: translateY(-5px);
+        }
+
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .videos-grid {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            }
+        }
+
+        .video-card {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .video-card:hover .video-thumbnail {
+            transform: scale(1.05);
+        }
+
+        @media (min-width: 768px) {
+            .video-thumbnail {
+                height: 120px;
+            }
+        }
+
+        .video-info {
+            padding: 10px;
+        }
+
+        .video-title {
+            font-size: 14px;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .video-price {
+            font-size: 12px;
+            color: var(--primary);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .cooldown {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .ad-container {
+            margin-top: 30px;
+            background-color: #f1f2f6;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .ad-container:hover {
+            transform: translateY(-3px);
+        }
+
+        .ad-title {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+
+        .ad-placeholder {
+            width: 100%;
+            height: 150px;
+            background-color: #dfe6e9;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #636e72;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .timer {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalFadeIn 0.4s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--dark);
+            transition: transform 0.3s ease;
+            display: none;
+        }
+
+        .close-modal:hover {
+            transform: rotate(90deg);
+            color: var(--primary);
+        }
+
+        .modal-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .modal-text {
+            margin-bottom: 20px;
+        }
+
+        .video-preview {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .reward-message {
+            text-align: center;
+            padding: 15px;
+            background-color: var(--success);
+            color: white;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--success);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            z-index: 1001;
+            display: none;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .toast.error {
+            background-color: var(--danger);
+        }
+
+        .tiktok-btn {
+            margin-top: 20px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background-color: #000;
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tiktok-btn:hover {
+            background-color: #333;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .tiktok-btn i {
+            font-size: 20px;
+        }
+
+        .share-options {
+            display: none;
+            margin-top: 20px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .share-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            background-color: #f1f2f6;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .share-option:hover {
+            background-color: #dfe6e9;
+            transform: translateX(5px);
+        }
+
+        .share-option.whatsapp {
+            background-color: #25D366;
+            color: white;
+        }
+
+        .share-option.tiktok {
+            background-color: #000;
+            color: white;
+        }
+
+        .share-option.whatsapp:hover {
+            background-color: #128C7E;
+        }
+
+        .share-option.tiktok:hover {
+            background-color: #333;
+        }
+
+        .share-option i {
+            font-size: 20px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .pulse {
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">Tusini Monedas</div>
+            <div class="user-info">
+                <div class="coins">
+                    <i class="fas fa-coins"></i>
+                    <span id="coins-amount">0</span>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section class="earn-coins">
+                <h2 class="section-title">Gana Monedas</h2>
+                
+                <div class="earn-option">
+                    <div class="earn-details">
+                        <div class="earn-icon">
+                            <i class="fas fa-ad"></i>
+                        </div>
+                        <div>
+                            <h3>Ver Anuncio</h3>
+                            <p class="timer" id="ad-timer"></p>
+                        </div>
+                    </div>
+                    <div class="earn-amount">+10</div>
+                    <button class="btn btn-primary" id="watch-ad-btn">
+                        <i class="fas fa-play"></i> Ver
+                    </button>
+                </div>
+
+                <div class="earn-option">
+                    <div class="earn-details">
+                        <div class="earn-icon">
+                            <i class="fab fa-youtube"></i>
+                        </div>
+                        <div>
+                            <h3>Ver Video YouTube</h3>
+                            <p class="timer" id="yt-timer"></p>
+                        </div>
+                    </div>
+                    <div class="earn-amount">+25</div>
+                    <button class="btn btn-primary" id="watch-yt-btn">
+                        <i class="fas fa-play"></i> Ver
+                    </button>
+                </div>
+
+                <div class="earn-option">
+                    <div class="earn-details">
+                        <div class="earn-icon">
+                            <i class="fab fa-youtube"></i>
+                        </div>
+                        <div>
+                            <h3>Suscribirse a Canal</h3>
+                            <p>Una vez por canal</p>
+                        </div>
+                    </div>
+                    <div class="earn-amount">+50</div>
+                    <button class="btn btn-primary" id="subscribe-btn">
+                        <i class="fas fa-check"></i> Suscribirse
+                    </button>
+                </div>
+
+                <div class="earn-option">
+                    <div class="earn-details">
+                        <div class="earn-icon">
+                            <i class="fas fa-share-alt"></i>
+                        </div>
+                        <div>
+                            <h3>Compartir en Redes</h3>
+                            <p>Una vez por día</p>
+                        </div>
+                    </div>
+                    <div class="earn-amount">+30</div>
+                    <button class="btn btn-primary" id="share-btn">
+                        <i class="fas fa-share"></i> Compartir
+                    </button>
+                </div>
+
+                <div class="ad-container">
+                    <h3 class="ad-title">Anuncio Patrocinado</h3>
+                    <div class="ad-placeholder" id="ad-placeholder">
+                        Anuncio aparecerá aquí
+                    </div>
+                    <button class="btn btn-secondary" id="skip-ad-btn" style="display: none;">
+                        <i class="fas fa-forward"></i> Saltar en <span id="skip-timer">5</span>s
+                    </button>
+                </div>
+
+                <a href="https://www.tiktok.com/@periquiniloquini" target="_blank" class="tiktok-btn pulse">
+                    <i class="fab fa-tiktok"></i> Ver Live en TikTok
+                </a>
+            </section>
+
+            <section class="videos-section">
+                <h2 class="section-title">Envía Videos al Live</h2>
+                <p>Gasta tus monedas para enviar videos divertidos al live. Cada video tiene un tiempo de espera después de enviarlo.</p>
+                
+                <div class="videos-grid" id="videos-grid">
+                    <!-- Videos se cargarán aquí -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal para visualización de contenido -->
+    <div class="modal" id="content-modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-modal">&times;</span>
+            <h2 class="modal-title" id="modal-title">Ver Anuncio</h2>
+            <p class="modal-text" id="modal-text">Por favor mira el anuncio completo para recibir tus monedas.</p>
+            
+            <div id="modal-content">
+                <!-- Contenido del modal (anuncio, video, etc) -->
+            </div>
+            
+            <div class="reward-message" id="reward-message">
+                <i class="fas fa-check-circle"></i> ¡Has ganado <span id="reward-amount">10</span> monedas!
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para compartir -->
+    <div class="modal" id="share-modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-share-modal">&times;</span>
+            <h2 class="modal-title">Compartir en Redes</h2>
+            <p class="modal-text">Comparte nuestro contenido en tus redes sociales y gana 30 monedas.</p>
+            
+            <div class="share-options" id="share-options">
+                <div class="share-option whatsapp" id="whatsapp-share">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>Compartir en WhatsApp</span>
+                </div>
+                <div class="share-option tiktok" id="tiktok-share">
+                    <i class="fab fa-tiktok"></i>
+                    <span>Seguir en TikTok</span>
+                </div>
+            </div>
+            
+            <div class="reward-message" id="share-reward-message">
+                <i class="fas fa-check-circle"></i> ¡Has ganado 30 monedas por compartir!
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // Datos de la aplicación
+        const videos = [
+            { id: 1, title: "TusiniTusineli", price: 15, thumbnail: "https://avatars.cloudflare.steamstatic.com/c1240ca9502a02f424b9144f3eeff7672367c91b_full.jpg", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tusini?v=1749832590537" },
+            { id: 2, title: "Periquini Loquini", price: 20, thumbnail: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoK3btY3-KZ6ST9xr0egrgrcVCdc8aa6AApw&s", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/periquini?v=1749832644879" },
+            { id: 3, title: "chimpazini bananini", price: 25, thumbnail: "https://pbs.twimg.com/profile_images/1921928002608205824/Bgpy7wl4_400x400.jpg", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/chimpazini?v=1749832619864" },
+            { id: 4, title: "BRR BRR PATAPIN", price: 30, thumbnail: "https://upload.wikimedia.org/wikipedia/commons/1/14/Brr_brr_patapim.jpg", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/patapin?v=1749832612664" },
+            { id: 5, title: "Tripi Tropi", price: 35, thumbnail: "https://upload.wikimedia.org/wikipedia/commons/1/14/Brr_brr_patapim.jpg", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tripitropi?v=1749832630261" },
+            { id: 6, title: "Tung Tung Sahur", price: 30, thumbnail: "https://i1.sndcdn.com/artworks-YDQOy2Pru5CA2rhs-x1uzgA-t1080x1080.jpg", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tuntungsahur?v=1749832636792" },
+            { id: 7, title: "Saturno Saturnita", price: 25, thumbnail: "https://media.printables.com/media/prints/fbd8d5d8-4bd5-45c9-823d-af2e845a2e74/images/9719789_4dc94f3c-c637-4dce-9239-ff74bd767bcf_0afe9704-1f2a-4e47-8447-a25e7a72ba90/thumbs/cover/800x800/jpeg/la-vaca-saturnito-saturnita.jpg", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/saturnosaturnita?v=1749832652351" },
+            { id: 8, title: "Carlooos", price: 30, thumbnail: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUxB5cWzIwd6kCFZYMKVvPIDlG9dst3q9JpQ&s", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/carloos?v=1749832661314" },
+            { id: 9, title: "Tralalero Tralala", price: 30, thumbnail: "https://elmercurio.com.mx/wp-content/uploads/2025/05/tralalero-tralala.jpg", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tralalerotralala?v=1749832633446" },
+            { id: 10, title: "tralaleritos", price: 25, thumbnail: "https://i.scdn.co/image/ab67616d00001e02a66ab55e5a83d21cf71d1e14", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tralaleritos?v=1749832616086" },
+            { id: 11, title: "Tung Tung Sahur music", price: 30, thumbnail: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVenIX5XrzD0ul0TI4MpN-F2w0nWeDEKygVg&s", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tuntunmusic?v=1749832656574" },
+            { id: 12, title: "BRR BRR PATAPIN PHONK", price: 35, thumbnail: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1uJpyxNCVooHTnBYYcP_pZ7Ydyw8KmDWeYw&s", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/brrpataminremix?v=1749832688911" },
+            { id: 13, title: "TRALALERO TRALALA PHONK", price: 35, thumbnail: "https://i1.sndcdn.com/artworks-oFsNkb2W0MDW-0-t500x500.jpg", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tralalerotralalaremix?v=1749832684969" },
+            { id: 14, title: "BOMBARDILO PHONK", price: 35, thumbnail: "https://i1.sndcdn.com/artworks-rksO7i8EfgO8HbsC-RxFZ4w-t500x500.png", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/bombardiloponhk?v=1749832677189" },
+            { id: 15, title: "TRALALERO TRALALA MUSIC", price: 35, thumbnail: "https://i.ytimg.com/vi/sTRh_NcaYHM/sddefault.jpg", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tralaleroonanananana?v=1749832682475" }
+        ];  
+
+        // Videos de YouTube para ver (3 videos aleatorios)
+        const youtubeVideos = [
+            { id: 'G-OaZnkbz9Y', title: 'Video 1 de Tusini' },
+            { id: 'U6bWEG7T8Aw', title: 'Video 2 de Tusini' },
+            { id: 'naWUg7_lfQ0', title: 'Video 3 de Tusini' }
+        ];
+
+        const channels = [
+           { id: 1, name: "Desde Relax Station", url: "https://www.youtube.com/@DesdeRelaxStation" },
+           { id: 2, name: "Desde Relax Station - Topic", url: "https://www.youtube.com/channel/UC-I4Jga61MRQsuyjtdF8dgQ" }
+        ];
+
+        // Estado de la aplicación
+        let state = {
+            coins: 0,
+            lastAdWatch: null,
+            lastYtWatch: null,
+            lastShare: null,
+            subscribedChannels: [],
+            videoCooldowns: {},
+            adInProgress: false,
+            adTimer: null,
+            skipTimer: null,
+            watchedYoutubeVideos: [],
+            youtubeCooldown: null
+        };
+
+        // Elementos del DOM
+        const coinsAmountEl = document.getElementById('coins-amount');
+        const watchAdBtn = document.getElementById('watch-ad-btn');
+        const watchYtBtn = document.getElementById('watch-yt-btn');
+        const subscribeBtn = document.getElementById('subscribe-btn');
+        const shareBtn = document.getElementById('share-btn');
+        const adPlaceholder = document.getElementById('ad-placeholder');
+        const skipAdBtn = document.getElementById('skip-ad-btn');
+        const skipTimerEl = document.getElementById('skip-timer');
+        const adTimerEl = document.getElementById('ad-timer');
+        const ytTimerEl = document.getElementById('yt-timer');
+        const videosGrid = document.getElementById('videos-grid');
+        const contentModal = document.getElementById('content-modal');
+        const closeModal = document.getElementById('close-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalText = document.getElementById('modal-text');
+        const modalContent = document.getElementById('modal-content');
+        const rewardMessage = document.getElementById('reward-message');
+        const rewardAmountEl = document.getElementById('reward-amount');
+        const toast = document.getElementById('toast');
+        const shareModal = document.getElementById('share-modal');
+        const closeShareModal = document.getElementById('close-share-modal');
+        const shareOptions = document.getElementById('share-options');
+        const whatsappShare = document.getElementById('whatsapp-share');
+        const tiktokShare = document.getElementById('tiktok-share');
+        const shareRewardMessage = document.getElementById('share-reward-message');
+
+        // URL del backend (puedes cambiarla por tu propia URL de Glitch)
+        const BACKEND = 'https://tusini.glitch.me/';
+        const TIKTOK_URL = 'https://www.tiktok.com/@periquiniloquini';
+        const WEBSITE_URL = 'tusinitusineli.com';
+
+        // Inicializar la aplicación
+        function init() {
+            loadState();
+            renderCoins();
+            renderVideos();
+            updateTimers();
+            
+            // Configurar event listeners
+            watchAdBtn.addEventListener('click', startAd);
+            watchYtBtn.addEventListener('click', startYtVideo);
+            subscribeBtn.addEventListener('click', subscribeToChannel);
+            shareBtn.addEventListener('click', openShareModal);
+            skipAdBtn.addEventListener('click', skipAd);
+            closeModal.addEventListener('click', closeModalHandler);
+            closeShareModal.addEventListener('click', closeShareModalHandler);
+            whatsappShare.addEventListener('click', shareOnWhatsApp);
+            tiktokShare.addEventListener('click', followOnTikTok);
+            
+            // Actualizar timers cada segundo
+            setInterval(updateTimers, 1000);
+        }
+
+        // Cargar estado desde localStorage
+        function loadState() {
+            const savedState = localStorage.getItem('tusiniState');
+            if (savedState) {
+                state = JSON.parse(savedState);
+                // Convertir fechas de string a objetos Date
+                if (state.lastAdWatch) state.lastAdWatch = new Date(state.lastAdWatch);
+                if (state.lastYtWatch) state.lastYtWatch = new Date(state.lastYtWatch);
+                if (state.lastShare) state.lastShare = new Date(state.lastShare);
+                if (state.youtubeCooldown) state.youtubeCooldown = new Date(state.youtubeCooldown);
+            }
+        }
+
+        // Guardar estado en localStorage
+        function saveState() {
+            localStorage.setItem('tusiniState', JSON.stringify(state));
+        }
+
+        // Renderizar cantidad de monedas
+        function renderCoins() {
+            coinsAmountEl.textContent = state.coins;
+        }
+
+        // Renderizar videos disponibles
+        function renderVideos() {
+            videosGrid.innerHTML = '';
+            
+            videos.forEach(video => {
+                const videoCard = document.createElement('div');
+                videoCard.className = 'video-card';
+                videoCard.innerHTML = `
+                    <img src="${video.thumbnail}" alt="${video.title}" class="video-thumbnail">
+                    <div class="video-info">
+                        <h3 class="video-title">${video.title}</h3>
+                        <div class="video-price">
+                            <i class="fas fa-coins"></i> ${video.price}
+                        </div>
+                    </div>
+                `;
+                
+                // Verificar si el video está en cooldown
+                if (state.videoCooldowns[video.id] && Date.now() < state.videoCooldowns[video.id]) {
+                    const cooldownEl = document.createElement('div');
+                    cooldownEl.className = 'cooldown';
+                    const remaining = Math.ceil((state.videoCooldowns[video.id] - Date.now()) / 1000);
+                    cooldownEl.textContent = `${remaining}s`;
+                    videoCard.appendChild(cooldownEl);
+                } else {
+                    videoCard.addEventListener('click', () => sendVideo(video));
+                }
+                
+                videosGrid.appendChild(videoCard);
+            });
+        }
+
+        // Actualizar timers de cooldowns
+        function updateTimers() {
+            // Timer para anuncios (1 por minuto)
+            if (state.lastAdWatch) {
+                const nextAdTime = state.lastAdWatch.getTime() + 60000; // 1 minuto
+                const now = Date.now();
+                
+                if (now < nextAdTime) {
+                    const remaining = Math.ceil((nextAdTime - now) / 1000);
+                    adTimerEl.textContent = `Disponible en ${remaining}s`;
+                    watchAdBtn.disabled = true;
+                } else {
+                    adTimerEl.textContent = '';
+                    watchAdBtn.disabled = false;
+                }
+            }
+            
+            // Timer para videos de YouTube (1 minuto después de ver los 3)
+            if (state.youtubeCooldown) {
+                const nextYtTime = state.youtubeCooldown.getTime();
+                const now = Date.now();
+                
+                if (now < nextYtTime) {
+                    const remaining = Math.ceil((nextYtTime - now) / 1000);
+                    ytTimerEl.textContent = `Disponible en ${remaining}s`;
+                    watchYtBtn.disabled = true;
+                } else {
+                    ytTimerEl.textContent = '';
+                    watchYtBtn.disabled = false;
+                    state.youtubeCooldown = null;
+                    state.watchedYoutubeVideos = [];
+                    saveState();
+                }
+            }
+            
+            // Actualizar cooldowns de videos
+            renderVideos();
+        }
+
+        // Mostrar notificación toast
+        function showToast(message, isError = false) {
+            toast.textContent = message;
+            toast.className = isError ? 'toast error' : 'toast';
+            toast.style.display = 'block';
+            
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
+        }
+
+        // Iniciar anuncio
+        function startAd() {
+            if (state.adInProgress) return;
+            
+            state.adInProgress = true;
+            saveState();
+            
+            // Mostrar modal con el anuncio
+            modalTitle.textContent = 'Ver Anuncio';
+            modalText.textContent = 'Por favor mira el anuncio completo para recibir tus monedas.';
+            modalContent.innerHTML = `
+                <div style="width: 100%; height: 300px; background-color: #dfe6e9; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                    <h3>Anuncio de ejemplo (5 segundos)</h3>
+                </div>
+            `;
+            rewardMessage.style.display = 'none';
+            closeModal.style.display = 'none'; // Ocultar botón de cerrar al inicio
+            contentModal.classList.add('active');
+            
+            // Simular anuncio de 5 segundos
+            let seconds = 5;
+            const timer = setInterval(() => {
+                modalText.textContent = `Por favor mira el anuncio completo para recibir tus monedas. Tiempo restante: ${seconds}s`;
+                seconds--;
+                
+                if (seconds < 0) {
+                    clearInterval(timer);
+                    closeModal.style.display = 'block'; // Mostrar botón de cerrar al finalizar
+                    finishAd();
+                }
+            }, 1000);
+        }
+
+        // Finalizar anuncio y dar recompensa
+        function finishAd() {
+            state.lastAdWatch = new Date();
+            state.coins += 10;
+            state.adInProgress = false;
+            saveState();
+            
+            rewardAmountEl.textContent = '10';
+            rewardMessage.style.display = 'flex';
+            renderCoins();
+            updateTimers();
+            
+            showToast('¡Has ganado 10 monedas por ver el anuncio!');
+        }
+
+        // Saltar anuncio (para desarrollo)
+        function skipAd() {
+            if (state.adTimer) {
+                clearInterval(state.adTimer);
+            }
+            
+            if (state.skipTimer) {
+                clearInterval(state.skipTimer);
+            }
+            
+            adPlaceholder.innerHTML = 'Anuncio aparecerá aquí';
+            skipAdBtn.style.display = 'none';
+            state.adInProgress = false;
+            
+            finishAd();
+        }
+
+        // Iniciar video de YouTube
+        function startYtVideo() {
+            // Verificar si ya se vieron los 3 videos
+            if (state.watchedYoutubeVideos.length >= 3) {
+                showToast('Ya has visto los 3 videos disponibles. Espera 1 minuto.', true);
+                return;
+            }
+            
+            // Seleccionar un video aleatorio que no se haya visto aún
+            const availableVideos = youtubeVideos.filter(video => 
+                !state.watchedYoutubeVideos.includes(video.id)
+            );
+            
+            if (availableVideos.length === 0) {
+                showToast('Ya has visto todos los videos disponibles. Espera 1 minuto.', true);
+                return;
+            }
+            
+            const randomVideo = availableVideos[Math.floor(Math.random() * availableVideos.length)];
+            state.watchedYoutubeVideos.push(randomVideo.id);
+            saveState();
+            
+            modalTitle.textContent = 'Ver Video de YouTube';
+            modalText.textContent = `Por favor mira el video completo para recibir tus monedas. Video: ${randomVideo.title}`;
+            modalContent.innerHTML = `
+                <iframe width="100%" height="315" src="https://www.youtube.com/embed/${randomVideo.id}?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <p style="margin-top: 10px; font-size: 14px; color: #7f8c8d;">Mira el video completo para recibir tus monedas.</p>
+            `;
+            rewardMessage.style.display = 'none';
+            closeModal.style.display = 'none'; // Ocultar botón de cerrar al inicio
+            contentModal.classList.add('active');
+            
+            // En una implementación real, usarías la API de YouTube para detectar cuando el video termina
+            // Aquí simulamos que el usuario debe esperar 30 segundos
+            let seconds = 30;
+            const timer = setInterval(() => {
+                modalText.textContent = `Por favor mira el video completo para recibir tus monedas. Tiempo mínimo: ${seconds}s - Video: ${randomVideo.title}`;
+                seconds--;
+                
+                if (seconds < 0) {
+                    clearInterval(timer);
+                    closeModal.style.display = 'block'; // Mostrar botón de cerrar al finalizar
+                    finishYtVideo();
+                }
+            }, 1000);
+        }
+
+        // Finalizar video de YouTube y dar recompensa
+        function finishYtVideo() {
+            state.coins += 25;
+            
+            // Si ya se vieron los 3 videos, establecer cooldown de 1 minuto
+            if (state.watchedYoutubeVideos.length >= 3) {
+                state.youtubeCooldown = new Date(Date.now() + 60000); // 1 minuto
+                showToast('¡Has ganado 25 monedas por ver el video! Ahora espera 1 minuto para ver más videos.');
+            } else {
+                showToast('¡Has ganado 25 monedas por ver el video!');
+            }
+            
+            saveState();
+            rewardAmountEl.textContent = '25';
+            rewardMessage.style.display = 'flex';
+            renderCoins();
+            updateTimers();
+        }
+
+        // Suscribirse a canal
+        function subscribeToChannel() {
+            const availableChannels = channels.filter(ch => !state.subscribedChannels.includes(ch.id));
+            
+            if (availableChannels.length === 0) {
+                showToast('Ya te has suscrito a todos los canales disponibles', true);
+                return;
+            }
+            
+            const randomChannel = availableChannels[Math.floor(Math.random() * availableChannels.length)];
+            
+            // Abrir el canal en una nueva pestaña
+            window.open(randomChannel.url, '_blank');
+            
+            // Esperar 5 segundos antes de dar las monedas (para evitar abuso)
+            setTimeout(() => {
+                state.subscribedChannels.push(randomChannel.id);
+                state.coins += 50;
+                saveState();
+                
+                showToast(`¡Has ganado 50 monedas por suscribirte a ${randomChannel.name}!`);
+                renderCoins();
+            }, 5000);
+        }
+
+        // Abrir modal para compartir
+        function openShareModal() {
+            const now = new Date();
+            const lastShare = state.lastShare || new Date(0);
+            const nextShareTime = lastShare.getTime() + 86400000; // 24 horas
+            
+            if (now.getTime() < nextShareTime) {
+                const hoursLeft = Math.ceil((nextShareTime - now.getTime()) / 3600000);
+                showToast(`Ya compartiste hoy. Podrás compartir de nuevo en ${hoursLeft} horas.`, true);
+                return;
+            }
+            
+            shareRewardMessage.style.display = 'none';
+            shareOptions.style.display = 'flex';
+            shareModal.classList.add('active');
+        }
+
+        // Cerrar modal de compartir
+        function closeShareModalHandler() {
+            shareModal.classList.remove('active');
+        }
+
+        // Compartir en WhatsApp
+        function shareOnWhatsApp() {
+            const message = `¡Mira esta increíble web app de Tusini Monedas! tusinitusineli.com \n\n Ve el live de PeriquiniLoquini en TikTok y interactua gratis desde la web : https://www.tiktok.com/@periquiniloquini`;
+            const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+            
+            // Marcar como compartido
+            state.lastShare = new Date();
+            state.coins += 30;
+            saveState();
+            
+            shareOptions.style.display = 'none';
+            shareRewardMessage.style.display = 'flex';
+            renderCoins();
+            
+            setTimeout(() => {
+                shareModal.classList.remove('active');
+                showToast('¡Has ganado 30 monedas por compartir en redes sociales!');
+            }, 2000);
+        }
+
+        // Seguir en TikTok
+        function followOnTikTok() {
+            window.open(TIKTOK_URL, '_blank');
+            
+            // Marcar como compartido
+            state.lastShare = new Date();
+            state.coins += 30;
+            saveState();
+            
+            shareOptions.style.display = 'none';
+            shareRewardMessage.style.display = 'flex';
+            renderCoins();
+            
+            setTimeout(() => {
+                shareModal.classList.remove('active');
+                showToast('¡Has ganado 30 monedas por seguir en TikTok!');
+            }, 2000);
+        }
+
+        // Enviar video al live
+        function sendVideo(video) {
+            if (state.coins < video.price) {
+                showToast('No tienes suficientes monedas para enviar este video', true);
+                return;
+            }
+            
+            if (state.videoCooldowns[video.id] && Date.now() < state.videoCooldowns[video.id]) {
+                showToast('Este video está en cooldown. Espera un momento.', true);
+                return;
+            }
+            
+            // Restar monedas
+            state.coins -= video.price;
+            
+            // Establecer cooldown (30 segundos)
+            state.videoCooldowns[video.id] = Date.now() + 30000;
+            
+            saveState();
+            renderCoins();
+            renderVideos();
+            
+            // Enviar video al backend (simulado)
+            fetch(`${BACKEND}/api/video`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ video: video.url })
+            }).catch(err => {
+                console.error('Error al enviar video:', err);
+            });
+            
+            showToast(`¡Video "${video.title}" enviado al live!`);
+        }
+
+        // Cerrar modal
+        function closeModalHandler() {
+            contentModal.classList.remove('active');
+            
+            // Si había un anuncio en progreso, limpiar
+            if (state.adInProgress) {
+                state.adInProgress = false;
+                saveState();
+            }
+        }
+
+        // Inicializar la aplicación cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

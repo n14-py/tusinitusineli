@@ -10,7 +10,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TusiniTusineli.com - Juegos Gratis Online</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary-color: #4a148c;
@@ -21,8 +20,6 @@
             --dark-color: #12005e;
             --text-color: #333;
             --text-light: #fff;
-            --ad-color: #ffcc00;
-            --ad-bg: #f9f9f9;
         }
         
         * {
@@ -52,64 +49,28 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
             position: relative;
             animation: fadeInDown 0.5s ease-out;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            max-width: 1200px;
-            margin-bottom: 10px;
         }
         
         .logo {
             font-size: 2rem;
             font-weight: bold;
+            margin-bottom: 0.5rem;
             text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-        
-        .header-actions {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .action-button {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .action-button:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.1);
         }
         
         .search-container {
             display: flex;
             justify-content: center;
-            margin: 0.5rem 0;
+            margin: 1rem 0;
             animation: fadeIn 0.8s ease-out;
-            width: 100%;
-            max-width: 800px;
         }
         
         #search-input {
-            padding: 0.7rem 1.2rem;
+            padding: 0.5rem 1rem;
             border: none;
             border-radius: 20px 0 0 20px;
             width: 70%;
+            max-width: 500px;
             font-size: 1rem;
             transition: all 0.3s;
         }
@@ -120,7 +81,7 @@
         }
         
         #search-button {
-            padding: 0.7rem 1.5rem;
+            padding: 0.5rem 1rem;
             border: none;
             background-color: var(--accent-color);
             color: white;
@@ -182,89 +143,6 @@
             display: flex;
             flex-direction: column;
             padding: 1rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .ad-container {
-            margin: 1.5rem 0;
-            background-color: var(--ad-bg);
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 10px;
-            text-align: center;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .ad-container:before {
-            content: "Publicidad";
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            font-size: 0.7rem;
-            color: #888;
-        }
-        
-        .ad-label {
-            display: inline-block;
-            background-color: var(--ad-color);
-            color: #333;
-            font-weight: bold;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            margin-bottom: 5px;
-        }
-        
-        .ad-banner {
-            width: 100%;
-            height: 90px;
-            background: linear-gradient(135deg, #ffcc00, #ff9900);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 5px;
-            color: #333;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-        
-        .ad-sidebar {
-            position: fixed;
-            top: 50%;
-            right: 20px;
-            transform: translateY(-50%);
-            width: 160px;
-            height: 600px;
-            background: var(--ad-bg);
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 10px;
-            z-index: 500;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .ad-sidebar .ad-label {
-            margin-bottom: 10px;
-        }
-        
-        .ad-sidebar-banner {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #ffcc00, #ff9900);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 5px;
-            color: #333;
-            font-weight: bold;
-            font-size: 1.2rem;
-            writing-mode: vertical-lr;
-            text-orientation: mixed;
-            transform: rotate(180deg);
         }
         
         .game-container {
@@ -476,63 +354,13 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: rgba(0, 0, 0, 0.8);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             color: white;
             z-index: 5;
-        }
-        
-        .ad-ad-container {
-            width: 90%;
-            max-width: 400px;
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-        
-        .ad-ad-label {
-            background-color: var(--ad-color);
-            color: #333;
-            font-weight: bold;
-            padding: 5px 10px;
-            border-radius: 20px;
-            display: inline-block;
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-        }
-        
-        .ad-ad-content {
-            height: 180px;
-            background: linear-gradient(135deg, #ffcc00, #ff9900);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #333;
-            font-weight: bold;
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-        }
-        
-        .skip-ad-button {
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .skip-ad-button:hover {
-            background-color: var(--pink-accent);
-            transform: scale(1.05);
         }
         
         .loading-spinner {
@@ -642,105 +470,6 @@
             backdrop-filter: blur(3px);
         }
         
-        .menu-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .menu-content {
-            background: white;
-            border-radius: 15px;
-            width: 90%;
-            max-width: 500px;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            position: relative;
-            animation: popIn 0.4s ease-out;
-        }
-        
-        .menu-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-        
-        .menu-title {
-            font-size: 1.5rem;
-            color: var(--primary-color);
-            font-weight: bold;
-        }
-        
-        .close-menu {
-            background: none;
-            border: none;
-            font-size: 2rem;
-            color: #888;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .close-menu:hover {
-            color: var(--accent-color);
-            transform: rotate(90deg);
-        }
-        
-        .menu-options {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        
-        .menu-option {
-            display: flex;
-            align-items: center;
-            padding: 1rem;
-            background: var(--light-color);
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .menu-option:hover {
-            background: #e1bee7;
-            transform: translateX(5px);
-        }
-        
-        .menu-icon {
-            font-size: 1.5rem;
-            margin-right: 15px;
-            color: var(--secondary-color);
-            width: 40px;
-            height: 40px;
-            background: rgba(123, 31, 162, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .option-text {
-            flex-grow: 1;
-        }
-        
-        .option-title {
-            font-weight: bold;
-            color: var(--primary-color);
-        }
-        
-        .option-desc {
-            font-size: 0.9rem;
-            color: #666;
-        }
-        
         footer {
             background: linear-gradient(135deg, var(--dark-color), var(--primary-color));
             color: white;
@@ -793,17 +522,6 @@
             }
         }
         
-        @keyframes popIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-        
         @media (max-width: 768px) {
             .game-container {
                 grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -829,19 +547,6 @@
             
             .tusini-banner {
                 display: none;
-            }
-            
-            .ad-sidebar {
-                display: none;
-            }
-            
-            .ad-container {
-                margin: 1rem 0;
-            }
-            
-            .ad-banner {
-                height: 70px;
-                font-size: 1rem;
             }
             
             /* Mejor experiencia de juego en móvil */
@@ -915,38 +620,17 @@
                 height: 28px;
                 font-size: 0.9rem;
             }
-            
-            .ad-banner {
-                height: 60px;
-                font-size: 0.9rem;
-            }
-            
-            .menu-content {
-                padding: 1.5rem;
-            }
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="header-top">
-            <div class="logo">tusinitusineli.com</div>
-            <div class="header-actions">
-                <button class="action-button" id="menu-button">
-                    <i class="fas fa-ellipsis-h"></i>
-                </button>
-            </div>
-        </div>
+        <div class="logo">tusinitusineli.com</div>
         <div class="search-container">
             <input type="text" id="search-input" placeholder="Buscar juegos...">
             <button id="search-button">Buscar</button>
         </div>
     </header>
-    
-    <div class="ad-container">
-        <div class="ad-label">PUBLICIDAD</div>
-        <div class="ad-banner">Anuncio Superior - tusinitusineli.com</div>
-    </div>
     
     <div class="categories">
         <div class="category active" data-category="all">Todos</div>
@@ -959,32 +643,11 @@
         <div class="category" data-category="io">.io</div>
     </div>
     
-    <div class="ad-container">
-        <div class="ad-label">PUBLICIDAD</div>
-        <div class="ad-banner">Anuncio de Categorías - tusinitusineli.com</div>
-    </div>
-    
     <div class="main-container">
         <h2>Juegos Populares</h2>
-        
-        <div class="ad-container">
-            <div class="ad-label">PUBLICIDAD</div>
-            <div class="ad-banner">Anuncio Antes de Juegos - tusinitusineli.com</div>
-        </div>
-        
         <div class="game-container" id="game-container">
             <!-- Juegos se insertarán aquí dinámicamente -->
         </div>
-        
-        <div class="ad-container">
-            <div class="ad-label">PUBLICIDAD</div>
-            <div class="ad-banner">Anuncio Inferior - tusinitusineli.com</div>
-        </div>
-    </div>
-    
-    <div class="ad-sidebar">
-        <div class="ad-label">PUBLICIDAD</div>
-        <div class="ad-sidebar-banner">Anuncio Lateral</div>
     </div>
     
     <div class="overlay" id="overlay"></div>
@@ -999,54 +662,11 @@
         </div>
         <div class="game-iframe-container">
             <div class="loading-overlay" id="loading-overlay">
-                <div class="ad-ad-container">
-                    <div class="ad-ad-label">PUBLICIDAD</div>
-                    <div class="ad-ad-content">Anuncio Interactivo</div>
-                    <button class="skip-ad-button" id="skip-ad-button">Saltar anuncio en 5</button>
-                </div>
+                <div class="loading-spinner"></div>
+                <div class="loading-text">tusinitusineli.com está cargando tu juego</div>
+                <div class="loading-timer" id="loading-timer">5 segundos restantes</div>
             </div>
             <iframe class="game-iframe" id="game-iframe" frameborder="0" allow="gamepad *;"></iframe>
-        </div>
-    </div>
-    
-    <div class="menu-modal" id="menu-modal">
-        <div class="menu-content">
-            <div class="menu-header">
-                <div class="menu-title">Menú de tusinitusineli.com</div>
-                <button class="close-menu" id="close-menu">&times;</button>
-            </div>
-            <div class="menu-options">
-                <div class="menu-option" id="faq-option">
-                    <div class="menu-icon">
-                        <i class="fas fa-question-circle"></i>
-                    </div>
-                    <div class="option-text">
-                        <div class="option-title">Preguntas Frecuentes</div>
-                        <div class="option-desc">Resuelve tus dudas sobre la plataforma</div>
-                    </div>
-                    <i class="fas fa-chevron-right"></i>
-                </div>
-                <div class="menu-option" id="tiktok-option">
-                    <div class="menu-icon">
-                        <i class="fab fa-tiktok"></i>
-                    </div>
-                    <div class="option-text">
-                        <div class="option-title">Interactúa en TikTok</div>
-                        <div class="option-desc">Síguenos y participa en nuestros retos</div>
-                    </div>
-                    <i class="fas fa-chevron-right"></i>
-                </div>
-                <div class="menu-option" id="download-option">
-                    <div class="menu-icon">
-                        <i class="fas fa-download"></i>
-                    </div>
-                    <div class="option-text">
-                        <div class="option-title">Descargar APP WEB</div>
-                        <div class="option-desc">Instala nuestra app para mejor experiencia</div>
-                    </div>
-                    <i class="fas fa-chevron-right"></i>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -1065,10 +685,6 @@
     <button class="fullscreen-exit" id="fullscreen-exit">Salir de pantalla completa</button>
     
     <footer>
-        <div class="ad-container">
-            <div class="ad-label">PUBLICIDAD</div>
-            <div class="ad-banner">Anuncio Footer - tusinitusineli.com</div>
-        </div>
         <p>&copy; 2023 TusiniTusineli.com - Todos los derechos reservados</p>
     </footer>
     
@@ -1236,21 +852,15 @@
         const viewerTitle = document.getElementById('viewer-title');
         const toggleFullscreen = document.getElementById('toggle-fullscreen');
         const loadingOverlay = document.getElementById('loading-overlay');
-        const skipAdButton = document.getElementById('skip-ad-button');
+        const loadingTimer = document.getElementById('loading-timer');
         const fullscreenExit = document.getElementById('fullscreen-exit');
         const tusiniBanner = document.getElementById('tusini-banner');
-        const menuButton = document.getElementById('menu-button');
-        const menuModal = document.getElementById('menu-modal');
-        const closeMenu = document.getElementById('close-menu');
-        const faqOption = document.getElementById('faq-option');
-        const tiktokOption = document.getElementById('tiktok-option');
-        const downloadOption = document.getElementById('download-option');
         
         // Variables de estado
         let isFullscreen = false;
         let currentGameUrl = '';
-        let skipTimer;
-        let secondsLeft = 5;
+        let loadingInterval;
+        let secondsLeft = 5; // Reducido a 5 segundos
         
         // Mostrar juegos
         function displayGames(gamesToShow) {
@@ -1261,19 +871,7 @@
                 return;
             }
             
-            gamesToShow.forEach((game, index) => {
-                // Insertar anuncio cada 4 juegos
-                if (index > 0 && index % 4 === 0) {
-                    const adCard = document.createElement('div');
-                    adCard.className = 'ad-container';
-                    adCard.style.gridColumn = '1 / -1';
-                    adCard.innerHTML = `
-                        <div class="ad-label">PUBLICIDAD</div>
-                        <div class="ad-banner">Anuncio Intermedio - tusinitusineli.com</div>
-                    `;
-                    gameContainer.appendChild(adCard);
-                }
-                
+            gamesToShow.forEach(game => {
                 const gameCard = document.createElement('div');
                 gameCard.className = 'game-card';
                 gameCard.dataset.category = game.category;
@@ -1326,20 +924,19 @@
             });
         }
         
-        // Iniciar temporizador de anuncio
-        function startAdTimer() {
+        // Mostrar temporizador de carga
+        function startLoadingTimer() {
             secondsLeft = 5;
-            skipAdButton.textContent = `Saltar anuncio en ${secondsLeft}`;
-            skipAdButton.disabled = true;
+            loadingTimer.textContent = `${secondsLeft} segundos restantes`;
+            loadingOverlay.style.display = 'flex';
             
-            skipTimer = setInterval(() => {
+            loadingInterval = setInterval(() => {
                 secondsLeft--;
-                skipAdButton.textContent = `Saltar anuncio en ${secondsLeft}`;
+                loadingTimer.textContent = `${secondsLeft} segundos restantes`;
                 
                 if (secondsLeft <= 0) {
-                    clearInterval(skipTimer);
-                    skipAdButton.textContent = 'Comenzar juego';
-                    skipAdButton.disabled = false;
+                    clearInterval(loadingInterval);
+                    loadingOverlay.style.display = 'none';
                 }
             }, 1000);
         }
@@ -1384,23 +981,20 @@
             // Mostrar banner solo en PC
             tusiniBanner.style.display = window.innerWidth > 768 ? 'flex' : 'none';
             
-            // Iniciar temporizador de anuncio
-            startAdTimer();
+            // Iniciar temporizador de carga reducido
+            startLoadingTimer();
             
-            // Configurar botón para saltar anuncio
-            skipAdButton.onclick = () => {
-                if (secondsLeft <= 0) {
-                    clearInterval(skipTimer);
-                    gameIframe.src = url;
-                    // Ocultar el footer de Crazy Games en PC
-                    hideCrazyGamesFooter();
-                    
-                    // En móviles, forzar pantalla completa real
-                    if (window.innerWidth <= 768 && fullscreen) {
-                        toggleFullscreenMode();
-                    }
+            // Cargar el iframe después de 5 segundos
+            setTimeout(() => {
+                gameIframe.src = url;
+                // Ocultar el footer de Crazy Games en PC
+                hideCrazyGamesFooter();
+                
+                // En móviles, forzar pantalla completa real
+                if (window.innerWidth <= 768 && fullscreen) {
+                    toggleFullscreenMode();
                 }
-            };
+            }, 5000);
             
             if (fullscreen && window.innerWidth > 768) {
                 toggleFullscreenMode();
@@ -1449,7 +1043,7 @@
             isFullscreen = false;
             fullscreenExit.style.display = 'none';
             tusiniBanner.style.display = 'none';
-            clearInterval(skipTimer);
+            clearInterval(loadingInterval);
             
             // Salir de pantalla completa si está activa
             if (document.fullscreenElement) {
@@ -1483,18 +1077,6 @@
             displayGames(filteredGames);
         }
         
-        // Abrir menú
-        function openMenu() {
-            menuModal.style.display = 'flex';
-            overlay.style.display = 'block';
-        }
-        
-        // Cerrar menú
-        function closeMenuModal() {
-            menuModal.style.display = 'none';
-            overlay.style.display = 'none';
-        }
-        
         // Event listeners
         categories.forEach(category => {
             category.addEventListener('click', () => {
@@ -1516,22 +1098,6 @@
         overlay.addEventListener('click', closeGameViewer);
         toggleFullscreen.addEventListener('click', toggleFullscreenMode);
         fullscreenExit.addEventListener('click', toggleFullscreenMode);
-        
-        menuButton.addEventListener('click', openMenu);
-        closeMenu.addEventListener('click', closeMenuModal);
-        overlay.addEventListener('click', closeMenuModal);
-        
-        faqOption.addEventListener('click', () => {
-            alert('Sección de Preguntas Frecuentes:\n\n1. ¿Cómo puedo jugar?\n- Simplemente haz clic en "Jugar" en cualquier juego.\n\n2. ¿Es necesario registrarse?\n- ¡No! Todos nuestros juegos son gratuitos y no requieren registro.\n\n3. ¿Por qué veo anuncios?\n- Los anuncios nos permiten mantener el sitio gratuito para todos los usuarios.');
-        });
-        
-        tiktokOption.addEventListener('click', () => {
-            alert('¡Síguenos en TikTok!\n\nParticipa en nuestros retos semanales y gana premios.\n\nUsuario: @tusinitusineli_games\n\nEnvíanos tus videos jugando nuestros juegos usando el hashtag #TusiniTusineliGames para aparecer en nuestra página.');
-        });
-        
-        downloadOption.addEventListener('click', () => {
-            alert('Descarga nuestra App Web:\n\n1. Abre Chrome en tu dispositivo móvil\n2. Toca el menú (tres puntos)\n3. Selecciona "Instalar aplicación" o "Agregar a pantalla de inicio"\n\n¡Disfruta de acceso rápido a todos tus juegos favoritos!');
-        });
         
         // Manejar tecla ESC para salir de pantalla completa
         document.addEventListener('keydown', (e) => {

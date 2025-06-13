@@ -1,114 +1,873 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Panel Control TikTok Live</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #0d0d0d;
-      color: white;
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.5rem;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tusini Monedas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --accent: #fd79a8;
+            --dark: #2d3436;
+            --light: #f5f6fa;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #d63031;
+        }
 
-    h1 {
-      font-size: 1.8rem;
-      color: #00ffcc;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-    input[type="text"], input[type="url"] {
-      padding: 0.5rem;
-      width: 100%;
-      max-width: 400px;
-      border-radius: 5px;
-      border: none;
-      font-size: 1rem;
-    }
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            min-height: 100vh;
+            padding: 20px;
+        }
 
-    button {
-      padding: 0.7rem 1.2rem;
-      border: none;
-      border-radius: 8px;
-      background: #00ffcc;
-      color: #000;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background 0.3s;
-      margin-top: 0.5rem;
-    }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-    button:hover {
-      background: #00ddb3;
-    }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--secondary);
+        }
 
-    .card {
-      background: #1a1a1a;
-      padding: 1.5rem;
-      border-radius: 10px;
-      width: 100%;
-      max-width: 450px;
-    }
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+        }
 
-    label {
-      display: block;
-      margin-top: 1rem;
-      margin-bottom: 0.4rem;
-      font-weight: bold;
-    }
-  </style>
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .coins {
+            background-color: var(--warning);
+            color: var(--dark);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .coins i {
+            font-size: 18px;
+        }
+
+        main {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        @media (min-width: 768px) {
+            main {
+                grid-template-columns: 1fr 2fr;
+            }
+        }
+
+        .earn-coins {
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: var(--primary);
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 10px;
+        }
+
+        .earn-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .earn-option:last-child {
+            border-bottom: none;
+        }
+
+        .earn-details {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .earn-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .earn-amount {
+            background-color: var(--warning);
+            color: var(--dark);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .btn {
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #5649c0;
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #8c7ae6;
+        }
+
+        .btn-accent {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        .btn-accent:hover {
+            background-color: #fc5c9c;
+        }
+
+        .btn:disabled {
+            background-color: #b2bec3;
+            cursor: not-allowed;
+        }
+
+        .videos-section {
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .videos-grid {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            }
+        }
+
+        .video-card {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+        }
+
+        @media (min-width: 768px) {
+            .video-thumbnail {
+                height: 120px;
+            }
+        }
+
+        .video-info {
+            padding: 10px;
+        }
+
+        .video-title {
+            font-size: 14px;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .video-price {
+            font-size: 12px;
+            color: var(--primary);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .cooldown {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .ad-container {
+            margin-top: 30px;
+            background-color: #f1f2f6;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .ad-title {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+
+        .ad-placeholder {
+            width: 100%;
+            height: 150px;
+            background-color: #dfe6e9;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #636e72;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .timer {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--dark);
+        }
+
+        .modal-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .modal-text {
+            margin-bottom: 20px;
+        }
+
+        .video-preview {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .reward-message {
+            text-align: center;
+            padding: 15px;
+            background-color: var(--success);
+            color: white;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--success);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            z-index: 1001;
+            display: none;
+        }
+
+        .toast.error {
+            background-color: var(--danger);
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-  <h1>🎬 Panel de Control TikTok Live</h1>
+    <div class="container">
+        <header>
+            <div class="logo">Tusini Monedas</div>
+            <div class="user-info">
+                <div class="coins">
+                    <i class="fas fa-coins"></i>
+                    <span id="coins-amount">0</span>
+                </div>
+            </div>
+        </header>
 
-  <div class="card">
-    <label for="videoUrl">📹 Enlace del video</label>
-    <input type="url" id="videoUrl" placeholder="https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/WhatsApp%20Video%202025-05-04%20at%207.44.20%20PM.mp4?v=1749810816816">
-    <button onclick="reproducirVideo()">Reproducir Video</button>
-    <button onclick="volverAPng()">Volver a PNG</button>
-  </div>
+        <main>
+            <section class="earn-coins">
+                <h2 class="section-title">Gana Monedas</h2>
+                
+                <div class="earn-option">
+                    <div class="earn-details">
+                        <div class="earn-icon">
+                            <i class="fas fa-ad"></i>
+                        </div>
+                        <div>
+                            <h3>Ver Anuncio</h3>
+                            <p class="timer" id="ad-timer"></p>
+                        </div>
+                    </div>
+                    <div class="earn-amount">+10</div>
+                    <button class="btn btn-primary" id="watch-ad-btn">
+                        <i class="fas fa-play"></i> Ver
+                    </button>
+                </div>
 
-  <div class="card">
-    <label for="texto">📝 Texto en pantalla</label>
-    <input type="text" id="texto" placeholder="Gracias por tu apoyo">
-    <button onclick="enviarTexto()">Mostrar Texto</button>
-    <button onclick="limpiarTexto()">Limpiar Texto</button>
-  </div>
+                <div class="earn-option">
+                    <div class="earn-details">
+                        <div class="earn-icon">
+                            <i class="fab fa-youtube"></i>
+                        </div>
+                        <div>
+                            <h3>Ver Video YouTube</h3>
+                            <p class="timer" id="yt-timer"></p>
+                        </div>
+                    </div>
+                    <div class="earn-amount">+25</div>
+                    <button class="btn btn-primary" id="watch-yt-btn">
+                        <i class="fas fa-play"></i> Ver
+                    </button>
+                </div>
 
-  <script>
-    const BACKEND = 'https://tusini.glitch.me';
+                <div class="earn-option">
+                    <div class="earn-details">
+                        <div class="earn-icon">
+                            <i class="fab fa-youtube"></i>
+                        </div>
+                        <div>
+                            <h3>Suscribirse a Canal</h3>
+                            <p>Una vez por canal</p>
+                        </div>
+                    </div>
+                    <div class="earn-amount">+50</div>
+                    <button class="btn btn-primary" id="subscribe-btn">
+                        <i class="fas fa-check"></i> Suscribirse
+                    </button>
+                </div>
 
-    function reproducirVideo() {
-      const url = document.getElementById('videoUrl').value;
-      if (!url) return alert("Ingresá una URL de video válida.");
-      fetch(`${BACKEND}/api/video`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ video: url })
-      });
-    }
+                <div class="earn-option">
+                    <div class="earn-details">
+                        <div class="earn-icon">
+                            <i class="fas fa-share-alt"></i>
+                        </div>
+                        <div>
+                            <h3>Compartir en Redes</h3>
+                            <p>Una vez por día</p>
+                        </div>
+                    </div>
+                    <div class="earn-amount">+30</div>
+                    <button class="btn btn-primary" id="share-btn">
+                        <i class="fas fa-share"></i> Compartir
+                    </button>
+                </div>
 
-    function volverAPng() {
-      fetch(`${BACKEND}/api/reset`, { method: 'POST' });
-    }
+                <div class="ad-container">
+                    <h3 class="ad-title">Anuncio Patrocinado</h3>
+                    <div class="ad-placeholder" id="ad-placeholder">
+                        Anuncio aparecerá aquí
+                    </div>
+                    <button class="btn btn-secondary" id="skip-ad-btn" style="display: none;">
+                        <i class="fas fa-forward"></i> Saltar en <span id="skip-timer">5</span>s
+                    </button>
+                </div>
+            </section>
 
-    function enviarTexto() {
-      const text = document.getElementById('texto').value;
-      if (!text) return alert("Escribí un mensaje primero.");
-      fetch(`${BACKEND}/api/text`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text })
-      });
-    }
+            <section class="videos-section">
+                <h2 class="section-title">Envía Videos al Live</h2>
+                <p>Gasta tus monedas para enviar videos divertidos al live. Cada video tiene un tiempo de espera después de enviarlo.</p>
+                
+                <div class="videos-grid" id="videos-grid">
+                    <!-- Videos se cargarán aquí -->
+                </div>
+            </section>
+        </main>
+    </div>
 
-    function limpiarTexto() {
-      fetch(`${BACKEND}/api/clear-text`, { method: 'POST' });
-    }
-  </script>
+    <!-- Modal para visualización de contenido -->
+    <div class="modal" id="content-modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-modal">&times;</span>
+            <h2 class="modal-title" id="modal-title">Ver Anuncio</h2>
+            <p class="modal-text" id="modal-text">Por favor mira el anuncio completo para recibir tus monedas.</p>
+            
+            <div id="modal-content">
+                <!-- Contenido del modal (anuncio, video, etc) -->
+            </div>
+            
+            <div class="reward-message" id="reward-message">
+                <i class="fas fa-check-circle"></i> ¡Has ganado <span id="reward-amount">10</span> monedas!
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // Datos de la aplicación
+        const videos = [
+            { id: 1, title: "Baile divertido", price: 15, thumbnail: "https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/WhatsApp%20Video%202025-05-04%20at%207.55.05%20PM.mp4?v=1749809761196" },
+            { id: 2, title: "Gato gracioso", price: 20, thumbnail: "https://i.ytimg.com/vi/J---aiyznGQ/hqdefault.jpg", url: "https://example.com/video2.mp4" },
+            { id: 3, title: "Fallo épico", price: 25, thumbnail: "https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg", url: "https://example.com/video3.mp4" },
+            { id: 4, title: "Reacción sorpresa", price: 30, thumbnail: "https://i.ytimg.com/vi/J---aiyznGQ/hqdefault.jpg", url: "https://example.com/video4.mp4" },
+            { id: 5, title: "Momento emotivo", price: 35, thumbnail: "https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg", url: "https://example.com/video5.mp4" },
+            { id: 6, title: "Broma pesada", price: 40, thumbnail: "https://i.ytimg.com/vi/J---aiyznGQ/hqdefault.jpg", url: "https://example.com/video6.mp4" },
+            { id: 7, title: "Animales tiernos", price: 25, thumbnail: "https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg", url: "https://example.com/video7.mp4" },
+            { id: 8, title: "Deportes extremos", price: 30, thumbnail: "https://i.ytimg.com/vi/J---aiyznGQ/hqdefault.jpg", url: "https://example.com/video8.mp4" },
+            { id: 9, title: "Memes divertidos", price: 20, thumbnail: "https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg", url: "https://example.com/video9.mp4" },
+            { id: 10, title: "Bailes virales", price: 25, thumbnail: "https://i.ytimg.com/vi/J---aiyznGQ/hqdefault.jpg", url: "https://example.com/video10.mp4" },
+            { id: 11, title: "Tutorial chistoso", price: 30, thumbnail: "https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg", url: "https://example.com/video11.mp4" },
+            { id: 12, title: "Reacción en vivo", price: 35, thumbnail: "https://i.ytimg.com/vi/J---aiyznGQ/hqdefault.jpg", url: "https://example.com/video12.mp4" }
+        ];
+
+        const channels = [
+            { id: 1, name: "Canal de Juegos" },
+            { id: 2, name: "Canal de Cocina" },
+            { id: 3, name: "Canal de Viajes" },
+            { id: 4, name: "Canal de Música" }
+        ];
+
+        // Estado de la aplicación
+        let state = {
+            coins: 0,
+            lastAdWatch: null,
+            lastYtWatch: null,
+            lastShare: null,
+            subscribedChannels: [],
+            videoCooldowns: {},
+            adInProgress: false,
+            adTimer: null,
+            skipTimer: null
+        };
+
+        // Elementos del DOM
+        const coinsAmountEl = document.getElementById('coins-amount');
+        const watchAdBtn = document.getElementById('watch-ad-btn');
+        const watchYtBtn = document.getElementById('watch-yt-btn');
+        const subscribeBtn = document.getElementById('subscribe-btn');
+        const shareBtn = document.getElementById('share-btn');
+        const adPlaceholder = document.getElementById('ad-placeholder');
+        const skipAdBtn = document.getElementById('skip-ad-btn');
+        const skipTimerEl = document.getElementById('skip-timer');
+        const adTimerEl = document.getElementById('ad-timer');
+        const ytTimerEl = document.getElementById('yt-timer');
+        const videosGrid = document.getElementById('videos-grid');
+        const contentModal = document.getElementById('content-modal');
+        const closeModal = document.getElementById('close-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalText = document.getElementById('modal-text');
+        const modalContent = document.getElementById('modal-content');
+        const rewardMessage = document.getElementById('reward-message');
+        const rewardAmountEl = document.getElementById('reward-amount');
+        const toast = document.getElementById('toast');
+
+        // URL del backend (puedes cambiarla por tu propia URL de Glitch)
+        const BACKEND = 'https://tusini.glitch.me/';
+
+        // Inicializar la aplicación
+        function init() {
+            loadState();
+            renderCoins();
+            renderVideos();
+            updateTimers();
+            
+            // Configurar event listeners
+            watchAdBtn.addEventListener('click', startAd);
+            watchYtBtn.addEventListener('click', startYtVideo);
+            subscribeBtn.addEventListener('click', subscribeToChannel);
+            shareBtn.addEventListener('click', shareOnSocial);
+            skipAdBtn.addEventListener('click', skipAd);
+            closeModal.addEventListener('click', closeModalHandler);
+            
+            // Actualizar timers cada segundo
+            setInterval(updateTimers, 1000);
+        }
+
+        // Cargar estado desde localStorage
+        function loadState() {
+            const savedState = localStorage.getItem('tusiniState');
+            if (savedState) {
+                state = JSON.parse(savedState);
+            }
+        }
+
+        // Guardar estado en localStorage
+        function saveState() {
+            localStorage.setItem('tusiniState', JSON.stringify(state));
+        }
+
+        // Renderizar cantidad de monedas
+        function renderCoins() {
+            coinsAmountEl.textContent = state.coins;
+        }
+
+        // Renderizar videos disponibles
+        function renderVideos() {
+            videosGrid.innerHTML = '';
+            
+            videos.forEach(video => {
+                const videoCard = document.createElement('div');
+                videoCard.className = 'video-card';
+                videoCard.innerHTML = `
+                    <img src="${video.thumbnail}" alt="${video.title}" class="video-thumbnail">
+                    <div class="video-info">
+                        <h3 class="video-title">${video.title}</h3>
+                        <div class="video-price">
+                            <i class="fas fa-coins"></i> ${video.price}
+                        </div>
+                    </div>
+                `;
+                
+                // Verificar si el video está en cooldown
+                if (state.videoCooldowns[video.id] && Date.now() < state.videoCooldowns[video.id]) {
+                    const cooldownEl = document.createElement('div');
+                    cooldownEl.className = 'cooldown';
+                    const remaining = Math.ceil((state.videoCooldowns[video.id] - Date.now()) / 1000);
+                    cooldownEl.textContent = `${remaining}s`;
+                    videoCard.appendChild(cooldownEl);
+                } else {
+                    videoCard.addEventListener('click', () => sendVideo(video));
+                }
+                
+                videosGrid.appendChild(videoCard);
+            });
+        }
+
+        // Actualizar timers de cooldowns
+        function updateTimers() {
+            // Timer para anuncios (1 por minuto)
+            if (state.lastAdWatch) {
+                const nextAdTime = state.lastAdWatch + 60000; // 1 minuto
+                const now = Date.now();
+                
+                if (now < nextAdTime) {
+                    const remaining = Math.ceil((nextAdTime - now) / 1000);
+                    adTimerEl.textContent = `Disponible en ${remaining}s`;
+                    watchAdBtn.disabled = true;
+                } else {
+                    adTimerEl.textContent = '';
+                    watchAdBtn.disabled = false;
+                }
+            }
+            
+            // Timer para videos de YouTube (1 cada 5 minutos)
+            if (state.lastYtWatch) {
+                const nextYtTime = state.lastYtWatch + 300000; // 5 minutos
+                const now = Date.now();
+                
+                if (now < nextYtTime) {
+                    const remaining = Math.ceil((nextYtTime - now) / 60);
+                    ytTimerEl.textContent = `Disponible en ${remaining}m`;
+                    watchYtBtn.disabled = true;
+                } else {
+                    ytTimerEl.textContent = '';
+                    watchYtBtn.disabled = false;
+                }
+            }
+            
+            // Actualizar cooldowns de videos
+            renderVideos();
+        }
+
+        // Mostrar notificación toast
+        function showToast(message, isError = false) {
+            toast.textContent = message;
+            toast.className = isError ? 'toast error' : 'toast';
+            toast.style.display = 'block';
+            
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
+        }
+
+        // Iniciar anuncio
+        function startAd() {
+            if (state.adInProgress) return;
+            
+            state.adInProgress = true;
+            saveState();
+            
+            // Mostrar modal con el anuncio
+            modalTitle.textContent = 'Ver Anuncio';
+            modalText.textContent = 'Por favor mira el anuncio completo para recibir tus monedas.';
+            modalContent.innerHTML = `
+                <div style="width: 100%; height: 300px; background-color: #dfe6e9; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                    <h3>Anuncio de ejemplo (5 segundos)</h3>
+                </div>
+            `;
+            rewardMessage.style.display = 'none';
+            contentModal.classList.add('active');
+            
+            // Simular anuncio de 5 segundos
+            let seconds = 5;
+            const timer = setInterval(() => {
+                modalText.textContent = `Por favor mira el anuncio completo para recibir tus monedas. Tiempo restante: ${seconds}s`;
+                seconds--;
+                
+                if (seconds < 0) {
+                    clearInterval(timer);
+                    finishAd();
+                }
+            }, 1000);
+        }
+
+        // Finalizar anuncio y dar recompensa
+        function finishAd() {
+            state.lastAdWatch = Date.now();
+            state.coins += 10;
+            state.adInProgress = false;
+            saveState();
+            
+            rewardAmountEl.textContent = '10';
+            rewardMessage.style.display = 'flex';
+            renderCoins();
+            updateTimers();
+            
+            showToast('¡Has ganado 10 monedas por ver el anuncio!');
+        }
+
+        // Saltar anuncio (para desarrollo)
+        function skipAd() {
+            if (state.adTimer) {
+                clearInterval(state.adTimer);
+            }
+            
+            if (state.skipTimer) {
+                clearInterval(state.skipTimer);
+            }
+            
+            adPlaceholder.innerHTML = 'Anuncio aparecerá aquí';
+            skipAdBtn.style.display = 'none';
+            state.adInProgress = false;
+            
+            finishAd();
+        }
+
+        // Iniciar video de YouTube
+        function startYtVideo() {
+            modalTitle.textContent = 'Ver Video de YouTube';
+            modalText.textContent = 'Por favor mira el video completo para recibir tus monedas.';
+            modalContent.innerHTML = `
+                <iframe width="100%" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <p style="margin-top: 10px; font-size: 14px; color: #7f8c8d;">Video de ejemplo. En una implementación real, se mostraría un video patrocinado.</p>
+            `;
+            rewardMessage.style.display = 'none';
+            contentModal.classList.add('active');
+            
+            // En una implementación real, usarías la API de YouTube para detectar cuando el video termina
+            // Aquí simulamos que el usuario debe esperar 30 segundos
+            let seconds = 30;
+            const timer = setInterval(() => {
+                modalText.textContent = `Por favor mira el video completo para recibir tus monedas. Tiempo mínimo: ${seconds}s`;
+                seconds--;
+                
+                if (seconds < 0) {
+                    clearInterval(timer);
+                    finishYtVideo();
+                }
+            }, 1000);
+        }
+
+        // Finalizar video de YouTube y dar recompensa
+        function finishYtVideo() {
+            state.lastYtWatch = Date.now();
+            state.coins += 25;
+            saveState();
+            
+            rewardAmountEl.textContent = '25';
+            rewardMessage.style.display = 'flex';
+            renderCoins();
+            updateTimers();
+            
+            showToast('¡Has ganado 25 monedas por ver el video!');
+        }
+
+        // Suscribirse a canal
+        function subscribeToChannel() {
+            const availableChannels = channels.filter(ch => !state.subscribedChannels.includes(ch.id));
+            
+            if (availableChannels.length === 0) {
+                showToast('Ya te has suscrito a todos los canales disponibles', true);
+                return;
+            }
+            
+            const randomChannel = availableChannels[Math.floor(Math.random() * availableChannels.length)];
+            state.subscribedChannels.push(randomChannel.id);
+            state.coins += 50;
+            saveState();
+            
+            showToast(`¡Has ganado 50 monedas por suscribirte a ${randomChannel.name}!`);
+            renderCoins();
+        }
+
+        // Compartir en redes sociales
+        function shareOnSocial() {
+            const now = Date.now();
+            const lastShare = state.lastShare || 0;
+            const nextShareTime = lastShare + 86400000; // 24 horas
+            
+            if (now < nextShareTime) {
+                const hoursLeft = Math.ceil((nextShareTime - now) / 3600000);
+                showToast(`Ya compartiste hoy. Podrás compartir de nuevo en ${hoursLeft} horas.`, true);
+                return;
+            }
+            
+            state.lastShare = now;
+            state.coins += 30;
+            saveState();
+            
+            showToast('¡Has ganado 30 monedas por compartir en redes sociales!');
+            renderCoins();
+        }
+
+        // Enviar video al live
+        function sendVideo(video) {
+            if (state.coins < video.price) {
+                showToast('No tienes suficientes monedas para enviar este video', true);
+                return;
+            }
+            
+            if (state.videoCooldowns[video.id] && Date.now() < state.videoCooldowns[video.id]) {
+                showToast('Este video está en cooldown. Espera un momento.', true);
+                return;
+            }
+            
+            // Restar monedas
+            state.coins -= video.price;
+            
+            // Establecer cooldown (30 segundos)
+            state.videoCooldowns[video.id] = Date.now() + 30000;
+            
+            saveState();
+            renderCoins();
+            renderVideos();
+            
+            // Enviar video al backend (simulado)
+            fetch(`${BACKEND}/api/video`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ video: video.url })
+            }).catch(err => {
+                console.error('Error al enviar video:', err);
+            });
+            
+            showToast(`¡Video "${video.title}" enviado al live!`);
+        }
+
+        // Cerrar modal
+        function closeModalHandler() {
+            contentModal.classList.remove('active');
+            
+            // Si había un anuncio en progreso, limpiar
+            if (state.adInProgress) {
+                state.adInProgress = false;
+                saveState();
+            }
+        }
+
+        // Inicializar la aplicación cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
 </body>
 </html>

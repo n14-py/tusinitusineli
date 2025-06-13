@@ -1,18 +1,114 @@
-<script>
-  const BACKEND = 'https://tusini.glitch.me/'; // URL pública de Glitch
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel Control TikTok Live</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0d0d0d;
+      color: white;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
 
-  function reproducirVideo(url) {
-    fetch(`${BACKEND}/api/video`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ video: url })
-    });
-  }
+    h1 {
+      font-size: 1.8rem;
+      color: #00ffcc;
+    }
 
-  function volverAPng() {
-    fetch(`${BACKEND}/api/reset`, { method: 'POST' });
-  }
-</script>
+    input[type="text"], input[type="url"] {
+      padding: 0.5rem;
+      width: 100%;
+      max-width: 400px;
+      border-radius: 5px;
+      border: none;
+      font-size: 1rem;
+    }
 
-<button onclick="reproducirVideo('https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/WhatsApp%20Video%202025-05-04%20at%207.55.05%20PM.mp4?v=1749809761196')">Reproducir Video</button>
-<button onclick="volverAPng()">Volver a PNnG</button>
+    button {
+      padding: 0.7rem 1.2rem;
+      border: none;
+      border-radius: 8px;
+      background: #00ffcc;
+      color: #000;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 0.5rem;
+    }
+
+    button:hover {
+      background: #00ddb3;
+    }
+
+    .card {
+      background: #1a1a1a;
+      padding: 1.5rem;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 450px;
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+      margin-bottom: 0.4rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎬 Panel de Control TikTok Live</h1>
+
+  <div class="card">
+    <label for="videoUrl">📹 Enlace del video</label>
+    <input type="url" id="videoUrl" placeholder="https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/WhatsApp%20Video%202025-05-04%20at%207.44.20%20PM.mp4?v=1749810816816">
+    <button onclick="reproducirVideo()">Reproducir Video</button>
+    <button onclick="volverAPng()">Volver a PNG</button>
+  </div>
+
+  <div class="card">
+    <label for="texto">📝 Texto en pantalla</label>
+    <input type="text" id="texto" placeholder="Gracias por tu apoyo">
+    <button onclick="enviarTexto()">Mostrar Texto</button>
+    <button onclick="limpiarTexto()">Limpiar Texto</button>
+  </div>
+
+  <script>
+    const BACKEND = 'https://tusini.glitch.me';
+
+    function reproducirVideo() {
+      const url = document.getElementById('videoUrl').value;
+      if (!url) return alert("Ingresá una URL de video válida.");
+      fetch(`${BACKEND}/api/video`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ video: url })
+      });
+    }
+
+    function volverAPng() {
+      fetch(`${BACKEND}/api/reset`, { method: 'POST' });
+    }
+
+    function enviarTexto() {
+      const text = document.getElementById('texto').value;
+      if (!text) return alert("Escribí un mensaje primero.");
+      fetch(`${BACKEND}/api/text`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text })
+      });
+    }
+
+    function limpiarTexto() {
+      fetch(`${BACKEND}/api/clear-text`, { method: 'POST' });
+    }
+  </script>
+</body>
+</html>

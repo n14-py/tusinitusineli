@@ -1,15 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<script async custom-element="amp-auto-ads"
-        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
-</script>
-    
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5461370198299696"
-     crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TusiniTusineli.com - Juegos Gratis Online</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5461370198299696" crossorigin="anonymous"></script>
     <style>
         :root {
             --primary-color: #4a148c;
@@ -49,6 +44,17 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
             position: relative;
             animation: fadeInDown 0.5s ease-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
         }
         
         .logo {
@@ -58,11 +64,25 @@
             text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
         
+        .menu-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
         .search-container {
             display: flex;
             justify-content: center;
             margin: 1rem 0;
             animation: fadeIn 0.8s ease-out;
+            width: 100%;
         }
         
         #search-input {
@@ -354,13 +374,36 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.9);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             color: white;
             z-index: 5;
+        }
+        
+        .loading-content {
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+        }
+        
+        .ad-container {
+            margin-bottom: 1.5rem;
+            background: #222;
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .loading-controls {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
         }
         
         .loading-spinner {
@@ -370,7 +413,7 @@
             border-radius: 50%;
             border-top-color: var(--pink-accent);
             animation: spin 1s ease-in-out infinite;
-            margin-bottom: 1rem;
+            margin: 0 auto 1rem;
         }
         
         .loading-text {
@@ -382,6 +425,23 @@
         .loading-timer {
             font-size: 1rem;
             color: #ccc;
+            margin-bottom: 1rem;
+        }
+        
+        .skip-button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .skip-button:hover {
+            background-color: var(--pink-accent);
+            transform: translateY(-2px);
         }
         
         .fullscreen-exit {
@@ -468,6 +528,73 @@
             background-color: rgba(0, 0, 0, 0.7);
             z-index: 999;
             backdrop-filter: blur(3px);
+        }
+        
+        .menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1002;
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .menu-content {
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+            color: white;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            padding: 2rem;
+            position: relative;
+            text-align: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        .close-menu {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+        
+        .menu-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--pink-accent);
+        }
+        
+        .menu-content ul {
+            list-style: none;
+        }
+        
+        .menu-content li {
+            margin: 1.5rem 0;
+        }
+        
+        .menu-content a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            display: block;
+            padding: 0.8rem;
+            border-radius: 8px;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .menu-content a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
         }
         
         footer {
@@ -567,6 +694,10 @@
                 height: 100%;
                 width: 100%;
             }
+            
+            .ad-container {
+                min-height: 200px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -620,12 +751,19 @@
                 height: 28px;
                 font-size: 0.9rem;
             }
+            
+            .ad-container {
+                min-height: 150px;
+            }
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="logo">tusinitusineli.com</div>
+        <div class="header-top">
+            <div class="logo">tusinitusineli.com</div>
+            <button class="menu-toggle" id="menu-toggle">☰</button>
+        </div>
         <div class="search-container">
             <input type="text" id="search-input" placeholder="Buscar juegos...">
             <button id="search-button">Buscar</button>
@@ -662,23 +800,46 @@
         </div>
         <div class="game-iframe-container">
             <div class="loading-overlay" id="loading-overlay">
-                <div class="loading-spinner"></div>
-                <div class="loading-text">tusinitusineli.com está cargando tu juego</div>
-                <div class="loading-timer" id="loading-timer">5 segundos restantes</div>
+                <div class="loading-content">
+                    <div class="ad-container" id="ad-container">
+                        <!-- Anuncio de AdSense -->
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="ca-pub-5461370198299696"
+                             data-ad-slot="7259870550"
+                             data-ad-format="auto"
+                             data-full-width-responsive="true"></ins>
+                    </div>
+                    <div class="loading-controls">
+                        <div class="loading-spinner"></div>
+                        <div class="loading-text">tusinitusineli.com está cargando tu juego</div>
+                        <div class="loading-timer" id="loading-timer">5 segundos restantes</div>
+                        <button class="skip-button" id="skip-button">Saltar anuncio</button>
+                    </div>
+                </div>
             </div>
             <iframe class="game-iframe" id="game-iframe" frameborder="0" allow="gamepad *;"></iframe>
         </div>
     </div>
 
-    <amp-auto-ads type="adsense"
-        data-ad-client="ca-pub-5461370198299696">
-</amp-auto-ads>
-    
     <div class="tusini-banner" id="tusini-banner">
         <div class="tusini-banner-content">
             <div class="tusini-logo">tusinitusineli.com</div>
             <div class="tusini-text">¡Disfruta de más juegos gratis!</div>
             <a href="index.html" class="tusini-link">Ver todos</a>
+        </div>
+    </div>
+    
+    <!-- Menú desplegable -->
+    <div class="menu-overlay" id="menu-overlay">
+        <div class="menu-content">
+            <button class="close-menu" id="close-menu">&times;</button>
+            <h3>tusinitusineli.com</h3>
+            <ul>
+                <li><a href="#" id="what-is">¿Qué es TusiniTusineli?</a></li>
+                <li><a href="#" id="tiktok">Interactúa en TikTok</a></li>
+                <li><a href="#" id="download">Descarga la Web App</a></li>
+            </ul>
         </div>
     </div>
     
@@ -855,6 +1016,10 @@
         const loadingTimer = document.getElementById('loading-timer');
         const fullscreenExit = document.getElementById('fullscreen-exit');
         const tusiniBanner = document.getElementById('tusini-banner');
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuOverlay = document.getElementById('menu-overlay');
+        const closeMenu = document.getElementById('close-menu');
+        const skipButton = document.getElementById('skip-button');
         
         // Variables de estado
         let isFullscreen = false;
@@ -930,15 +1095,26 @@
             loadingTimer.textContent = `${secondsLeft} segundos restantes`;
             loadingOverlay.style.display = 'flex';
             
+            // Cargar el anuncio de AdSense
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            
             loadingInterval = setInterval(() => {
                 secondsLeft--;
                 loadingTimer.textContent = `${secondsLeft} segundos restantes`;
                 
                 if (secondsLeft <= 0) {
                     clearInterval(loadingInterval);
-                    loadingOverlay.style.display = 'none';
+                    loadGame();
                 }
             }, 1000);
+        }
+        
+        // Cargar el juego (llamado cuando termina el temporizador o al saltar)
+        function loadGame() {
+            clearInterval(loadingInterval);
+            loadingOverlay.style.display = 'none';
+            gameIframe.src = currentGameUrl;
+            hideCrazyGamesFooter();
         }
         
         // Ocultar el footer de Crazy Games en PC
@@ -983,18 +1159,6 @@
             
             // Iniciar temporizador de carga reducido
             startLoadingTimer();
-            
-            // Cargar el iframe después de 5 segundos
-            setTimeout(() => {
-                gameIframe.src = url;
-                // Ocultar el footer de Crazy Games en PC
-                hideCrazyGamesFooter();
-                
-                // En móviles, forzar pantalla completa real
-                if (window.innerWidth <= 768 && fullscreen) {
-                    toggleFullscreenMode();
-                }
-            }, 5000);
             
             if (fullscreen && window.innerWidth > 768) {
                 toggleFullscreenMode();
@@ -1077,6 +1241,16 @@
             displayGames(filteredGames);
         }
         
+        // Abrir menú
+        function openMenu() {
+            menuOverlay.style.display = 'flex';
+        }
+        
+        // Cerrar menú
+        function closeMenuHandler() {
+            menuOverlay.style.display = 'none';
+        }
+        
         // Event listeners
         categories.forEach(category => {
             category.addEventListener('click', () => {
@@ -1098,6 +1272,15 @@
         overlay.addEventListener('click', closeGameViewer);
         toggleFullscreen.addEventListener('click', toggleFullscreenMode);
         fullscreenExit.addEventListener('click', toggleFullscreenMode);
+        skipButton.addEventListener('click', loadGame);
+        
+        menuToggle.addEventListener('click', openMenu);
+        closeMenu.addEventListener('click', closeMenuHandler);
+        menuOverlay.addEventListener('click', (e) => {
+            if (e.target === menuOverlay) {
+                closeMenuHandler();
+            }
+        });
         
         // Manejar tecla ESC para salir de pantalla completa
         document.addEventListener('keydown', (e) => {

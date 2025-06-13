@@ -58,28 +58,6 @@
             text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
         
-        .header-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 1rem;
-        }
-        
-        .menu-button {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 50%;
-            transition: all 0.3s;
-        }
-        
-        .menu-button:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-        
         .search-container {
             display: flex;
             justify-content: center;
@@ -504,199 +482,6 @@
             font-size: 0.9rem;
         }
         
-        /* Nuevos estilos para el menú de puntos */
-        .menu-container {
-            position: relative;
-            display: inline-block;
-        }
-        
-        .menu-content {
-            display: none;
-            position: absolute;
-            right: 0;
-            background-color: white;
-            min-width: 200px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-            border-radius: 10px;
-            overflow: hidden;
-            animation: fadeIn 0.3s;
-        }
-        
-        .menu-content a {
-            color: #333;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            transition: all 0.3s;
-        }
-        
-        .menu-content a:hover {
-            background-color: #f1f1f1;
-            color: var(--accent-color);
-        }
-        
-        .menu-content.show {
-            display: block;
-        }
-        
-        /* Estilos para anuncios adicionales */
-        .ad-container {
-            margin: 1rem 0;
-            padding: 1rem;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            text-align: center;
-            overflow: hidden;
-        }
-        
-        .ad-label {
-            font-size: 0.8rem;
-            color: #999;
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-        }
-        
-        .ad-banner {
-            width: 100%;
-            height: auto;
-            max-height: 100px;
-            object-fit: contain;
-            border-radius: 5px;
-        }
-        
-        .ad-banner-large {
-            height: 250px;
-        }
-        
-        .ad-banner-medium {
-            height: 150px;
-        }
-        
-        .ad-banner-small {
-            height: 90px;
-        }
-        
-        /* Estilos para el modal de FAQ */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1002;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.4);
-        }
-        
-        .modal-content {
-            background-color: white;
-            margin: 10% auto;
-            padding: 20px;
-            border-radius: 10px;
-            width: 80%;
-            max-width: 700px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            animation: fadeInDown 0.3s;
-        }
-        
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .modal-title {
-            font-size: 1.5rem;
-            color: var(--primary-color);
-        }
-        
-        .close-modal {
-            color: #aaa;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        
-        .close-modal:hover {
-            color: var(--accent-color);
-        }
-        
-        .faq-item {
-            margin-bottom: 15px;
-        }
-        
-        .faq-question {
-            font-weight: bold;
-            color: var(--secondary-color);
-            margin-bottom: 5px;
-            cursor: pointer;
-        }
-        
-        .faq-answer {
-            padding-left: 15px;
-            color: #555;
-            line-height: 1.5;
-        }
-        
-        /* Estilos para el anuncio intersticial */
-        .interstitial-ad {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.9);
-            z-index: 1003;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-        }
-        
-        .interstitial-content {
-            background-color: white;
-            color: #333;
-            padding: 20px;
-            border-radius: 10px;
-            max-width: 90%;
-            width: 400px;
-            text-align: center;
-        }
-        
-        .interstitial-title {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            color: var(--accent-color);
-        }
-        
-        .interstitial-close {
-            margin-top: 20px;
-            padding: 8px 20px;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .interstitial-close:hover {
-            background-color: var(--dark-color);
-        }
-        
-        .interstitial-timer {
-            margin-top: 10px;
-            font-size: 0.9rem;
-            color: #777;
-        }
-        
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
@@ -782,23 +567,6 @@
                 height: 100%;
                 width: 100%;
             }
-            
-            .modal-content {
-                margin: 20% auto;
-                width: 90%;
-            }
-            
-            .ad-container {
-                padding: 0.5rem;
-            }
-            
-            .ad-banner-large {
-                height: 150px;
-            }
-            
-            .ad-banner-medium {
-                height: 100px;
-            }
         }
         
         @media (max-width: 480px) {
@@ -852,50 +620,17 @@
                 height: 28px;
                 font-size: 0.9rem;
             }
-            
-            .menu-content {
-                min-width: 160px;
-            }
-            
-            .modal-content {
-                margin: 30% auto;
-            }
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="header-controls">
-            <div class="menu-container">
-                <button class="menu-button" id="menu-button">⋮</button>
-                <div class="menu-content" id="menu-content">
-                    <a href="#" id="faq-link">Preguntas Frecuentes</a>
-                    <a href="#" id="tiktok-link">Interactúa en TikTok</a>
-                    <a href="#" id="download-link">Descargar App Web</a>
-                </div>
-            </div>
-            <div class="logo">tusinitusineli.com</div>
-            <div style="width: 32px;"></div> <!-- Espacio para alinear el logo -->
-        </div>
+        <div class="logo">tusinitusineli.com</div>
         <div class="search-container">
             <input type="text" id="search-input" placeholder="Buscar juegos...">
             <button id="search-button">Buscar</button>
         </div>
     </header>
-    
-    <!-- Anuncio superior -->
-    <div class="ad-container">
-        <div class="ad-label">Publicidad</div>
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-5461370198299696"
-             data-ad-slot="1234567890"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
     
     <div class="categories">
         <div class="category active" data-category="all">Todos</div>
@@ -910,37 +645,8 @@
     
     <div class="main-container">
         <h2>Juegos Populares</h2>
-        
-        <!-- Anuncio entre categoría y juegos -->
-        <div class="ad-container">
-            <div class="ad-label">Publicidad</div>
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-5461370198299696"
-                 data-ad-slot="0987654321"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </div>
-        
         <div class="game-container" id="game-container">
             <!-- Juegos se insertarán aquí dinámicamente -->
-        </div>
-        
-        <!-- Anuncio después de los juegos -->
-        <div class="ad-container">
-            <div class="ad-label">Publicidad</div>
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-5461370198299696"
-                 data-ad-slot="5678901234"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
         </div>
     </div>
     
@@ -964,62 +670,9 @@
         </div>
     </div>
 
-    <!-- Modal de Preguntas Frecuentes -->
-    <div id="faq-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title">Preguntas Frecuentes</div>
-                <span class="close-modal">&times;</span>
-            </div>
-            <div class="faq-content">
-                <div class="faq-item">
-                    <div class="faq-question">¿Cómo puedo jugar los juegos?</div>
-                    <div class="faq-answer">Simplemente haz clic en el botón "Jugar" de cualquier juego y se cargará en tu navegador. No necesitas descargar nada.</div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">¿Los juegos son realmente gratis?</div>
-                    <div class="faq-answer">Sí, todos los juegos en nuestro sitio son completamente gratuitos. Algunos pueden contener compras dentro del juego opcionales.</div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">¿Necesito crear una cuenta?</div>
-                    <div class="faq-answer">No, no es necesario registrarse para jugar. Puedes acceder a todos los juegos directamente.</div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">¿Por qué veo anuncios?</div>
-                    <div class="faq-answer">Los anuncios nos ayudan a mantener el sitio gratis para todos los usuarios. Si usas un bloqueador de anuncios, considera desactivarlo para apoyarnos.</div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">¿Cómo puedo sugerir un juego?</div>
-                    <div class="faq-answer">Puedes contactarnos a través de nuestras redes sociales o en la sección de TikTok que encontrarás en el menú.</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Anuncio intersticial -->
-    <div class="interstitial-ad" id="interstitial-ad">
-        <div class="interstitial-content">
-            <div class="interstitial-title">¡Gracias por jugar!</div>
-            <p>Disfruta de este breve anuncio mientras cargamos tu juego</p>
-            <div class="ad-container">
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-5461370198299696"
-                     data-ad-slot="6789012345"
-                     data-ad-format="auto"
-                     data-full-width-responsive="true"></ins>
-                <script>
-                     (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
-            </div>
-            <div class="interstitial-timer" id="interstitial-timer">El juego comenzará en 5 segundos...</div>
-            <button class="interstitial-close" id="interstitial-close">Saltar anuncio</button>
-        </div>
-    </div>
-
     <amp-auto-ads type="adsense"
         data-ad-client="ca-pub-5461370198299696">
-    </amp-auto-ads>
+</amp-auto-ads>
     
     <div class="tusini-banner" id="tusini-banner">
         <div class="tusini-banner-content">
@@ -1073,7 +726,7 @@
                 url: "https://www.crazygames.com/embed/death-city-zombie-invasion-liq",
                 category: "shooter"
             },
-                       {
+            {
                 title: "Bullet Force",
                 description: "Juego de disparos multijugador en primera persona.",
                 thumbnail: "https://imgs.crazygames.com/bullet-force-multiplayer_16x9/20250422192901/bullet-force-multiplayer_16x9-cover?metadata=none&quality=70&width=599",
@@ -1202,24 +855,12 @@
         const loadingTimer = document.getElementById('loading-timer');
         const fullscreenExit = document.getElementById('fullscreen-exit');
         const tusiniBanner = document.getElementById('tusini-banner');
-        const menuButton = document.getElementById('menu-button');
-        const menuContent = document.getElementById('menu-content');
-        const faqLink = document.getElementById('faq-link');
-        const tiktokLink = document.getElementById('tiktok-link');
-        const downloadLink = document.getElementById('download-link');
-        const faqModal = document.getElementById('faq-modal');
-        const closeModal = document.querySelector('.close-modal');
-        const interstitialAd = document.getElementById('interstitial-ad');
-        const interstitialClose = document.getElementById('interstitial-close');
-        const interstitialTimer = document.getElementById('interstitial-timer');
         
         // Variables de estado
         let isFullscreen = false;
         let currentGameUrl = '';
         let loadingInterval;
-        let secondsLeft = 5;
-        let interstitialSeconds = 5;
-        let interstitialInterval;
+        let secondsLeft = 5; // Reducido a 5 segundos
         
         // Mostrar juegos
         function displayGames(gamesToShow) {
@@ -1230,7 +871,7 @@
                 return;
             }
             
-            gamesToShow.forEach((game, index) => {
+            gamesToShow.forEach(game => {
                 const gameCard = document.createElement('div');
                 gameCard.className = 'game-card';
                 gameCard.dataset.category = game.category;
@@ -1258,26 +899,6 @@
                 `;
                 
                 gameContainer.appendChild(gameCard);
-                
-                // Insertar anuncio cada 3 juegos
-                if ((index + 1) % 3 === 0 && index !== gamesToShow.length - 1) {
-                    const adContainer = document.createElement('div');
-                    adContainer.className = 'ad-container';
-                    adContainer.style.gridColumn = '1 / -1';
-                    adContainer.innerHTML = `
-                        <div class="ad-label">Publicidad</div>
-                        <ins class="adsbygoogle"
-                             style="display:block"
-                             data-ad-client="ca-pub-5461370198299696"
-                             data-ad-slot="${Math.floor(Math.random() * 10000000000)}"
-                             data-ad-format="auto"
-                             data-full-width-responsive="true"></ins>
-                        <script>
-                             (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
-                    `;
-                    gameContainer.appendChild(adContainer);
-                }
             });
             
             // Agregar event listeners a los botones
@@ -1290,7 +911,7 @@
                 button.addEventListener('click', (e) => {
                     const url = e.target.closest('button').getAttribute('data-url');
                     const title = e.target.closest('button').getAttribute('data-title');
-                    showInterstitialAd(url, title, false);
+                    openGameViewer(url, title, false);
                 });
             });
             
@@ -1298,33 +919,9 @@
                 button.addEventListener('click', (e) => {
                     const url = e.target.closest('button').getAttribute('data-url');
                     const title = e.target.closest('button').getAttribute('data-title');
-                    showInterstitialAd(url, title, true);
+                    openGameViewer(url, title, true);
                 });
             });
-        }
-        
-        // Mostrar anuncio intersticial
-        function showInterstitialAd(url, title, fullscreen) {
-            currentGameUrl = url;
-            interstitialAd.style.display = 'flex';
-            interstitialSeconds = 5;
-            interstitialTimer.textContent = `El juego comenzará en ${interstitialSeconds} segundos...`;
-            
-            interstitialInterval = setInterval(() => {
-                interstitialSeconds--;
-                interstitialTimer.textContent = `El juego comenzará en ${interstitialSeconds} segundos...`;
-                
-                if (interstitialSeconds <= 0) {
-                    closeInterstitialAd();
-                    openGameViewer(url, title, fullscreen);
-                }
-            }, 1000);
-        }
-        
-        // Cerrar anuncio intersticial
-        function closeInterstitialAd() {
-            clearInterval(interstitialInterval);
-            interstitialAd.style.display = 'none';
         }
         
         // Mostrar temporizador de carga
@@ -1375,6 +972,7 @@
         
         // Abrir visor de juego
         function openGameViewer(url, title, fullscreen) {
+            currentGameUrl = url;
             viewerTitle.textContent = title;
             gameViewer.style.display = 'flex';
             overlay.style.display = 'block';
@@ -1501,56 +1099,6 @@
         toggleFullscreen.addEventListener('click', toggleFullscreenMode);
         fullscreenExit.addEventListener('click', toggleFullscreenMode);
         
-        // Menú de tres puntos
-        menuButton.addEventListener('click', () => {
-            menuContent.classList.toggle('show');
-        });
-        
-        // Cerrar menú al hacer clic fuera
-        document.addEventListener('click', (e) => {
-            if (!menuButton.contains(e.target) && !menuContent.contains(e.target)) {
-                menuContent.classList.remove('show');
-            }
-        });
-        
-        // Preguntas frecuentes
-        faqLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            menuContent.classList.remove('show');
-            faqModal.style.display = 'block';
-        });
-        
-        // TikTok
-        tiktokLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            menuContent.classList.remove('show');
-            alert('Pronto podrás interactuar con nosotros en TikTok. ¡Mantente atento!');
-        });
-        
-        // Descargar App
-        downloadLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            menuContent.classList.remove('show');
-            alert('La aplicación web estará disponible para descarga pronto.');
-        });
-        
-        // Cerrar modal FAQ
-        closeModal.addEventListener('click', () => {
-            faqModal.style.display = 'none';
-        });
-        
-        // Cerrar modal FAQ al hacer clic fuera
-        window.addEventListener('click', (e) => {
-            if (e.target === faqModal) {
-                faqModal.style.display = 'none';
-            }
-        });
-        
-        // Cerrar anuncio intersticial
-        interstitialClose.addEventListener('click', () => {
-            closeInterstitialAd();
-        });
-        
         // Manejar tecla ESC para salir de pantalla completa
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && isFullscreen) {
@@ -1569,11 +1117,6 @@
                     fullscreenExit.style.display = 'none';
                 }
             }
-        });
-        
-        // Inicializar anuncios
-        document.querySelectorAll('.adsbygoogle').forEach(ad => {
-            (adsbygoogle = window.adsbygoogle || []).push({});
         });
         
         // Inicializar

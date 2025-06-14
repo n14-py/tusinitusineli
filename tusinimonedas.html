@@ -849,15 +849,17 @@
                     </button>
                 </div>
 
-                <div class="ad-container">
-                    <h3 class="ad-title">Anuncio Patrocinado</h3>
-                    <div class="ad-placeholder" id="ad-placeholder">
-                        Anuncio aparecerá aquí
-                    </div>
-                    <button class="btn btn-secondary" id="skip-ad-btn" style="display: none;">
-                        <i class="fas fa-forward"></i> Saltar en <span id="skip-timer">5</span>s
-                    </button>
-                </div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5461370198299696"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-f8+5e+78-c8-2t"
+     data-ad-client="ca-pub-5461370198299696"
+     data-ad-slot="1103420372"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
                 <div class="live-widget-container">
                     <h3 class="live-widget-title">Live en TikTok</h3>
@@ -1309,25 +1311,31 @@
             state.adInProgress = true;
             saveState();
             
-            // Mostrar modal con el anuncio
-            modalTitle.textContent = 'Ver Anuncio';
-            modalText.textContent = 'Por favor mira el anuncio completo para recibir tus monedas.';
-            modalContent.innerHTML = `
-                <div style="width: 100%; height: 300px; background-color: #dfe6e9; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5461370198299696"
-     crossorigin="anonymous"></script>
-<!-- seconds -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-5461370198299696"
-     data-ad-slot="1516716867"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-                </div>
-            `;
+           modalTitle.textContent = 'Ver Anuncio';
+modalText.textContent = 'Por favor mira el anuncio completo para recibir tus monedas.';
+
+// Limpiar contenido anterior
+modalContent.innerHTML = "";
+
+// Crear contenedor del anuncio
+const adContainer = document.createElement("div");
+adContainer.innerHTML = `
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-5461370198299696"
+       data-ad-slot="1516716867"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+`;
+modalContent.appendChild(adContainer);
+
+// Ejecutar el script después de insertar el <ins>
+try {
+  (adsbygoogle = window.adsbygoogle || []).push({});
+} catch (e) {
+  console.error("No se pudo cargar el anuncio:", e);
+}
+
             rewardMessage.style.display = 'none';
             closeModal.style.display = 'none';
             contentModal.classList.add('active');

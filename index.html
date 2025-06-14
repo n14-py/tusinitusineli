@@ -1,681 +1,624 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tusini Monedas</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>TusiniTusineli.com - Juegos Gratis Online</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5461370198299696" crossorigin="anonymous"></script>
     <style>
         :root {
-            --primary: #e84393;
-            --secondary: #fd79a8;
-            --accent: #fab1a0;
-            --dark: #2d3436;
-            --light: #fff9fa;
-            --success: #00b894;
-            --warning: #fdcb6e;
-            --danger: #d63031;
+            --primary-color: #4a148c;
+            --secondary-color: #7b1fa2;
+            --accent-color: #e91e63;
+            --pink-accent: #ff4081;
+            --light-color: #f3e5f5;
+            --dark-color: #12005e;
+            --text-color: #333;
+            --text-light: #fff;
         }
-
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
+        
         body {
-            background-color: var(--light);
-            color: var(--dark);
-            min-height: 100vh;
-            padding-top: 80px;
-            padding-bottom: 20px;
+            background-color: #f5f5f5;
+            color: var(--text-color);
         }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        header {
+        
+        body.fullscreen-mode {
+            overflow: hidden;
             position: fixed;
-            top: 0;
-            left: 0;
             width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            background-color: var(--light);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            z-index: 100;
-            animation: fadeInDown 0.5s ease;
+            height: 100%;
         }
-
-        .logo {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--primary);
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .coins {
-            background-color: var(--warning);
-            color: var(--dark);
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .coins:hover {
-            transform: scale(1.05);
-        }
-
-        .coins i {
-            font-size: 18px;
-        }
-
-        .menu-btn {
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: var(--primary);
-            cursor: pointer;
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-light);
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            animation: fadeInDown 0.5s ease-out;
             display: flex;
             flex-direction: column;
-            gap: 5px;
-            padding: 5px;
-        }
-
-        .menu-dot {
-            width: 5px;
-            height: 5px;
-            background-color: var(--primary);
-            border-radius: 50%;
-        }
-
-        .menu {
-            position: fixed;
-            top: 70px;
-            right: 20px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            padding: 15px;
-            z-index: 101;
-            display: none;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .menu.active {
-            display: block;
-        }
-
-        .menu-item {
-            padding: 10px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
             align-items: center;
-            gap: 10px;
-            white-space: nowrap;
         }
-
-        .menu-item:hover {
-            background-color: rgba(232, 67, 147, 0.1);
-            color: var(--primary);
-        }
-
-        .menu-item i {
-            font-size: 18px;
-        }
-
-        .username-input {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            margin: 10px 0;
-            width: 100%;
-        }
-
-        .save-username-btn {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 5px;
-        }
-
-        main {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 30px;
-            animation: fadeIn 0.8s ease;
-        }
-
-        @media (min-width: 768px) {
-            main {
-                grid-template-columns: 1fr 2fr;
-            }
-        }
-
-        .earn-coins {
-            background-color: white;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .earn-coins:hover {
-            transform: translateY(-5px);
-        }
-
-        .section-title {
-            font-size: 20px;
-            margin-bottom: 20px;
-            color: var(--primary);
-            border-bottom: 2px solid var(--secondary);
-            padding-bottom: 10px;
-        }
-
-        .earn-option {
+        
+        .header-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid #eee;
-            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 1200px;
         }
-
-        .earn-option:hover {
-            background-color: rgba(232, 67, 147, 0.05);
-            border-radius: 8px;
-            padding: 15px 10px;
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
-
-        .earn-option:last-child {
-            border-bottom: none;
-        }
-
-        .earn-details {
+        
+        .menu-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
         }
-
-        .earn-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
+        
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin: 1rem 0;
+            animation: fadeIn 0.8s ease-out;
+            width: 100%;
+        }
+        
+        #search-input {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 20px 0 0 20px;
+            width: 70%;
+            max-width: 500px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        #search-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--pink-accent);
+        }
+        
+        #search-button {
+            padding: 0.5rem 1rem;
+            border: none;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 0 20px 20px 0;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        #search-button:hover {
+            background-color: var(--pink-accent);
+            transform: scale(1.02);
+        }
+        
+        .categories {
+            display: flex;
+            overflow-x: auto;
+            padding: 0.5rem;
+            background-color: var(--light-color);
+            margin-bottom: 1rem;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-color) var(--light-color);
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .categories::-webkit-scrollbar {
+            height: 6px;
+        }
+        
+        .categories::-webkit-scrollbar-track {
+            background: var(--light-color);
+        }
+        
+        .categories::-webkit-scrollbar-thumb {
+            background-color: var(--primary-color);
+            border-radius: 6px;
+        }
+        
+        .category {
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            background-color: white;
+            border-radius: 20px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .category:hover, .category.active {
+            background-color: var(--pink-accent);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+        }
+        
+        .game-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .game-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            animation: fadeInUp 0.5s ease-out;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .game-thumbnail {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            background-color: #eee;
+            transition: transform 0.3s;
+        }
+        
+        .game-card:hover .game-thumbnail {
+            transform: scale(1.03);
+        }
+        
+        .game-info {
+            padding: 1rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .game-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+        }
+        
+        .game-description {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+            line-height: 1.4;
+        }
+        
+        .game-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 0.5rem;
+        }
+        
+        .play-button, .fullscreen-button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        
+        .play-button {
+            background-color: var(--primary-color);
+            color: white;
+            flex: 1;
+        }
+        
+        .fullscreen-button {
+            background-color: var(--accent-color);
+            color: white;
+            flex: 1;
+        }
+        
+        .play-button:hover {
+            background-color: var(--dark-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .fullscreen-button:hover {
+            background-color: var(--pink-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .game-viewer {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 85%;
+            height: 75%;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .game-viewer.fullscreen {
+            width: 100%;
+            height: 100%;
+            border-radius: 0;
+            top: 0;
+            left: 0;
+            transform: none;
+        }
+        
+        .game-viewer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .viewer-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .viewer-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .viewer-control-button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
         }
-
-        .earn-amount {
-            background-color: var(--warning);
-            color: var(--dark);
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 14px;
-            font-weight: 600;
+        
+        .viewer-control-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
         }
-
-        .btn {
+        
+        .close-viewer {
+            background: none;
             border: none;
-            padding: 8px 15px;
-            border-radius: 8px;
-            font-weight: 600;
+            color: white;
+            font-size: 1.8rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-        }
-
-        .btn-primary {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background-color: #d63073;
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background-color: var(--secondary);
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background-color: #e84393;
-            transform: translateY(-2px);
-        }
-
-        .btn-accent {
-            background-color: var(--accent);
-            color: white;
-        }
-
-        .btn-accent:hover {
-            background-color: #f8a58d;
-            transform: translateY(-2px);
-        }
-
-        .btn:disabled {
-            background-color: #b2bec3;
-            cursor: not-allowed;
-            transform: none !important;
-        }
-
-        .videos-section {
-            background-color: white;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .videos-section:hover {
-            transform: translateY(-5px);
-        }
-
-        .videos-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        @media (min-width: 768px) {
-            .videos-grid {
-                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            }
-        }
-
-        .video-card {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .video-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .video-thumbnail {
-            width: 100%;
-            height: 100px;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .video-card:hover .video-thumbnail {
-            transform: scale(1.05);
-        }
-
-        @media (min-width: 768px) {
-            .video-thumbnail {
-                height: 120px;
-            }
-        }
-
-        .video-info {
-            padding: 10px;
-        }
-
-        .video-title {
-            font-size: 14px;
-            margin-bottom: 5px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .video-price {
-            font-size: 12px;
-            color: var(--primary);
-            font-weight: 600;
+            width: 32px;
+            height: 32px;
             display: flex;
             align-items: center;
-            gap: 3px;
+            justify-content: center;
+            transition: all 0.3s;
+            border-radius: 50%;
         }
-
-        .cooldown {
+        
+        .close-viewer:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+        
+        .game-iframe-container {
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+        
+        .game-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            position: relative;
+            z-index: 1;
+            background-color: #f0f0f0;
+        }
+        
+        .loading-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.7);
+            background-color: rgba(0, 0, 0, 0.9);
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 14px;
-            font-weight: 600;
+            z-index: 5;
         }
-
+        
+        .loading-content {
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+        }
+        
         .ad-container {
-            margin-top: 30px;
-            background-color: #f1f2f6;
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-
-        .ad-container:hover {
-            transform: translateY(-3px);
-        }
-
-        .ad-title {
-            font-size: 14px;
-            color: #7f8c8d;
-            margin-bottom: 10px;
-        }
-
-        .ad-placeholder {
-            width: 100%;
-            height: 150px;
-            background-color: #dfe6e9;
-            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            background: #222;
+            min-height: 250px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #636e72;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .timer {
-            font-size: 12px;
-            color: #7f8c8d;
-            margin-top: 5px;
-        }
-
-        .live-widget-container {
-            margin-top: 30px;
-            background-color: #f1f2f6;
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-
-        .live-widget-container:hover {
-            transform: translateY(-3px);
-        }
-
-        .live-widget-title {
-            font-size: 14px;
-            color: #7f8c8d;
-            margin-bottom: 10px;
-        }
-
-        .live-widget {
-            width: 100%;
-            height: 200px;
-            background-color: #dfe6e9;
             border-radius: 8px;
-            margin-bottom: 10px;
             overflow: hidden;
-            position: relative;
         }
-
-        .live-widget iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
+        
+        .loading-controls {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
         }
-
-        .volume-control {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            background-color: rgba(0,0,0,0.5);
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--pink-accent);
+            animation: spin 1s ease-in-out infinite;
+            margin: 0 auto 1rem;
+        }
+        
+        .loading-text {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+        
+        .loading-timer {
+            font-size: 1rem;
+            color: #ccc;
+            margin-bottom: 1rem;
+        }
+        
+        .skip-button {
+            background-color: var(--accent-color);
             color: white;
             border: none;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .skip-button:hover {
+            background-color: var(--pink-accent);
+            transform: translateY(-2px);
+        }
+        
+        .fullscreen-exit {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            z-index: 1001;
+            display: none;
+            transition: all 0.3s;
+        }
+        
+        .fullscreen-exit:hover {
+            background: rgba(0, 0, 0, 0.9);
+        }
+        
+        .tusini-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: linear-gradient(135deg, var(--pink-accent), var(--accent-color));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 -3px 10px rgba(0,0,0,0.2);
+            animation: slideUp 0.5s ease-out;
+        }
+        
+        .tusini-banner-content {
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            z-index: 10;
+            gap: 15px;
+            width: 100%;
+            max-width: 800px;
+            padding: 0 15px;
+            white-space: nowrap;
         }
-
-        .live-widget-text {
-            font-size: 12px;
-            color: #636e72;
+        
+        .tusini-logo {
+            font-weight: bold;
+            color: white;
+            font-size: 1.2rem;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
         }
-
-        .modal {
+        
+        .tusini-text {
+            color: white;
+            font-size: 0.95rem;
+        }
+        
+        .tusini-link {
+            background-color: white;
+            color: var(--pink-accent);
+            padding: 5px 15px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .tusini-link:hover {
+            background-color: #f8bbd0;
+            color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+        
+        .overlay {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.7);
-            display: flex;
-            align-items: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+            backdrop-filter: blur(3px);
+        }
+        
+        .menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1002;
+            backdrop-filter: blur(5px);
             justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
+            align-items: center;
         }
-
-        .modal.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .modal-content {
-            background-color: white;
+        
+        .menu-content {
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+            color: white;
             border-radius: 15px;
-            padding: 25px;
             width: 90%;
             max-width: 500px;
-            max-height: 90vh;
-            overflow-y: auto;
+            padding: 2rem;
             position: relative;
-            animation: modalFadeIn 0.4s ease;
+            text-align: center;
+            animation: fadeIn 0.3s ease-out;
         }
-
-        @keyframes modalFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .close-modal {
+        
+        .close-menu {
             position: absolute;
             top: 15px;
             right: 15px;
-            font-size: 24px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
             cursor: pointer;
-            color: var(--dark);
-            transition: transform 0.3s ease;
         }
-
-        .close-modal:hover {
-            transform: rotate(90deg);
-            color: var(--primary);
+        
+        .menu-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--pink-accent);
         }
-
-        .modal-title {
-            font-size: 22px;
-            margin-bottom: 15px;
-            color: var(--primary);
+        
+        .menu-content ul {
+            list-style: none;
         }
-
-        .modal-text {
-            margin-bottom: 20px;
+        
+        .menu-content li {
+            margin: 1.5rem 0;
         }
-
-        .video-preview {
-            width: 100%;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-
-        .reward-message {
-            text-align: center;
-            padding: 15px;
-            background-color: var(--success);
+        
+        .menu-content a {
             color: white;
-            border-radius: 8px;
-            margin-top: 20px;
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: var(--success);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 8px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-            z-index: 1001;
-            display: none;
-            animation: fadeInUp 0.5s ease;
-        }
-
-        .toast.error {
-            background-color: var(--danger);
-        }
-
-        .tiktok-btn {
-            margin-top: 20px;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            background-color: #000;
-            color: white;
-            padding: 12px;
-            border-radius: 8px;
             text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .tiktok-btn:hover {
-            background-color: #333;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .tiktok-btn i {
-            font-size: 20px;
-        }
-
-        .share-options {
-            display: none;
-            margin-top: 20px;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .share-option {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px;
-            margin-bottom: 10px;
+            font-size: 1.2rem;
+            display: block;
+            padding: 0.8rem;
             border-radius: 8px;
-            background-color: #f1f2f6;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.1);
         }
-
-        .share-option:hover {
-            background-color: #dfe6e9;
-            transform: translateX(5px);
+        
+        .menu-content a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
         }
-
-        .share-option.whatsapp {
-            background-color: #25D366;
+        
+        footer {
+            background: linear-gradient(135deg, var(--dark-color), var(--primary-color));
             color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
         }
-
-        .share-option.tiktok {
-            background-color: #000;
-            color: white;
+        
+        footer p {
+            font-size: 0.9rem;
         }
-
-        .share-option.whatsapp:hover {
-            background-color: #128C7E;
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
-
-        .share-option.tiktok:hover {
-            background-color: #333;
-        }
-
-        .share-option i {
-            font-size: 20px;
-        }
-
-        .progress-container {
-            width: 100%;
-            background-color: #f1f2f6;
-            border-radius: 10px;
-            margin-top: 10px;
-            height: 8px;
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            border-radius: 10px;
-            transition: width 0.3s ease;
-        }
-
+        
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
-
+        
         @keyframes fadeInDown {
             from {
                 opacity: 0;
@@ -686,7 +629,7 @@
                 transform: translateY(0);
             }
         }
-
+        
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -697,858 +640,671 @@
                 transform: translateY(0);
             }
         }
-
-        .pulse {
-            animation: pulse 1.5s infinite;
+        
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+            }
+            to {
+                transform: translateY(0);
+            }
         }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        
+        @media (max-width: 768px) {
+            .game-container {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .game-viewer:not(.fullscreen) {
+                width: 95%;
+                height: 65%;
+            }
+            
+            .game-title {
+                font-size: 1rem;
+            }
+            
+            .game-description {
+                font-size: 0.85rem;
+            }
+            
+            .play-button, .fullscreen-button {
+                padding: 0.5rem;
+                font-size: 0.8rem;
+            }
+            
+            .tusini-banner {
+                display: none;
+            }
+            
+            /* Mejor experiencia de juego en móvil */
+            .game-viewer.fullscreen {
+                height: 100vh !important;
+                width: 100vw !important;
+            }
+            
+            .game-iframe {
+                height: calc(100vh - 50px) !important;
+                width: 100vw !important;
+            }
+            
+            /* Ocultar la barra de direcciones en móvil */
+            .fullscreen-mode {
+                position: fixed;
+                overflow: hidden;
+                height: 100%;
+                width: 100%;
+            }
+            
+            .ad-container {
+                min-height: 200px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .game-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .game-viewer:not(.fullscreen) {
+                height: 60%;
+                width: 95%;
+            }
+            
+            .categories {
+                padding: 0.5rem 0.3rem;
+            }
+            
+            .category {
+                padding: 0.4rem 0.8rem;
+                margin: 0 0.3rem;
+                font-size: 0.8rem;
+            }
+            
+            #search-input {
+                width: 65%;
+                padding: 0.5rem;
+            }
+            
+            #search-button {
+                padding: 0.5rem;
+            }
+            
+            .loading-text {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+            
+            .viewer-title {
+                font-size: 0.9rem;
+                max-width: 60%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            
+            .viewer-control-button, .close-viewer {
+                width: 28px;
+                height: 28px;
+                font-size: 0.9rem;
+            }
+            
+            .ad-container {
+                min-height: 150px;
+            }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>
-        <div class="logo">Tusini Monedas</div>
-        <div class="user-info">
-            <div class="coins">
-                <i class="fas fa-coins"></i>
-                <span id="coins-amount">0</span>
-            </div>
-            <button class="menu-btn" id="menu-btn">
-                <div class="menu-dot"></div>
-                <div class="menu-dot"></div>
-                <div class="menu-dot"></div>
-            </button>
+        <div class="header-top">
+            <div class="logo">tusinitusineli.com</div>
+            <button class="menu-toggle" id="menu-toggle">☰</button>
         </div>
-        <div class="menu" id="menu">
-            <div class="menu-item" id="how-it-works">
-                <i class="fas fa-question-circle"></i>
-                <span>Cómo funciona</span>
-            </div>
-            <div class="menu-item" id="go-to-games">
-                <i class="fas fa-gamepad"></i>
-                <span>Volver a TusiniTusineli Juegos</span>
-            </div>
-            <input type="text" id="username-input" class="username-input" placeholder="Tu nombre de usuario">
-            <button class="save-username-btn" id="save-username-btn">
-                <i class="fas fa-save"></i> Guardar Nombre
-            </button>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Buscar juegos...">
+            <button id="search-button">Buscar</button>
         </div>
     </header>
-
-    <div class="container">
-        <main>
-            <section class="earn-coins">
-                <h2 class="section-title">Gana Monedas</h2>
-                
-                <div class="earn-option">
-                    <div class="earn-details">
-                        <div class="earn-icon">
-                            <i class="fas fa-ad"></i>
-                        </div>
-                        <div>
-                            <h3>Ver Anuncio</h3>
-                            <p class="timer" id="ad-timer">Disponible ahora</p>
-                            <p class="timer">1 anuncio por minuto</p>
-                        </div>
-                    </div>
-                    <div class="earn-amount">+10</div>
-                    <button class="btn btn-primary" id="watch-ad-btn">
-                        <i class="fas fa-play"></i> Ver
-                    </button>
-                </div>
-
-                <div class="earn-option">
-                    <div class="earn-details">
-                        <div class="earn-icon">
-                            <i class="fab fa-youtube"></i>
-                        </div>
-                        <div>
-                            <h3>Ver Video YouTube</h3>
-                            <p class="timer" id="yt-timer"></p>
-                            <div class="progress-container" id="yt-progress-container" style="display: none;">
-                                <div class="progress-bar" id="yt-progress-bar"></div>
-                            </div>
-                            <p class="timer" id="yt-count">0/3 disponibles</p>
-                        </div>
-                    </div>
-                    <div class="earn-amount">+25</div>
-                    <button class="btn btn-primary" id="watch-yt-btn">
-                        <i class="fas fa-play"></i> Ver
-                    </button>
-                </div>
-
-                <div class="earn-option">
-                    <div class="earn-details">
-                        <div class="earn-icon">
-                            <i class="fab fa-youtube"></i>
-                        </div>
-                        <div>
-                            <h3>Suscribirse a Canal</h3>
-                            <p>Una vez por canal</p>
-                        </div>
-                    </div>
-                    <div class="earn-amount">+50</div>
-                    <button class="btn btn-primary" id="subscribe-btn">
-                        <i class="fas fa-check"></i> Suscribirse
-                    </button>
-                </div>
-
-                <div class="earn-option">
-                    <div class="earn-details">
-                        <div class="earn-icon">
-                            <i class="fas fa-share-alt"></i>
-                        </div>
-                        <div>
-                            <h3>Compartir en Redes</h3>
-                            <p class="timer" id="share-timer">Disponible ahora</p>
-                            <p class="timer">3 veces cada 2 minutos</p>
-                        </div>
-                    </div>
-                    <div class="earn-amount">+30</div>
-                    <button class="btn btn-primary" id="share-btn">
-                        <i class="fas fa-share"></i> Compartir
-                    </button>
-                </div>
-
-                <div class="ad-container">
-                    <h3 class="ad-title">Anuncio Patrocinado</h3>
-                    <div class="ad-placeholder" id="ad-placeholder">
-                        Anuncio aparecerá aquí
-                    </div>
-                    <button class="btn btn-secondary" id="skip-ad-btn" style="display: none;">
-                        <i class="fas fa-forward"></i> Saltar en <span id="skip-timer">5</span>s
-                    </button>
-                </div>
-
-                <div class="live-widget-container">
-  <h3 class="live-widget-title">Live en TikTok</h3>
-  <div class="live-widget">
-    <iframe src="https://tusini.glitch.me/widget/live.html" allowfullscreen></iframe>
-    <button class="volume-control" id="volume-control">
-      <i class="fas fa-volume-up"></i>
-    </button>
-  </div>
- <p class="live-widget-text">
-  Los videos que ves aquí son enviados por los usuarios. Por restricciones de los navegadores web, el audio no se reproduce automáticamente en esta página, pero si ingresás al live directamente en TikTok, podrás ver y escuchar el video con sonido sin problema.
-</p>
-
-
-</div>
-
-
-                <a href="https://www.tiktok.com/@periquiniloquini" target="_blank" class="tiktok-btn pulse">
-                    <i class="fab fa-tiktok"></i> Ver Live en TikTok
-                </a>
-            </section>
-
-            <section class="videos-section">
-                <h2 class="section-title">Envía Videos al Live</h2>
-                <p>Gasta tus monedas para enviar videos divertidos al live. Cada video tiene un tiempo de espera después de enviarlo.</p>
-                
-                <div class="videos-grid" id="videos-grid">
-                    <!-- Videos se cargarán aquí -->
-                </div>
-            </section>
-        </main>
+    
+    <div class="categories">
+        <div class="category active" data-category="all">Todos</div>
+        <div class="category" data-category="action">Acción</div>
+        <div class="category" data-category="adventure">Aventura</div>
+        <div class="category" data-category="puzzle">Puzzle</div>
+        <div class="category" data-category="racing">Carreras</div>
+        <div class="category" data-category="shooter">Shooter</div>
+        <div class="category" data-category="simulator">Simulador</div>
+        <div class="category" data-category="io">.io</div>
     </div>
-
-    <!-- Modal para visualización de contenido -->
-    <div class="modal" id="content-modal">
-        <div class="modal-content">
-            <span class="close-modal" id="close-modal">&times;</span>
-            <h2 class="modal-title" id="modal-title">Ver Anuncio</h2>
-            <p class="modal-text" id="modal-text">Por favor mira el anuncio completo para recibir tus monedas.</p>
-            
-            <div id="modal-content">
-                <!-- Contenido del modal (anuncio, video, etc) -->
+    
+    <div class="main-container">
+        <h2>Juegos Populares</h2>
+        <div class="game-container" id="game-container">
+            <!-- Juegos se insertarán aquí dinámicamente -->
+        </div>
+    </div>
+    
+    <div class="overlay" id="overlay"></div>
+    
+    <div class="game-viewer" id="game-viewer">
+        <div class="game-viewer-header">
+            <div class="viewer-title" id="viewer-title">Juego</div>
+            <div class="viewer-controls">
+                <button class="viewer-control-button" id="toggle-fullscreen" title="Pantalla completa">⛶</button>
+                <button class="close-viewer" id="close-viewer" title="Cerrar">&times;</button>
             </div>
-            
-            <div class="reward-message" id="reward-message">
-                <i class="fas fa-check-circle"></i> ¡Has ganado <span id="reward-amount">10</span> monedas!
+        </div>
+        <div class="game-iframe-container">
+            <div class="loading-overlay" id="loading-overlay">
+                <div class="loading-content">
+                    <div class="ad-container" id="ad-container">
+                        <!-- Anuncio de AdSense -->
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="ca-pub-5461370198299696"
+                             data-ad-slot="7259870550"
+                             data-ad-format="auto"
+                             data-full-width-responsive="true"></ins>
+                    </div>
+                    <div class="loading-controls">
+                        <div class="loading-spinner"></div>
+                        <div class="loading-text">tusinitusineli.com está cargando tu juego</div>
+                        <div class="loading-timer" id="loading-timer">5 segundos restantes</div>
+                        <button class="skip-button" id="skip-button">Saltar anuncio</button>
+                    </div>
+                </div>
             </div>
+            <iframe class="game-iframe" id="game-iframe" frameborder="0" allow="gamepad *;"></iframe>
         </div>
     </div>
 
-    <!-- Modal para compartir -->
-    <div class="modal" id="share-modal">
-        <div class="modal-content">
-            <span class="close-modal" id="close-share-modal">&times;</span>
-            <h2 class="modal-title">Compartir en Redes</h2>
-            <p class="modal-text">Comparte nuestro contenido en tus redes sociales y gana 30 monedas.</p>
-            
-            <div class="share-options" id="share-options">
-                <div class="share-option whatsapp" id="whatsapp-share">
-                    <i class="fab fa-whatsapp"></i>
-                    <span>Compartir en WhatsApp</span>
-                </div>
-                <div class="share-option tiktok" id="tiktok-share">
-                    <i class="fab fa-tiktok"></i>
-                    <span>Seguir en TikTok</span>
-                </div>
-            </div>
-            
-            <div class="reward-message" id="share-reward-message">
-                <i class="fas fa-check-circle"></i> ¡Has ganado 30 monedas por compartir!
-            </div>
+    <div class="tusini-banner" id="tusini-banner">
+        <div class="tusini-banner-content">
+            <div class="tusini-logo">tusinitusineli.com</div>
+            <div class="tusini-text">¡Disfruta de más juegos gratis!</div>
+            <a href="index.html" class="tusini-link">Ver todos</a>
         </div>
     </div>
-
-    <!-- Modal Cómo funciona -->
-    <div class="modal" id="how-it-works-modal">
-        <div class="modal-content">
-            <span class="close-modal" id="close-how-it-works-modal">&times;</span>
-            <h2 class="modal-title">Cómo Funciona Tusini Monedas</h2>
-            
-            <div class="modal-text">
-                <p><strong>1. Gana Monedas:</strong> Completa las diferentes actividades para ganar monedas:</p>
-                <ul style="margin-left: 20px; margin-bottom: 15px;">
-                    <li>Ver anuncios (+10 monedas, 1 por minuto)</li>
-                    <li>Ver videos de YouTube (+25 monedas, máximo 3 cada 2 minutos)</li>
-                    <li>Suscribirte a canales (+50 monedas, una vez por canal)</li>
-                    <li>Compartir en redes (+30 monedas, máximo 3 cada 2 minutos)</li>
-                </ul>
-                
-                <p><strong>2. Gasta Monedas:</strong> Usa tus monedas para enviar videos divertidos al live de TikTok:</p>
-                <ul style="margin-left: 20px; margin-bottom: 15px;">
-                    <li>Cada video tiene un costo diferente</li>
-                    <li>Después de enviar un video, tendrá un cooldown de 30 segundos</li>
-                </ul>
-                
-                <p><strong>3. Disfruta del Live:</strong> Mira el widget del live para ver cómo tus videos aparecen en el live de TikTok!</p>
-                
-                <p style="margin-top: 20px; font-weight: 600; color: var(--primary);">¡Entre más interactúes, más monedas ganas y más diversión tendrás!</p>
-            </div>
+    
+    <!-- Menú desplegable -->
+    <div class="menu-overlay" id="menu-overlay">
+        <div class="menu-content">
+            <button class="close-menu" id="close-menu">&times;</button>
+            <h3>tusinitusineli.com</h3>
+            <ul>
+                <li><a href="#" id="what-is">¿Qué es TusiniTusineli?</a></li>
+                <li><a href="periquiniloquini.html" id="tiktok">Interactúa en TikTok</a></li>
+                <li><a href="#" id="download">Descarga la Web App</a></li>
+            </ul>
         </div>
     </div>
-
-    <!-- Toast notification -->
-    <div class="toast" id="toast"></div>
-
+    
+    <button class="fullscreen-exit" id="fullscreen-exit">Salir de pantalla completa</button>
+    
+    <footer>
+        <p>&copy; 2023 TusiniTusineli.com - Todos los derechos reservados</p>
+    </footer>
+    
     <script>
-        // Datos de la aplicación
-        const videos = [
-            { id: 1, title: "TusiniTusineli", price: 15, thumbnail: "https://avatars.cloudflare.steamstatic.com/c1240ca9502a02f424b9144f3eeff7672367c91b_full.jpg", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tusini?v=1749832590537" },
-            { id: 2, title: "Periquini Loquini", price: 20, thumbnail: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoK3btY3-KZ6ST9xr0egrgrcVCdc8aa6AApw&s", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/periquini?v=1749832644879" },
-            { id: 3, title: "chimpazini bananini", price: 25, thumbnail: "https://pbs.twimg.com/profile_images/1921928002608205824/Bgpy7wl4_400x400.jpg", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/chimpazini?v=1749832619864" },
-            { id: 4, title: "BRR BRR PATAPIN", price: 30, thumbnail: "https://upload.wikimedia.org/wikipedia/commons/1/14/Brr_brr_patapim.jpg", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/patapin?v=1749832612664" },
-            { id: 5, title: "Tripi Tropi", price: 35, thumbnail: "https://upload.wikimedia.org/wikipedia/commons/1/14/Brr_brr_patapim.jpg", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tripitropi?v=1749832630261" },
-            { id: 6, title: "Tung Tung Sahur", price: 30, thumbnail: "https://i1.sndcdn.com/artworks-YDQOy2Pru5CA2rhs-x1uzgA-t1080x1080.jpg", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tuntungsahur?v=1749832636792" },
-            { id: 7, title: "Saturno Saturnita", price: 25, thumbnail: "https://media.printables.com/media/prints/fbd8d5d8-4bd5-45c9-823d-af2e845a2e74/images/9719789_4dc94f3c-c637-4dce-9239-ff74bd767bcf_0afe9704-1f2a-4e47-8447-a25e7a72ba90/thumbs/cover/800x800/jpeg/la-vaca-saturnito-saturnita.jpg", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/saturnosaturnita?v=1749832652351" },
-            { id: 8, title: "Carlooos", price: 30, thumbnail: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUxB5cWzIwd6kCFZYMKVvPIDlG9dst3q9JpQ&s", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/carloos?v=1749832661314" },
-            { id: 9, title: "Tralalero Tralala", price: 30, thumbnail: "https://elmercurio.com.mx/wp-content/uploads/2025/05/tralalero-tralala.jpg", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tralalerotralala?v=1749832633446" },
-            { id: 10, title: "tralaleritos", price: 25, thumbnail: "https://i.scdn.co/image/ab67616d00001e02a66ab55e5a83d21cf71d1e14", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tralaleritos?v=1749832616086" },
-            { id: 11, title: "Tung Tung Sahur music", price: 30, thumbnail: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVenIX5XrzD0ul0TI4MpN-F2w0nWeDEKygVg&s", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tuntunmusic?v=1749832656574" },
-            { id: 12, title: "BRR BRR PATAPIN PHONK", price: 35, thumbnail: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1uJpyxNCVooHTnBYYcP_pZ7Ydyw8KmDWeYw&s", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/brrpataminremix?v=1749832688911" },
-            { id: 13, title: "TRALALERO TRALALA PHONK", price: 35, thumbnail: "https://i1.sndcdn.com/artworks-oFsNkb2W0MDW-0-t500x500.jpg", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tralalerotralalaremix?v=1749832684969" },
-            { id: 14, title: "BOMBARDILO PHONK", price: 35, thumbnail: "https://i1.sndcdn.com/artworks-rksO7i8EfgO8HbsC-RxFZ4w-t500x500.png", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/bombardiloponhk?v=1749832677189" },
-            { id: 15, title: "TRALALERO TRALALA MUSIC", price: 35, thumbnail: "https://i.ytimg.com/vi/sTRh_NcaYHM/sddefault.jpg", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tralaleroonanananana?v=1749832682475" }
-        ];  
-
-        // Videos de YouTube para ver (3 videos aleatorios)
-        const youtubeVideos = [
-            { id: 'G-OaZnkbz9Y', title: 'Video 1 de Tusini' },
-            { id: 'U6bWEG7T8Aw', title: 'Video 2 de Tusini' },
-            { id: 'naWUg7_lfQ0', title: 'Video 3 de Tusini' }
+        // Datos de los juegos
+        const games = [
+            {
+                title: "Italian Brainrot Quiz",
+                description: "Pon a prueba tus conocimientos con este divertido quiz italiano.",
+                thumbnail: "https://imgs.crazygames.com/italianbrainrotquiz-io_16x9/20250522065211/italianbrainrotquiz-io_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/italianbrainrotquiz-io",
+                category: "puzzle"
+            },
+            {
+                title: "Italian Brainrot Clicker",
+                description: "Juego de clicker con temática italiana.",
+                thumbnail: "https://imgs.crazygames.com/italian-brainrot-clicker-usp_16x9/20250430033904/italian-brainrot-clicker-usp_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/italian-brainrot-clicker-usp",
+                category: "io"
+            },
+            {
+                title: "Tung Tung Sahur Obby",
+                description: "Supera los obstáculos en este desafío de plataformas.",
+                thumbnail: "https://imgs.crazygames.com/tung-tung-sahur-obby-challenge_16x9/20250520041244/tung-tung-sahur-obby-challenge_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/tung-tung-sahur-obby-challenge",
+                category: "adventure"
+            },
+            {
+                title: "Prison Escape",
+                description: "Escapa de la prisión en este emocionante juego.",
+                thumbnail: "https://imgs.crazygames.com/prison-escape-lnj_16x9/20250509092652/prison-escape-lnj_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/prison-escape-lnj",
+                category: "action"
+            },
+            {
+                title: "Death City Zombie",
+                description: "Sobrevive a la invasión zombie en la ciudad.",
+                thumbnail: "https://imgs.crazygames.com/death-city-zombie-invasion-liq_16x9/20241017024657/death-city-zombie-invasion-liq_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/death-city-zombie-invasion-liq",
+                category: "shooter"
+            },
+            {
+                title: "Bullet Force",
+                description: "Juego de disparos multijugador en primera persona.",
+                thumbnail: "https://imgs.crazygames.com/bullet-force-multiplayer_16x9/20250422192901/bullet-force-multiplayer_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/bullet-force-multiplayer",
+                category: "shooter"
+            },
+            {
+                title: "Rally Racer Dirt",
+                description: "Carreras de rally en terrenos difíciles.",
+                thumbnail: "https://imgs.crazygames.com/rally-racer-dirt_16x9/20250227034748/rally-racer-dirt_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/rally-racer-dirt",
+                category: "racing"
+            },
+            {
+                title: "Truck Driving Simulator",
+                description: "Simulador de conducción de camiones.",
+                thumbnail: "https://imgs.crazygames.com/truck-driving-simulator-game_16x9/20241022081951/truck-driving-simulator-game_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/truck-driving-simulator-game",
+                category: "simulator"
+            },
+            {
+                title: "Fortzone Battle Royale",
+                description: "Battle Royale con construcción de fortalezas.",
+                thumbnail: "https://imgs.crazygames.com/fortzone-battle-royale-xkd_16x9/20250513044222/fortzone-battle-royale-xkd_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/fortzone-battle-royale-xkd",
+                category: "action"
+            },
+            {
+                title: "Count Masters",
+                description: "Juego de stickman con multitudes.",
+                thumbnail: "https://imgs.crazygames.com/count-masters-stickman-games_16x9/20250220041115/count-masters-stickman-games_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/count-masters-stickman-games",
+                category: "io"
+            },
+            {
+                title: "Bridge Race",
+                description: "Carrera para construir puentes y llegar primero.",
+                thumbnail: "https://imgs.crazygames.com/bridge-race_16x9/20241227062023/bridge-race_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/bridge-race",
+                category: "io"
+            },
+            {
+                title: "Solar Smash",
+                description: "Simulador de destrucción planetaria.",
+                thumbnail: "https://imgs.crazygames.com/solar-smash_16x9/20240722073047/solar-smash_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/solar-smash",
+                category: "simulator"
+            },
+            {
+                title: "Fighter Aircraft Pilot",
+                description: "Conviértete en piloto de combate.",
+                thumbnail: "https://imgs.crazygames.com/fighter-aircraft-pilotb.png?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/fighter-aircraft-pilot",
+                category: "simulator"
+            },
+            {
+                title: "Traffic Rider",
+                description: "Juego de motocicletas en tráfico real.",
+                thumbnail: "https://imgs.crazygames.com/traffic-rider-vvq_16x9/20250328101418/traffic-rider-vvq_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/traffic-rider-vvq",
+                category: "racing"
+            },
+            {
+                title: "Attack of Duty",
+                description: "Juego de disparos estilo Call of Duty.",
+                thumbnail: "https://imgs.crazygames.com/attack-of-duty_16x9/20240606142630/attack-of-duty_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/attack-of-duty",
+                category: "shooter"
+            },
+            {
+                title: "Roling Balls Sea Race",
+                description: "Carrera de bolas rodantes en el mar.",
+                thumbnail: "https://imgs.crazygames.com/roling-balls-sea-race_16x9/20241029074138/roling-balls-sea-race_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/roling-balls-sea-race",
+                category: "racing"
+            },
+            {
+                title: "Screw Out Bolts",
+                description: "Juego de destornillar tuercas y tornillos.",
+                thumbnail: "https://imgs.crazygames.com/screw-out-bolts-and-nuts_16x9/20250507101325/screw-out-bolts-and-nuts_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/screw-out-bolts-and-nuts",
+                category: "puzzle"
+            },
+            {
+                title: "Squid Game Online",
+                description: "Juegos del calamar en versión online.",
+                thumbnail: "https://imgs.crazygames.com/squid-game-online_16x9/20250403161318/squid-game-online_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/squid-game-online",
+                category: "io"
+            },
+            {
+                title: "Paper.io 2",
+                description: "Conquista territorio en este juego .io.",
+                thumbnail: "https://imgs.crazygames.com/paper-io-2_16x9/20250214024143/paper-io-2_16x9-cover?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/paper-io-2",
+                category: "io"
+            },
+            {
+                title: "Amazing Crime",
+                description: "Aventura de stickman en el mundo del crimen.",
+                thumbnail: "https://imgs.crazygames.com/amazing-crime-strange-stickman-rope-vice-vegas.png?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/amazing-crime-strange-stickman",
+                category: "adventure"
+            },
+            {
+                title: "Metrage",
+                description: "Juego de estrategia y medición.",
+                thumbnail: "https://imgs.crazygames.com/games/metrage/thumb-1562259732086.png?metadata=none&quality=70&width=599",
+                url: "https://www.crazygames.com/embed/metrage",
+                category: "puzzle"
+            }
         ];
-
-        const channels = [
-           { id: 1, name: "Desde Relax Station", url: "https://www.youtube.com/@DesdeRelaxStation" },
-           { id: 2, name: "Desde Relax Station - Topic", url: "https://www.youtube.com/channel/UC-I4Jga61MRQsuyjtdF8dgQ" }
-        ];
-
-        // Estado de la aplicación
-        let state = {
-            coins: 0,
-            lastAdWatch: null,
-            lastYtWatch: null,
-            subscribedChannels: [],
-            videoCooldowns: {},
-            adInProgress: false,
-            adTimer: null,
-            skipTimer: null,
-            watchedYoutubeVideos: [],
-            youtubeCooldown: null,
-            sharedCount: 0,
-            shareCooldown: null,
-            volumeOn: true,
-            username: null
-        };
-
-        // URL del backend (puedes cambiarla por tu propia URL de Glitch)
-        const BACKEND = 'https://tusini.glitch.me/';
-        const TIKTOK_URL = 'https://www.tiktok.com/@periquiniloquini';
-        const WEBSITE_URL = 'tusinitusineli.com';
-        const GAMES_URL = 'https://tusinitusineli-juegos.glitch.me/';
-
+        
         // Elementos del DOM
-        const coinsAmountEl = document.getElementById('coins-amount');
-        const watchAdBtn = document.getElementById('watch-ad-btn');
-        const watchYtBtn = document.getElementById('watch-yt-btn');
-        const subscribeBtn = document.getElementById('subscribe-btn');
-        const shareBtn = document.getElementById('share-btn');
-        const adPlaceholder = document.getElementById('ad-placeholder');
-        const skipAdBtn = document.getElementById('skip-ad-btn');
-        const skipTimerEl = document.getElementById('skip-timer');
-        const adTimerEl = document.getElementById('ad-timer');
-        const ytTimerEl = document.getElementById('yt-timer');
-        const shareTimerEl = document.getElementById('share-timer');
-        const videosGrid = document.getElementById('videos-grid');
-        const contentModal = document.getElementById('content-modal');
-        const closeModal = document.getElementById('close-modal');
-        const modalTitle = document.getElementById('modal-title');
-        const modalText = document.getElementById('modal-text');
-        const modalContent = document.getElementById('modal-content');
-        const rewardMessage = document.getElementById('reward-message');
-        const rewardAmountEl = document.getElementById('reward-amount');
-        const toast = document.getElementById('toast');
-        const shareModal = document.getElementById('share-modal');
-        const closeShareModal = document.getElementById('close-share-modal');
-        const shareOptions = document.getElementById('share-options');
-        const whatsappShare = document.getElementById('whatsapp-share');
-        const tiktokShare = document.getElementById('tiktok-share');
-        const shareRewardMessage = document.getElementById('share-reward-message');
-        const menuBtn = document.getElementById('menu-btn');
-        const menu = document.getElementById('menu');
-        const howItWorksBtn = document.getElementById('how-it-works');
-        const goToGamesBtn = document.getElementById('go-to-games');
-        const howItWorksModal = document.getElementById('how-it-works-modal');
-        const closeHowItWorksModal = document.getElementById('close-how-it-works-modal');
-        const ytCountEl = document.getElementById('yt-count');
-        const ytProgressContainer = document.getElementById('yt-progress-container');
-        const ytProgressBar = document.getElementById('yt-progress-bar');
-        const volumeControl = document.getElementById('volume-control');
-        const usernameInput = document.getElementById('username-input');
-        const saveUsernameBtn = document.getElementById('save-username-btn');
-
-        // Inicializar la aplicación
-        function init() {
-            loadState();
-            renderCoins();
-            renderVideos();
-            updateTimers();
-            updateCounts();
+        const gameContainer = document.getElementById('game-container');
+        const searchInput = document.getElementById('search-input');
+        const searchButton = document.getElementById('search-button');
+        const categories = document.querySelectorAll('.category');
+        const gameViewer = document.getElementById('game-viewer');
+        const gameIframe = document.getElementById('game-iframe');
+        const overlay = document.getElementById('overlay');
+        const closeViewer = document.getElementById('close-viewer');
+        const viewerTitle = document.getElementById('viewer-title');
+        const toggleFullscreen = document.getElementById('toggle-fullscreen');
+        const loadingOverlay = document.getElementById('loading-overlay');
+        const loadingTimer = document.getElementById('loading-timer');
+        const fullscreenExit = document.getElementById('fullscreen-exit');
+        const tusiniBanner = document.getElementById('tusini-banner');
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuOverlay = document.getElementById('menu-overlay');
+        const closeMenu = document.getElementById('close-menu');
+        const skipButton = document.getElementById('skip-button');
+        
+        // Variables de estado
+        let isFullscreen = false;
+        let currentGameUrl = '';
+        let loadingInterval;
+        let secondsLeft = 5; // Reducido a 5 segundos
+        
+        // Mostrar juegos
+        function displayGames(gamesToShow) {
+            gameContainer.innerHTML = '';
             
-            // Configurar event listeners
-            watchAdBtn.addEventListener('click', startAd);
-            watchYtBtn.addEventListener('click', startYtVideo);
-            subscribeBtn.addEventListener('click', subscribeToChannel);
-            shareBtn.addEventListener('click', openShareModal);
-            skipAdBtn.addEventListener('click', skipAd);
-            closeModal.addEventListener('click', closeModalHandler);
-            closeShareModal.addEventListener('click', closeShareModalHandler);
-            whatsappShare.addEventListener('click', shareOnWhatsApp);
-            tiktokShare.addEventListener('click', followOnTikTok);
-            menuBtn.addEventListener('click', toggleMenu);
-            howItWorksBtn.addEventListener('click', openHowItWorksModal);
-            goToGamesBtn.addEventListener('click', goToGames);
-            closeHowItWorksModal.addEventListener('click', closeHowItWorksModalHandler);
-            volumeControl.addEventListener('click', toggleVolume);
-            saveUsernameBtn.addEventListener('click', saveUsername);
-            
-            // Cargar nombre de usuario si existe
-            if (state.username) {
-                usernameInput.value = state.username;
+            if (gamesToShow.length === 0) {
+                gameContainer.innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:2rem;">No se encontraron juegos que coincidan con tu búsqueda.</p>';
+                return;
             }
             
-            // Cerrar menú al hacer clic fuera
-            document.addEventListener('click', (e) => {
-                if (!menu.contains(e.target) && e.target !== menuBtn) {
-                    menu.classList.remove('active');
-                }
-            });
-            
-            // Actualizar timers cada segundo
-            setInterval(updateTimers, 1000);
-        }
-
-        // Guardar nombre de usuario
-        function saveUsername() {
-            const username = usernameInput.value.trim();
-            if (username) {
-                state.username = username;
-                saveState();
-                showToast('Nombre de usuario guardado correctamente');
-                menu.classList.remove('active');
-            } else {
-                showToast('Por favor ingresa un nombre de usuario', true);
-            }
-        }
-
-        // Alternar volumen del widget
-        function toggleVolume() {
-            state.volumeOn = !state.volumeOn;
-            const iframe = document.querySelector('.live-widget iframe');
-            
-            if (iframe) {
-                iframe.contentWindow.postMessage({
-                    type: 'setVolume',
-                    volume: state.volumeOn ? 1 : 0
-                }, '*');
-            }
-            
-            volumeControl.innerHTML = state.volumeOn ? '<i class="fas fa-volume-up"></i>' : '<i class="fas fa-volume-mute"></i>';
-            saveState();
-        }
-
-        // Cargar estado desde localStorage
-        function loadState() {
-            const savedState = localStorage.getItem('tusiniState');
-            if (savedState) {
-                state = JSON.parse(savedState);
-                // Convertir fechas de string a objetos Date
-                if (state.lastAdWatch) state.lastAdWatch = new Date(state.lastAdWatch);
-                if (state.lastYtWatch) state.lastYtWatch = new Date(state.lastYtWatch);
-                if (state.youtubeCooldown) state.youtubeCooldown = new Date(state.youtubeCooldown);
-                if (state.shareCooldown) state.shareCooldown = new Date(state.shareCooldown);
+            gamesToShow.forEach(game => {
+                const gameCard = document.createElement('div');
+                gameCard.className = 'game-card';
+                gameCard.dataset.category = game.category;
                 
-                // Configurar icono de volumen
-                volumeControl.innerHTML = state.volumeOn ? '<i class="fas fa-volume-up"></i>' : '<i class="fas fa-volume-mute"></i>';
-            }
-        }
-
-        // Guardar estado en localStorage
-        function saveState() {
-            localStorage.setItem('tusiniState', JSON.stringify(state));
-        }
-
-        // Renderizar cantidad de monedas
-        function renderCoins() {
-            coinsAmountEl.textContent = state.coins;
-        }
-
-        // Renderizar videos disponibles
-        function renderVideos() {
-            videosGrid.innerHTML = '';
-            
-            videos.forEach(video => {
-                const videoCard = document.createElement('div');
-                videoCard.className = 'video-card';
-                videoCard.innerHTML = `
-                    <img src="${video.thumbnail}" alt="${video.title}" class="video-thumbnail">
-                    <div class="video-info">
-                        <h3 class="video-title">${video.title}</h3>
-                        <div class="video-price">
-                            <i class="fas fa-coins"></i> ${video.price}
+                gameCard.innerHTML = `
+                    <img src="${game.thumbnail}" alt="${game.title}" class="game-thumbnail" onerror="this.src='https://via.placeholder.com/300x150/7b1fa2/ffffff?text=${encodeURIComponent(game.title)}'">
+                    <div class="game-info">
+                        <div class="game-title">${game.title}</div>
+                        <div class="game-description">${game.description}</div>
+                        <div class="game-actions">
+                            <button class="play-button" data-url="${game.url}" data-title="${game.title}">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8 5V19L19 12L8 5Z" fill="white"/>
+                                </svg>
+                                Jugar
+                            </button>
+                            <button class="fullscreen-button" data-url="${game.url}" data-title="${game.title}">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M7 14H5V19H10V17H7V14ZM5 10H7V7H10V5H5V10ZM17 17H14V19H19V14H17V17ZM14 5V7H17V10H19V5H14Z" fill="white"/>
+                                </svg>
+                                Pantalla
+                            </button>
                         </div>
                     </div>
                 `;
                 
-                // Verificar si el video está en cooldown
-                if (state.videoCooldowns[video.id] && Date.now() < state.videoCooldowns[video.id]) {
-                    const cooldownEl = document.createElement('div');
-                    cooldownEl.className = 'cooldown';
-                    const remaining = Math.ceil((state.videoCooldowns[video.id] - Date.now()) / 1000);
-                    cooldownEl.textContent = `${remaining}s`;
-                    videoCard.appendChild(cooldownEl);
-                } else {
-                    videoCard.addEventListener('click', () => sendVideo(video));
-                }
-                
-                videosGrid.appendChild(videoCard);
+                gameContainer.appendChild(gameCard);
+            });
+            
+            // Agregar event listeners a los botones
+            setupGameButtons();
+        }
+        
+        // Configurar botones de juego
+        function setupGameButtons() {
+            document.querySelectorAll('.play-button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const url = e.target.closest('button').getAttribute('data-url');
+                    const title = e.target.closest('button').getAttribute('data-title');
+                    openGameViewer(url, title, false);
+                });
+            });
+            
+            document.querySelectorAll('.fullscreen-button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const url = e.target.closest('button').getAttribute('data-url');
+                    const title = e.target.closest('button').getAttribute('data-title');
+                    openGameViewer(url, title, true);
+                });
             });
         }
-
-        // Actualizar contadores
-        function updateCounts() {
-            ytCountEl.textContent = `${state.watchedYoutubeVideos.length}/3 disponibles`;
-        }
-
-        // Actualizar timers de cooldowns
-        function updateTimers() {
-            // Timer para anuncios (1 por minuto)
-            if (state.lastAdWatch) {
-                const nextAdTime = state.lastAdWatch.getTime() + 60000; // 1 minuto
-                const now = Date.now();
+        
+        // Mostrar temporizador de carga
+        function startLoadingTimer() {
+            secondsLeft = 5;
+            loadingTimer.textContent = `${secondsLeft} segundos restantes`;
+            loadingOverlay.style.display = 'flex';
+            
+            // Cargar el anuncio de AdSense
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            
+            loadingInterval = setInterval(() => {
+                secondsLeft--;
+                loadingTimer.textContent = `${secondsLeft} segundos restantes`;
                 
-                if (now < nextAdTime) {
-                    const remaining = Math.ceil((nextAdTime - now) / 1000);
-                    adTimerEl.textContent = `Disponible en ${remaining}s`;
-                    watchAdBtn.disabled = true;
-                } else {
-                    adTimerEl.textContent = 'Disponible ahora';
-                    watchAdBtn.disabled = false;
-                }
-            }
-            
-            // Timer para videos de YouTube (3 por 2 minutos)
-            if (state.youtubeCooldown) {
-                const nextYtTime = state.youtubeCooldown.getTime();
-                const now = Date.now();
-                
-                if (now < nextYtTime) {
-                    const remaining = Math.ceil((nextYtTime - now) / 1000);
-                    ytTimerEl.textContent = `Disponible en ${remaining}s`;
-                    ytProgressContainer.style.display = 'block';
-                    const progress = 100 - (remaining / 120 * 100);
-                    ytProgressBar.style.width = `${progress}%`;
-                    watchYtBtn.disabled = true;
-                } else {
-                    ytTimerEl.textContent = '';
-                    ytProgressContainer.style.display = 'none';
-                    watchYtBtn.disabled = false;
-                    state.youtubeCooldown = null;
-                    state.watchedYoutubeVideos = [];
-                    saveState();
-                    updateCounts();
-                }
-            }
-            
-            // Timer para compartir (3 veces cada 2 minutos)
-            if (state.shareCooldown) {
-                const nextShareTime = state.shareCooldown.getTime();
-                const now = Date.now();
-                
-                if (now < nextShareTime) {
-                    const remaining = Math.ceil((nextShareTime - now) / 1000);
-                    shareTimerEl.textContent = `Disponible en ${remaining}s`;
-                    shareBtn.disabled = true;
-                } else {
-                    shareTimerEl.textContent = 'Disponible ahora';
-                    shareBtn.disabled = false;
-                    state.shareCooldown = null;
-                    state.sharedCount = 0;
-                    saveState();
-                }
-            } else if (state.sharedCount >= 3) {
-                shareTimerEl.textContent = 'Disponible en 120s';
-                shareBtn.disabled = true;
-            } else {
-                shareTimerEl.textContent = 'Disponible ahora';
-                shareBtn.disabled = false;
-            }
-            
-            // Actualizar cooldowns de videos
-            renderVideos();
-        }
-
-        // Mostrar notificación toast
-        function showToast(message, isError = false) {
-            toast.textContent = message;
-            toast.className = isError ? 'toast error' : 'toast';
-            toast.style.display = 'block';
-            
-            setTimeout(() => {
-                toast.style.display = 'none';
-            }, 3000);
-        }
-
-        // Alternar menú
-        function toggleMenu() {
-            menu.classList.toggle('active');
-        }
-
-        // Abrir modal "Cómo funciona"
-        function openHowItWorksModal() {
-            menu.classList.remove('active');
-            howItWorksModal.classList.add('active');
-        }
-
-        // Cerrar modal "Cómo funciona"
-        function closeHowItWorksModalHandler() {
-            howItWorksModal.classList.remove('active');
-        }
-
-        // Ir a la página de juegos
-        function goToGames() {
-            window.location.href = GAMES_URL;
-        }
-
-        // Iniciar anuncio
-        function startAd() {
-            if (state.adInProgress) return;
-            
-            // Verificar cooldown de 1 minuto
-            if (state.lastAdWatch && Date.now() < state.lastAdWatch.getTime() + 60000) {
-                showToast('Espera 1 minuto antes de ver otro anuncio', true);
-                return;
-            }
-            
-            state.adInProgress = true;
-            saveState();
-            
-            // Mostrar modal con el anuncio
-            modalTitle.textContent = 'Ver Anuncio';
-            modalText.textContent = 'Por favor mira el anuncio completo para recibir tus monedas.';
-            modalContent.innerHTML = `
-                <div style="width: 100%; height: 300px; background-color: #dfe6e9; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-                    <h3>Anuncio de ejemplo (5 segundos)</h3>
-                </div>
-            `;
-            rewardMessage.style.display = 'none';
-            closeModal.style.display = 'none';
-            contentModal.classList.add('active');
-            
-            // Simular anuncio de 5 segundos
-            let seconds = 5;
-            const timer = setInterval(() => {
-                modalText.textContent = `Por favor mira el anuncio completo para recibir tus monedas. Tiempo restante: ${seconds}s`;
-                seconds--;
-                
-                if (seconds < 0) {
-                    clearInterval(timer);
-                    closeModal.style.display = 'block';
-                    finishAd();
+                if (secondsLeft <= 0) {
+                    clearInterval(loadingInterval);
+                    loadGame();
                 }
             }, 1000);
         }
-
-        // Finalizar anuncio y dar recompensa
-        function finishAd() {
-            state.lastAdWatch = new Date();
-            state.coins += 10;
-            state.adInProgress = false;
-            saveState();
-            
-            rewardAmountEl.textContent = '10';
-            rewardMessage.style.display = 'flex';
-            renderCoins();
-            updateTimers();
-            
-            showToast('¡Has ganado 10 monedas por ver el anuncio!');
-            
-            // Actualizar la página después de 2 segundos
-            setTimeout(() => {
-                window.location.reload();
-            }, 2000);
+        
+        // Cargar el juego (llamado cuando termina el temporizador o al saltar)
+        function loadGame() {
+            clearInterval(loadingInterval);
+            loadingOverlay.style.display = 'none';
+            gameIframe.src = currentGameUrl;
+            hideCrazyGamesFooter();
         }
-
-        // Saltar anuncio (para desarrollo)
-        function skipAd() {
-            if (state.adTimer) {
-                clearInterval(state.adTimer);
+        
+        // Ocultar el footer de Crazy Games en PC
+        function hideCrazyGamesFooter() {
+            // Solo en PC
+            if (window.innerWidth > 768) {
+                const style = document.createElement('style');
+                style.innerHTML = `
+                    iframe.game-iframe {
+                        margin-bottom: -50px !important;
+                        overflow: hidden !important;
+                    }
+                    
+                    iframe.game-iframe body > div:last-child,
+                    iframe.game-iframe #footer,
+                    iframe.game-iframe .footer,
+                    iframe.game-iframe .crazygames-footer {
+                        display: none !important;
+                        height: 0 !important;
+                        visibility: hidden !important;
+                    }
+                    
+                    iframe.game-iframe #game-container {
+                        padding-bottom: 0 !important;
+                        margin-bottom: 0 !important;
+                    }
+                `;
+                document.head.appendChild(style);
             }
-            
-            if (state.skipTimer) {
-                clearInterval(state.skipTimer);
-            }
-            
-            adPlaceholder.innerHTML = 'Anuncio aparecerá aquí';
-            skipAdBtn.style.display = 'none';
-            state.adInProgress = false;
-            
-            finishAd();
         }
-
-        // Iniciar video de YouTube
-        function startYtVideo() {
-            // Verificar si ya se vieron los 3 videos
-            if (state.watchedYoutubeVideos.length >= 3) {
-                showToast('Ya has visto los 3 videos disponibles. Espera 2 minutos.', true);
+        
+        // Abrir visor de juego
+        function openGameViewer(url, title, fullscreen) {
+            currentGameUrl = url;
+            viewerTitle.textContent = title;
+            gameViewer.style.display = 'flex';
+            overlay.style.display = 'block';
+            document.body.classList.add('fullscreen-mode');
+            
+            // Mostrar banner solo en PC
+            tusiniBanner.style.display = window.innerWidth > 768 ? 'flex' : 'none';
+            
+            // Iniciar temporizador de carga reducido
+            startLoadingTimer();
+            
+            if (fullscreen && window.innerWidth > 768) {
+                toggleFullscreenMode();
+            }
+        }
+        
+        // Alternar modo pantalla completa
+        function toggleFullscreenMode() {
+            isFullscreen = !isFullscreen;
+            
+            if (isFullscreen) {
+                gameViewer.classList.add('fullscreen');
+                toggleFullscreen.textContent = '⛶';
+                fullscreenExit.style.display = 'block';
+                
+                // Ajustes especiales para móvil
+                if (window.innerWidth <= 768) {
+                    document.documentElement.requestFullscreen().catch(err => {
+                        console.error('Error al intentar pantalla completa:', err);
+                    });
+                    
+                    // Ocultar la UI del navegador en móvil
+                    setTimeout(() => {
+                        window.scrollTo(0, 1);
+                    }, 100);
+                }
+            } else {
+                gameViewer.classList.remove('fullscreen');
+                toggleFullscreen.textContent = '⛶';
+                fullscreenExit.style.display = 'none';
+                
+                // Salir de pantalla completa en móvil
+                if (window.innerWidth <= 768 && document.fullscreenElement) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+        
+        // Cerrar visor de juego
+        function closeGameViewer() {
+            gameIframe.src = '';
+            gameViewer.style.display = 'none';
+            gameViewer.classList.remove('fullscreen');
+            overlay.style.display = 'none';
+            document.body.classList.remove('fullscreen-mode');
+            isFullscreen = false;
+            fullscreenExit.style.display = 'none';
+            tusiniBanner.style.display = 'none';
+            clearInterval(loadingInterval);
+            
+            // Salir de pantalla completa si está activa
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+            }
+        }
+        
+        // Filtrar juegos por categoría
+        function filterByCategory(category) {
+            if (category === 'all') {
+                displayGames(games);
+            } else {
+                const filteredGames = games.filter(game => game.category === category);
+                displayGames(filteredGames);
+            }
+        }
+        
+        // Buscar juegos
+        function searchGames() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            if (searchTerm === '') {
+                displayGames(games);
                 return;
             }
             
-            // Seleccionar un video aleatorio que no se haya visto aún
-            const availableVideos = youtubeVideos.filter(video => 
-                !state.watchedYoutubeVideos.includes(video.id)
+            const filteredGames = games.filter(game => 
+                game.title.toLowerCase().includes(searchTerm) || 
+                game.description.toLowerCase().includes(searchTerm)
             );
             
-            if (availableVideos.length === 0) {
-                showToast('Ya has visto todos los videos disponibles. Espera 2 minutos.', true);
-                return;
-            }
-            
-            const randomVideo = availableVideos[Math.floor(Math.random() * availableVideos.length)];
-            state.watchedYoutubeVideos.push(randomVideo.id);
-            saveState();
-            updateCounts();
-            
-            modalTitle.textContent = 'Ver Video de YouTube';
-            modalText.textContent = `Por favor mira el video completo para recibir tus monedas. Video: ${randomVideo.title}`;
-            modalContent.innerHTML = `
-                <iframe width="100%" height="315" src="https://www.youtube.com/embed/${randomVideo.id}?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <p style="margin-top: 10px; font-size: 14px; color: #7f8c8d;">Mira el video completo para recibir tus monedas.</p>
-            `;
-            rewardMessage.style.display = 'none';
-            closeModal.style.display = 'none';
-            contentModal.classList.add('active');
-            
-            // En una implementación real, usarías la API de YouTube para detectar cuando el video termina
-            // Aquí simulamos que el usuario debe esperar 30 segundos
-            let seconds = 30;
-            const timer = setInterval(() => {
-                modalText.textContent = `Por favor mira el video completo para recibir tus monedas. Tiempo mínimo: ${seconds}s - Video: ${randomVideo.title}`;
-                seconds--;
-                
-                if (seconds < 0) {
-                    clearInterval(timer);
-                    closeModal.style.display = 'block';
-                    finishYtVideo();
-                }
-            }, 1000);
+            displayGames(filteredGames);
         }
-
-        // Finalizar video de YouTube y dar recompensa
-        function finishYtVideo() {
-            state.coins += 25;
-            
-            // Si ya se vieron los 3 videos, establecer cooldown de 2 minutos
-            if (state.watchedYoutubeVideos.length >= 3) {
-                state.youtubeCooldown = new Date(Date.now() + 120000); // 2 minutos
-                showToast('¡Has ganado 25 monedas por ver el video! Ahora espera 2 minutos para ver más videos.');
-            } else {
-                showToast('¡Has ganado 25 monedas por ver el video!');
-            }
-            
-            saveState();
-            rewardAmountEl.textContent = '25';
-            rewardMessage.style.display = 'flex';
-            renderCoins();
-            updateTimers();
-            updateCounts();
+        
+        // Abrir menú
+        function openMenu() {
+            menuOverlay.style.display = 'flex';
         }
-
-        // Suscribirse a canal
-        function subscribeToChannel() {
-            const availableChannels = channels.filter(ch => !state.subscribedChannels.includes(ch.id));
-            
-            if (availableChannels.length === 0) {
-                showToast('Ya te has suscrito a todos los canales disponibles', true);
-                return;
-            }
-            
-            const randomChannel = availableChannels[Math.floor(Math.random() * availableChannels.length)];
-            
-            // Abrir el canal en una nueva pestaña
-            window.open(randomChannel.url, '_blank');
-            
-            // Esperar 5 segundos antes de dar las monedas (para evitar abuso)
-            setTimeout(() => {
-                state.subscribedChannels.push(randomChannel.id);
-                state.coins += 50;
-                saveState();
-                
-                showToast(`¡Has ganado 50 monedas por suscribirte a ${randomChannel.name}!`);
-                renderCoins();
-            }, 5000);
+        
+        // Cerrar menú
+        function closeMenuHandler() {
+            menuOverlay.style.display = 'none';
         }
-
-        // Abrir modal para compartir
-        function openShareModal() {
-            // Verificar límite de compartir (3 veces cada 2 minutos)
-            if (state.sharedCount >= 3 && state.shareCooldown && Date.now() < state.shareCooldown.getTime()) {
-                showToast('Ya has compartido 3 veces. Espera 2 minutos.', true);
-                return;
-            }
-            
-            shareRewardMessage.style.display = 'none';
-            shareOptions.style.display = 'flex';
-            shareModal.classList.add('active');
-        }
-
-        // Cerrar modal de compartir
-        function closeShareModalHandler() {
-            shareModal.classList.remove('active');
-        }
-
-        // Compartir en WhatsApp
-        function shareOnWhatsApp() {
-            const message = `¡Mira esta increíble web app de Tusini Monedas! tusinitusineli.com \n\n Ve el live de PeriquiniLoquini en TikTok y interactua gratis desde la web : https://www.tiktok.com/@periquiniloquini`;
-            const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
-            window.open(url, '_blank');
-            
-            // Actualizar contador de compartir
-            state.sharedCount++;
-            if (state.sharedCount >= 3 && !state.shareCooldown) {
-                state.shareCooldown = new Date(Date.now() + 120000); // 2 minutos
-            }
-            
-            // Dar recompensa
-            state.coins += 30;
-            saveState();
-            
-            shareOptions.style.display = 'none';
-            shareRewardMessage.style.display = 'flex';
-            renderCoins();
-            updateTimers();
-            
-            setTimeout(() => {
-                shareModal.classList.remove('active');
-                showToast('¡Has ganado 30 monedas por compartir en redes sociales!');
-            }, 2000);
-        }
-
-        // Seguir en TikTok
-        function followOnTikTok() {
-            window.open(TIKTOK_URL, '_blank');
-            
-            // Actualizar contador de compartir
-            state.sharedCount++;
-            if (state.sharedCount >= 3 && !state.shareCooldown) {
-                state.shareCooldown = new Date(Date.now() + 120000); // 2 minutos
-            }
-            
-            // Dar recompensa
-            state.coins += 30;
-            saveState();
-            
-            shareOptions.style.display = 'none';
-            shareRewardMessage.style.display = 'flex';
-            renderCoins();
-            updateTimers();
-            
-            setTimeout(() => {
-                shareModal.classList.remove('active');
-                showToast('¡Has ganado 30 monedas por seguir en TikTok!');
-            }, 2000);
-        }
-
-        // Enviar video al live
-        function sendVideo(video) {
-            if (state.coins < video.price) {
-                showToast('No tienes suficientes monedas para enviar este video', true);
-                return;
-            }
-            
-            if (state.videoCooldowns[video.id] && Date.now() < state.videoCooldowns[video.id]) {
-                showToast('Este video está en cooldown. Espera un momento.', true);
-                return;
-            }
-            
-            // Restar monedas
-            state.coins -= video.price;
-            
-            // Establecer cooldown (30 segundos)
-            state.videoCooldowns[video.id] = Date.now() + 30000;
-            
-            saveState();
-            renderCoins();
-            renderVideos();
-            
-            // Enviar video al backend con el nombre de usuario
-            const username = state.username || 'Anónimo';
-            
-            fetch(`${BACKEND}/api/video`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    video: video.url,
-                    username: username
-                })
-            }).catch(err => {
-                console.error('Error al enviar video:', err);
+        
+        // Event listeners
+        categories.forEach(category => {
+            category.addEventListener('click', () => {
+                categories.forEach(c => c.classList.remove('active'));
+                category.classList.add('active');
+                filterByCategory(category.dataset.category);
             });
-            
-            showToast(`¡Video "${video.title}" enviado al live por ${username}!`);
-        }
-
-        // Cerrar modal
-        function closeModalHandler() {
-            contentModal.classList.remove('active');
-            
-            // Si había un anuncio en progreso, limpiar
-            if (state.adInProgress) {
-                state.adInProgress = false;
-                saveState();
+        });
+        
+        searchButton.addEventListener('click', searchGames);
+        
+        searchInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                searchGames();
             }
-        }
-
-        // Inicializar la aplicación cuando el DOM esté listo
-        document.addEventListener('DOMContentLoaded', init);
+        });
+        
+        closeViewer.addEventListener('click', closeGameViewer);
+        overlay.addEventListener('click', closeGameViewer);
+        toggleFullscreen.addEventListener('click', toggleFullscreenMode);
+        fullscreenExit.addEventListener('click', toggleFullscreenMode);
+        skipButton.addEventListener('click', loadGame);
+        
+        menuToggle.addEventListener('click', openMenu);
+        closeMenu.addEventListener('click', closeMenuHandler);
+        menuOverlay.addEventListener('click', (e) => {
+            if (e.target === menuOverlay) {
+                closeMenuHandler();
+            }
+        });
+        
+        // Manejar tecla ESC para salir de pantalla completa
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && isFullscreen) {
+                toggleFullscreenMode();
+            }
+        });
+        
+        // Manejar cambios de pantalla completa en móvil
+        document.addEventListener('fullscreenchange', () => {
+            if (window.innerWidth <= 768) {
+                if (document.fullscreenElement) {
+                    gameViewer.classList.add('fullscreen');
+                    fullscreenExit.style.display = 'block';
+                } else {
+                    gameViewer.classList.remove('fullscreen');
+                    fullscreenExit.style.display = 'none';
+                }
+            }
+        });
+        
+        // Inicializar
+        displayGames(games);
     </script>
 </body>
 </html>

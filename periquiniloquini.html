@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Tusini Monedas</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -22,6 +22,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -30,6 +31,7 @@
             min-height: 100vh;
             padding-top: 80px;
             padding-bottom: 20px;
+            touch-action: manipulation;
         }
 
         .container {
@@ -60,6 +62,7 @@
             background: linear-gradient(45deg, var(--primary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            cursor: pointer;
         }
 
         .user-info {
@@ -707,12 +710,43 @@
             50% { transform: scale(1.05); }
             100% { transform: scale(1); }
         }
+
+        /* Estilos para móviles */
+        @media (max-width: 767px) {
+            .earn-option {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .earn-details {
+                width: 100%;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .menu {
+                width: 80%;
+                right: 10px;
+            }
+            
+            .video-card {
+                height: 100%;
+            }
+            
+            .video-thumbnail {
+                height: 80px;
+            }
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>
-        <div class="logo">Tusini Monedas</div>
+        <div class="logo" id="logo">Tusini Monedas</div>
         <div class="user-info">
             <div class="coins">
                 <i class="fas fa-coins"></i>
@@ -826,22 +860,18 @@
                 </div>
 
                 <div class="live-widget-container">
-  <h3 class="live-widget-title">Live en TikTok</h3>
-  <div class="live-widget">
-    <iframe src="https://tusini.glitch.me/widget/live.html" allowfullscreen></iframe>
-    <button class="volume-control" id="volume-control">
-      <i class="fas fa-volume-up"></i>
-    </button>
-  </div>
- <p class="live-widget-text">
-  Los videos que ves aquí son enviados por los usuarios. Por restricciones de los navegadores web, el audio no se reproduce automáticamente en esta página, pero si ingresás al live directamente en TikTok, podrás ver y escuchar el video con sonido sin problema.<br><br>
-  Si querés que tu nombre aparezca en el directo, podés ingresarlo tocando los tres puntitos en “Ajustes” y escribiéndolo ahí. Así se mostrará tu nombre cuando tu video aparezca en el live.
-</p>
-
-
-
-</div>
-
+                    <h3 class="live-widget-title">Live en TikTok</h3>
+                    <div class="live-widget">
+                        <iframe src="https://tusini.glitch.me/widget/live.html" allowfullscreen></iframe>
+                        <button class="volume-control" id="volume-control">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                    </div>
+                    <p class="live-widget-text">
+                        Los videos que ves aquí son enviados por los usuarios. Por restricciones de los navegadores web, el audio no se reproduce automáticamente en esta página, pero si ingresás al live directamente en TikTok, podrás ver y escuchar el video con sonido sin problema.<br><br>
+                        Si querés que tu nombre aparezca en el directo, podés ingresarlo tocando los tres puntitos en "Ajustes" y escribiéndolo ahí. Así se mostrará tu nombre cuando tu video aparezca en el live.
+                    </p>
+                </div>
 
                 <a href="https://www.tiktok.com/@periquiniloquini" target="_blank" class="tiktok-btn pulse">
                     <i class="fab fa-tiktok"></i> Ver Live en TikTok
@@ -1028,6 +1058,7 @@
         const volumeControl = document.getElementById('volume-control');
         const usernameInput = document.getElementById('username-input');
         const saveUsernameBtn = document.getElementById('save-username-btn');
+        const logo = document.getElementById('logo');
 
         // Inicializar la aplicación
         function init() {
@@ -1053,6 +1084,9 @@
             closeHowItWorksModal.addEventListener('click', closeHowItWorksModalHandler);
             volumeControl.addEventListener('click', toggleVolume);
             saveUsernameBtn.addEventListener('click', saveUsername);
+            logo.addEventListener('click', () => {
+                window.location.href = WEBSITE_URL;
+            });
             
             // Cargar nombre de usuario si existe
             if (state.username) {

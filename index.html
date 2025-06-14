@@ -1,524 +1,458 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>TusiniTusineli.com - Juegos Gratis Online</title>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5461370198299696" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
-            --primary-color: #4a148c;
-            --secondary-color: #7b1fa2;
-            --accent-color: #e91e63;
-            --pink-accent: #ff4081;
-            --light-color: #f3e5f5;
-            --dark-color: #12005e;
-            --text-color: #333;
-            --text-light: #fff;
+            --primary: #e84393;
+            --secondary: #fd79a8;
+            --accent: #fab1a0;
+            --dark: #2d3436;
+            --light: #fff9fa;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #d63031;
+            --shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
-        
+
         body {
-            background-color: #f5f5f5;
-            color: var(--text-color);
+            background-color: var(--light);
+            color: var(--dark);
+            min-height: 100vh;
+            padding-top: 80px;
+            padding-bottom: 20px;
+            touch-action: manipulation;
         }
-        
-        body.fullscreen-mode {
-            overflow: hidden;
-            position: fixed;
-            width: 100%;
-            height: 100%;
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
-        
+
         header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: var(--text-light);
-            padding: 1rem;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            position: relative;
-            animation: fadeInDown 0.5s ease-out;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .header-top {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            width: 100%;
-            max-width: 1200px;
+            padding: 15px 20px;
+            background-color: var(--light);
+            box-shadow: var(--shadow);
+            z-index: 100;
+            animation: fadeInDown 0.5s ease;
         }
-        
+
         .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-        
-        .menu-toggle {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             cursor: pointer;
-            padding: 0.5rem;
-            margin-bottom: 0.5rem;
+            text-decoration: none;
+        }
+
+        .user-info {
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 15px;
         }
-        
-        .search-container {
-            display: flex;
-            justify-content: center;
-            margin: 1rem 0;
-            animation: fadeIn 0.8s ease-out;
-            width: 100%;
-        }
-        
-        #search-input {
-            padding: 0.5rem 1rem;
+
+        .menu-btn {
+            background: none;
             border: none;
-            border-radius: 20px 0 0 20px;
-            width: 70%;
-            max-width: 500px;
-            font-size: 1rem;
-            transition: all 0.3s;
-        }
-        
-        #search-input:focus {
-            outline: none;
-            box-shadow: 0 0 0 2px var(--pink-accent);
-        }
-        
-        #search-button {
-            padding: 0.5rem 1rem;
-            border: none;
-            background-color: var(--accent-color);
-            color: white;
-            border-radius: 0 20px 20px 0;
+            font-size: 24px;
+            color: var(--primary);
             cursor: pointer;
-            font-size: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 5px;
+        }
+
+        .menu-dot {
+            width: 5px;
+            height: 5px;
+            background-color: var(--primary);
+            border-radius: 50%;
+        }
+
+        .menu {
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            padding: 15px;
+            z-index: 101;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .menu.active {
+            display: block;
+        }
+
+        .menu-item {
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+        }
+
+        .menu-item:hover {
+            background-color: rgba(232, 67, 147, 0.1);
+            color: var(--primary);
+        }
+
+        .menu-item i {
+            font-size: 18px;
+        }
+
+        .live-banner {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow);
+            animation: pulse 2s infinite;
+        }
+
+        .live-banner-text {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .live-banner-btn {
+            background-color: white;
+            color: var(--primary);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
             transition: all 0.3s;
         }
-        
-        #search-button:hover {
-            background-color: var(--pink-accent);
-            transform: scale(1.02);
+
+        .live-banner-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
         }
-        
+
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--primary);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            border-radius: 3px;
+        }
+
         .categories {
             display: flex;
             overflow-x: auto;
-            padding: 0.5rem;
-            background-color: var(--light-color);
-            margin-bottom: 1rem;
+            gap: 10px;
+            padding: 10px 0;
+            margin-bottom: 20px;
             scrollbar-width: thin;
-            scrollbar-color: var(--primary-color) var(--light-color);
-            animation: fadeIn 0.8s ease-out;
         }
-        
+
         .categories::-webkit-scrollbar {
-            height: 6px;
+            height: 5px;
         }
-        
+
         .categories::-webkit-scrollbar-track {
-            background: var(--light-color);
+            background: var(--light);
         }
-        
+
         .categories::-webkit-scrollbar-thumb {
-            background-color: var(--primary-color);
-            border-radius: 6px;
+            background-color: var(--primary);
+            border-radius: 5px;
         }
-        
+
         .category {
-            padding: 0.5rem 1rem;
-            margin: 0 0.5rem;
+            padding: 8px 15px;
             background-color: white;
             border-radius: 20px;
             cursor: pointer;
             white-space: nowrap;
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: var(--shadow);
             transition: all 0.3s;
-            font-size: 0.9rem;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        
+
         .category:hover, .category.active {
-            background-color: var(--pink-accent);
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
             color: white;
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
-        
-        .main-container {
+
+        .search-container {
             display: flex;
-            flex-direction: column;
-            padding: 1rem;
+            margin-bottom: 20px;
         }
-        
-        .game-container {
+
+        .search-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #eee;
+            border-radius: 10px 0 0 10px;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary);
+        }
+
+        .search-btn {
+            padding: 0 20px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 0 10px 10px 0;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .search-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .games-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1rem;
+            gap: 20px;
         }
-        
+
         .game-card {
             background-color: white;
-            border-radius: 10px;
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow);
             transition: all 0.3s;
-            display: flex;
-            flex-direction: column;
-            animation: fadeInUp 0.5s ease-out;
         }
-        
+
         .game-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
         }
-        
+
         .game-thumbnail {
             width: 100%;
             height: 150px;
             object-fit: cover;
-            background-color: #eee;
             transition: transform 0.3s;
         }
-        
+
         .game-card:hover .game-thumbnail {
-            transform: scale(1.03);
+            transform: scale(1.05);
         }
-        
+
         .game-info {
-            padding: 1rem;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
+            padding: 15px;
         }
-        
+
         .game-title {
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 16px;
+            color: var(--dark);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
-        
+
         .game-description {
-            font-size: 0.9rem;
+            font-size: 14px;
             color: #666;
-            margin-bottom: 1rem;
-            flex-grow: 1;
-            line-height: 1.4;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 40px;
         }
-        
+
         .game-actions {
             display: flex;
-            justify-content: space-between;
-            gap: 0.5rem;
+            gap: 10px;
         }
-        
-        .play-button, .fullscreen-button {
-            padding: 0.5rem 1rem;
+
+        .btn {
+            flex: 1;
+            padding: 8px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
+            font-weight: 600;
             cursor: pointer;
-            font-weight: bold;
             transition: all 0.3s;
-            font-size: 0.9rem;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 5px;
+            font-size: 14px;
         }
-        
-        .play-button {
-            background-color: var(--primary-color);
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
             color: white;
-            flex: 1;
         }
-        
-        .fullscreen-button {
-            background-color: var(--accent-color);
-            color: white;
-            flex: 1;
+
+        .btn-secondary {
+            background-color: var(--warning);
+            color: var(--dark);
         }
-        
-        .play-button:hover {
-            background-color: var(--dark-color);
+
+        .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
         }
-        
-        .fullscreen-button:hover {
-            background-color: var(--pink-accent);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-        
+
         .game-viewer {
             display: none;
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 85%;
-            height: 75%;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            flex-direction: column;
-            overflow: hidden;
-        }
-        
-        .game-viewer.fullscreen {
-            width: 100%;
-            height: 100%;
-            border-radius: 0;
             top: 0;
             left: 0;
-            transform: none;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            z-index: 1000;
+            flex-direction: column;
         }
-        
-        .game-viewer-header {
+
+        .viewer-header {
+            padding: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.8rem 1rem;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
             color: white;
-            position: relative;
-            z-index: 10;
         }
-        
+
         .viewer-title {
-            font-weight: bold;
-            font-size: 1.1rem;
+            font-weight: 600;
+            font-size: 18px;
         }
-        
-        .viewer-controls {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-        
-        .viewer-control-button {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            color: white;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 1rem;
-        }
-        
-        .viewer-control-button:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.1);
-        }
-        
-        .close-viewer {
+
+        .viewer-close {
             background: none;
             border: none;
             color: white;
-            font-size: 1.8rem;
+            font-size: 24px;
             cursor: pointer;
-            width: 32px;
-            height: 32px;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s;
             border-radius: 50%;
+            transition: all 0.3s;
         }
-        
-        .close-viewer:hover {
-            background: rgba(255, 255, 255, 0.2);
+
+        .viewer-close:hover {
+            background-color: rgba(255,255,255,0.2);
             transform: rotate(90deg);
         }
-        
-        .game-iframe-container {
-            position: relative;
-            overflow: hidden;
-            height: 100%;
-        }
-        
+
         .game-iframe {
             width: 100%;
-            height: 100%;
+            height: calc(100% - 60px);
             border: none;
-            position: relative;
-            z-index: 1;
             background-color: #f0f0f0;
         }
-        
+
         .loading-overlay {
             position: absolute;
-            top: 0;
+            top: 60px;
             left: 0;
             width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
+            height: calc(100% - 60px);
+            background-color: rgba(0,0,0,0.9);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             color: white;
-            z-index: 5;
         }
-        
-        .loading-content {
-            width: 90%;
-            max-width: 600px;
-            text-align: center;
-        }
-        
-        .ad-container {
-            margin-bottom: 1.5rem;
-            background: #222;
-            min-height: 250px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        
-        .loading-controls {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 1.5rem;
-            border-radius: 10px;
-        }
-        
+
         .loading-spinner {
             width: 50px;
             height: 50px;
-            border: 5px solid rgba(255, 255, 255, 0.3);
+            border: 5px solid rgba(255,255,255,0.3);
+            border-top-color: var(--primary);
             border-radius: 50%;
-            border-top-color: var(--pink-accent);
-            animation: spin 1s ease-in-out infinite;
-            margin: 0 auto 1rem;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
         }
-        
+
         .loading-text {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
+            font-size: 18px;
+            margin-bottom: 10px;
             text-align: center;
         }
-        
-        .loading-timer {
-            font-size: 1rem;
-            color: #ccc;
-            margin-bottom: 1rem;
-        }
-        
-        .skip-button {
-            background-color: var(--accent-color);
+
+        .skip-btn {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
             color: white;
             border: none;
-            padding: 0.5rem 1.5rem;
+            padding: 10px 20px;
             border-radius: 20px;
+            font-weight: 600;
             cursor: pointer;
-            font-weight: bold;
+            margin-top: 20px;
             transition: all 0.3s;
         }
-        
-        .skip-button:hover {
-            background-color: var(--pink-accent);
+
+        .skip-btn:hover {
             transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
         }
-        
-        .fullscreen-exit {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            z-index: 1001;
-            display: none;
-            transition: all 0.3s;
-        }
-        
-        .fullscreen-exit:hover {
-            background: rgba(0, 0, 0, 0.9);
-        }
-        
-        .tusini-banner {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 50px;
-            background: linear-gradient(135deg, var(--pink-accent), var(--accent-color));
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            box-shadow: 0 -3px 10px rgba(0,0,0,0.2);
-            animation: slideUp 0.5s ease-out;
-        }
-        
-        .tusini-banner-content {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            width: 100%;
-            max-width: 800px;
-            padding: 0 15px;
-            white-space: nowrap;
-        }
-        
-        .tusini-logo {
-            font-weight: bold;
-            color: white;
-            font-size: 1.2rem;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-        }
-        
-        .tusini-text {
-            color: white;
-            font-size: 0.95rem;
-        }
-        
-        .tusini-link {
-            background-color: white;
-            color: var(--pink-accent);
-            padding: 5px 15px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-        
-        .tusini-link:hover {
-            background-color: #f8bbd0;
-            color: var(--accent-color);
-            transform: translateY(-2px);
-        }
-        
+
         .overlay {
             display: none;
             position: fixed;
@@ -526,99 +460,15 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0,0,0,0.7);
             z-index: 999;
-            backdrop-filter: blur(3px);
         }
-        
-        .menu-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            z-index: 1002;
-            backdrop-filter: blur(5px);
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .menu-content {
-            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
-            color: white;
-            border-radius: 15px;
-            width: 90%;
-            max-width: 500px;
-            padding: 2rem;
-            position: relative;
-            text-align: center;
-            animation: fadeIn 0.3s ease-out;
-        }
-        
-        .close-menu {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.8rem;
-            cursor: pointer;
-        }
-        
-        .menu-content h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: var(--pink-accent);
-        }
-        
-        .menu-content ul {
-            list-style: none;
-        }
-        
-        .menu-content li {
-            margin: 1.5rem 0;
-        }
-        
-        .menu-content a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.2rem;
-            display: block;
-            padding: 0.8rem;
-            border-radius: 8px;
-            transition: all 0.3s;
-            background: rgba(255, 255, 255, 0.1);
-        }
-        
-        .menu-content a:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-3px);
-        }
-        
-        footer {
-            background: linear-gradient(135deg, var(--dark-color), var(--primary-color));
-            color: white;
-            text-align: center;
-            padding: 1.5rem;
-            margin-top: 2rem;
-        }
-        
-        footer p {
-            font-size: 0.9rem;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
-        
+
         @keyframes fadeInDown {
             from {
                 opacity: 0;
@@ -629,227 +479,134 @@
                 transform: translateY(0);
             }
         }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
-        
-        @keyframes slideUp {
-            from {
-                transform: translateY(50px);
-            }
-            to {
-                transform: translateY(0);
-            }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
         }
-        
+
+        /* Estilos para móviles */
         @media (max-width: 768px) {
-            .game-container {
+            .games-grid {
                 grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 15px;
             }
             
-            .game-viewer:not(.fullscreen) {
-                width: 95%;
-                height: 65%;
+            .game-thumbnail {
+                height: 120px;
             }
             
-            .game-title {
-                font-size: 1rem;
+            .live-banner {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
             }
             
-            .game-description {
-                font-size: 0.85rem;
-            }
-            
-            .play-button, .fullscreen-button {
-                padding: 0.5rem;
-                font-size: 0.8rem;
-            }
-            
-            .tusini-banner {
-                display: none;
-            }
-            
-            /* Mejor experiencia de juego en móvil */
-            .game-viewer.fullscreen {
-                height: 100vh !important;
-                width: 100vw !important;
-            }
-            
-            .game-iframe {
-                height: calc(100vh - 50px) !important;
-                width: 100vw !important;
-            }
-            
-            /* Ocultar la barra de direcciones en móvil */
-            .fullscreen-mode {
-                position: fixed;
-                overflow: hidden;
-                height: 100%;
-                width: 100%;
-            }
-            
-            .ad-container {
-                min-height: 200px;
+            .section-title {
+                font-size: 20px;
             }
         }
-        
+
         @media (max-width: 480px) {
-            .game-container {
+            .games-grid {
                 grid-template-columns: 1fr;
             }
             
             .logo {
-                font-size: 1.5rem;
+                font-size: 22px;
             }
             
-            .game-viewer:not(.fullscreen) {
-                height: 60%;
-                width: 95%;
+            .game-actions {
+                flex-direction: column;
             }
             
-            .categories {
-                padding: 0.5rem 0.3rem;
-            }
-            
-            .category {
-                padding: 0.4rem 0.8rem;
-                margin: 0 0.3rem;
-                font-size: 0.8rem;
-            }
-            
-            #search-input {
-                width: 65%;
-                padding: 0.5rem;
-            }
-            
-            #search-button {
-                padding: 0.5rem;
-            }
-            
-            .loading-text {
-                font-size: 1rem;
-                padding: 0 1rem;
-            }
-            
-            .viewer-title {
-                font-size: 0.9rem;
-                max-width: 60%;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-            
-            .viewer-control-button, .close-viewer {
-                width: 28px;
-                height: 28px;
-                font-size: 0.9rem;
-            }
-            
-            .ad-container {
-                min-height: 150px;
+            .btn {
+                width: 100%;
             }
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="header-top">
-            <div class="logo">tusinitusineli.com</div>
-            <button class="menu-toggle" id="menu-toggle">☰</button>
+        <a href="index.html" class="logo">TusiniTusineli</a>
+        <div class="user-info">
+            <button class="menu-btn" id="menu-btn">
+                <div class="menu-dot"></div>
+                <div class="menu-dot"></div>
+                <div class="menu-dot"></div>
+            </button>
         </div>
-        <div class="search-container">
-            <input type="text" id="search-input" placeholder="Buscar juegos...">
-            <button id="search-button">Buscar</button>
+        <div class="menu" id="menu">
+            <div class="menu-item" id="what-is">
+                <i class="fas fa-question-circle"></i>
+                <span>¿Qué es TusiniTusineli?</span>
+            </div>
+            <div class="menu-item" id="go-to-live">
+                <i class="fab fa-tiktok"></i>
+                <span>Live en TikTok</span>
+            </div>
+            <div class="menu-item" id="go-to-coins">
+                <i class="fas fa-coins"></i>
+                <span>Gana Monedas</span>
+            </div>
         </div>
     </header>
-    
-    <div class="categories">
-        <div class="category active" data-category="all">Todos</div>
-        <div class="category" data-category="action">Acción</div>
-        <div class="category" data-category="adventure">Aventura</div>
-        <div class="category" data-category="puzzle">Puzzle</div>
-        <div class="category" data-category="racing">Carreras</div>
-        <div class="category" data-category="shooter">Shooter</div>
-        <div class="category" data-category="simulator">Simulador</div>
-        <div class="category" data-category="io">.io</div>
-    </div>
-    
-    <div class="main-container">
-        <h2>Juegos Populares</h2>
-        <div class="game-container" id="game-container">
-            <!-- Juegos se insertarán aquí dinámicamente -->
-        </div>
-    </div>
-    
-    <div class="overlay" id="overlay"></div>
-    
-    <div class="game-viewer" id="game-viewer">
-        <div class="game-viewer-header">
-            <div class="viewer-title" id="viewer-title">Juego</div>
-            <div class="viewer-controls">
-                <button class="viewer-control-button" id="toggle-fullscreen" title="Pantalla completa">⛶</button>
-                <button class="close-viewer" id="close-viewer" title="Cerrar">&times;</button>
+
+    <div class="container">
+        <div class="live-banner">
+            <div class="live-banner-text">
+                <i class="fas fa-heart"></i> Interactúa gratis en el live de Periquini Loquini
             </div>
+            <button class="live-banner-btn" id="live-btn">
+                <i class="fab fa-tiktok"></i> Ver Live
+            </button>
         </div>
-        <div class="game-iframe-container">
-            <div class="loading-overlay" id="loading-overlay">
-                <div class="loading-content">
-                    <div class="ad-container" id="ad-container">
-                        <!-- Anuncio de AdSense -->
-                        <ins class="adsbygoogle"
-                             style="display:block"
-                             data-ad-client="ca-pub-5461370198299696"
-                             data-ad-slot="7259870550"
-                             data-ad-format="auto"
-                             data-full-width-responsive="true"></ins>
-                    </div>
-                    <div class="loading-controls">
-                        <div class="loading-spinner"></div>
-                        <div class="loading-text">tusinitusineli.com está cargando tu juego</div>
-                        <div class="loading-timer" id="loading-timer">5 segundos restantes</div>
-                        <button class="skip-button" id="skip-button">Saltar anuncio</button>
-                    </div>
-                </div>
-            </div>
-            <iframe class="game-iframe" id="game-iframe" frameborder="0" allow="gamepad *;"></iframe>
+
+        <div class="search-container">
+            <input type="text" class="search-input" id="search-input" placeholder="Buscar juegos...">
+            <button class="search-btn" id="search-btn">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+
+        <div class="categories">
+            <div class="category active" data-category="all">Todos</div>
+            <div class="category" data-category="action">Acción</div>
+            <div class="category" data-category="adventure">Aventura</div>
+            <div class="category" data-category="puzzle">Puzzle</div>
+            <div class="category" data-category="racing">Carreras</div>
+            <div class="category" data-category="shooter">Shooter</div>
+            <div class="category" data-category="simulator">Simulador</div>
+            <div class="category" data-category="io">.io</div>
+        </div>
+
+        <h2 class="section-title">Juegos Populares</h2>
+        
+        <div class="games-grid" id="games-grid">
+            <!-- Juegos se cargarán aquí -->
         </div>
     </div>
 
-    <div class="tusini-banner" id="tusini-banner">
-        <div class="tusini-banner-content">
-            <div class="tusini-logo">tusinitusineli.com</div>
-            <div class="tusini-text">¡Disfruta de más juegos gratis!</div>
-            <a href="index.html" class="tusini-link">Ver todos</a>
+    <div class="overlay" id="overlay"></div>
+
+    <div class="game-viewer" id="game-viewer">
+        <div class="viewer-header">
+            <div class="viewer-title" id="viewer-title">Juego</div>
+            <button class="viewer-close" id="viewer-close">&times;</button>
+        </div>
+        <iframe class="game-iframe" id="game-iframe" frameborder="0" allow="gamepad *;"></iframe>
+        <div class="loading-overlay" id="loading-overlay">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Cargando juego...</div>
+            <button class="skip-btn" id="skip-btn">Saltar</button>
         </div>
     </div>
-    
-    <!-- Menú desplegable -->
-    <div class="menu-overlay" id="menu-overlay">
-        <div class="menu-content">
-            <button class="close-menu" id="close-menu">&times;</button>
-            <h3>tusinitusineli.com</h3>
-            <ul>
-                <li><a href="#" id="what-is">¿Qué es TusiniTusineli?</a></li>
-                <li><a href="periquiniloquini.html" id="tiktok">Interactúa en TikTok</a></li>
-                <li><a href="#" id="download">Descarga la Web App</a></li>
-            </ul>
-        </div>
-    </div>
-    
-    <button class="fullscreen-exit" id="fullscreen-exit">Salir de pantalla completa</button>
-    
-    <footer>
-        <p>&copy; 2023 TusiniTusineli.com - Todos los derechos reservados</p>
-    </footer>
-    
+
     <script>
         // Datos de los juegos
         const games = [
@@ -1001,39 +758,32 @@
                 category: "puzzle"
             }
         ];
-        
+
         // Elementos del DOM
-        const gameContainer = document.getElementById('game-container');
+        const gamesGrid = document.getElementById('games-grid');
         const searchInput = document.getElementById('search-input');
-        const searchButton = document.getElementById('search-button');
+        const searchBtn = document.getElementById('search-btn');
         const categories = document.querySelectorAll('.category');
         const gameViewer = document.getElementById('game-viewer');
         const gameIframe = document.getElementById('game-iframe');
-        const overlay = document.getElementById('overlay');
-        const closeViewer = document.getElementById('close-viewer');
         const viewerTitle = document.getElementById('viewer-title');
-        const toggleFullscreen = document.getElementById('toggle-fullscreen');
+        const viewerClose = document.getElementById('viewer-close');
+        const overlay = document.getElementById('overlay');
         const loadingOverlay = document.getElementById('loading-overlay');
-        const loadingTimer = document.getElementById('loading-timer');
-        const fullscreenExit = document.getElementById('fullscreen-exit');
-        const tusiniBanner = document.getElementById('tusini-banner');
-        const menuToggle = document.getElementById('menu-toggle');
-        const menuOverlay = document.getElementById('menu-overlay');
-        const closeMenu = document.getElementById('close-menu');
-        const skipButton = document.getElementById('skip-button');
-        
-        // Variables de estado
-        let isFullscreen = false;
-        let currentGameUrl = '';
-        let loadingInterval;
-        let secondsLeft = 5; // Reducido a 5 segundos
-        
+        const skipBtn = document.getElementById('skip-btn');
+        const menuBtn = document.getElementById('menu-btn');
+        const menu = document.getElementById('menu');
+        const liveBtn = document.getElementById('live-btn');
+        const whatIsBtn = document.getElementById('what-is');
+        const goToLiveBtn = document.getElementById('go-to-live');
+        const goToCoinsBtn = document.getElementById('go-to-coins');
+
         // Mostrar juegos
         function displayGames(gamesToShow) {
-            gameContainer.innerHTML = '';
+            gamesGrid.innerHTML = '';
             
             if (gamesToShow.length === 0) {
-                gameContainer.innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:2rem;">No se encontraron juegos que coincidan con tu búsqueda.</p>';
+                gamesGrid.innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:2rem;color:#666;">No se encontraron juegos</p>';
                 return;
             }
             
@@ -1048,174 +798,104 @@
                         <div class="game-title">${game.title}</div>
                         <div class="game-description">${game.description}</div>
                         <div class="game-actions">
-                            <button class="play-button" data-url="${game.url}" data-title="${game.title}">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M8 5V19L19 12L8 5Z" fill="white"/>
-                                </svg>
-                                Jugar
+                            <button class="btn btn-primary" data-url="${game.url}" data-title="${game.title}">
+                                <i class="fas fa-play"></i> Jugar
                             </button>
-                            <button class="fullscreen-button" data-url="${game.url}" data-title="${game.title}">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M7 14H5V19H10V17H7V14ZM5 10H7V7H10V5H5V10ZM17 17H14V19H19V14H17V17ZM14 5V7H17V10H19V5H14Z" fill="white"/>
-                                </svg>
-                                Pantalla
+                            <button class="btn btn-secondary" data-url="${game.url}" data-title="${game.title}">
+                                <i class="fas fa-expand"></i> Pantalla
                             </button>
                         </div>
                     </div>
                 `;
                 
-                gameContainer.appendChild(gameCard);
+                gamesGrid.appendChild(gameCard);
             });
             
-            // Agregar event listeners a los botones
+            // Configurar botones de juego
             setupGameButtons();
         }
-        
+
         // Configurar botones de juego
         function setupGameButtons() {
-            document.querySelectorAll('.play-button').forEach(button => {
-                button.addEventListener('click', (e) => {
+            document.querySelectorAll('.btn-primary').forEach(btn => {
+                btn.addEventListener('click', (e) => {
                     const url = e.target.closest('button').getAttribute('data-url');
                     const title = e.target.closest('button').getAttribute('data-title');
                     openGameViewer(url, title, false);
                 });
             });
             
-            document.querySelectorAll('.fullscreen-button').forEach(button => {
-                button.addEventListener('click', (e) => {
+            document.querySelectorAll('.btn-secondary').forEach(btn => {
+                btn.addEventListener('click', (e) => {
                     const url = e.target.closest('button').getAttribute('data-url');
                     const title = e.target.closest('button').getAttribute('data-title');
                     openGameViewer(url, title, true);
                 });
             });
         }
-        
-        // Mostrar temporizador de carga
-        function startLoadingTimer() {
-            secondsLeft = 5;
-            loadingTimer.textContent = `${secondsLeft} segundos restantes`;
-            loadingOverlay.style.display = 'flex';
-            
-            // Cargar el anuncio de AdSense
-            (adsbygoogle = window.adsbygoogle || []).push({});
-            
-            loadingInterval = setInterval(() => {
-                secondsLeft--;
-                loadingTimer.textContent = `${secondsLeft} segundos restantes`;
-                
-                if (secondsLeft <= 0) {
-                    clearInterval(loadingInterval);
-                    loadGame();
-                }
-            }, 1000);
-        }
-        
-        // Cargar el juego (llamado cuando termina el temporizador o al saltar)
-        function loadGame() {
-            clearInterval(loadingInterval);
-            loadingOverlay.style.display = 'none';
-            gameIframe.src = currentGameUrl;
-            hideCrazyGamesFooter();
-        }
-        
-        // Ocultar el footer de Crazy Games en PC
-        function hideCrazyGamesFooter() {
-            // Solo en PC
-            if (window.innerWidth > 768) {
-                const style = document.createElement('style');
-                style.innerHTML = `
-                    iframe.game-iframe {
-                        margin-bottom: -50px !important;
-                        overflow: hidden !important;
-                    }
-                    
-                    iframe.game-iframe body > div:last-child,
-                    iframe.game-iframe #footer,
-                    iframe.game-iframe .footer,
-                    iframe.game-iframe .crazygames-footer {
-                        display: none !important;
-                        height: 0 !important;
-                        visibility: hidden !important;
-                    }
-                    
-                    iframe.game-iframe #game-container {
-                        padding-bottom: 0 !important;
-                        margin-bottom: 0 !important;
-                    }
-                `;
-                document.head.appendChild(style);
-            }
-        }
-        
+
         // Abrir visor de juego
         function openGameViewer(url, title, fullscreen) {
-            currentGameUrl = url;
             viewerTitle.textContent = title;
             gameViewer.style.display = 'flex';
             overlay.style.display = 'block';
-            document.body.classList.add('fullscreen-mode');
+            loadingOverlay.style.display = 'flex';
             
-            // Mostrar banner solo en PC
-            tusiniBanner.style.display = window.innerWidth > 768 ? 'flex' : 'none';
-            
-            // Iniciar temporizador de carga reducido
-            startLoadingTimer();
-            
-            if (fullscreen && window.innerWidth > 768) {
-                toggleFullscreenMode();
-            }
-        }
-        
-        // Alternar modo pantalla completa
-        function toggleFullscreenMode() {
-            isFullscreen = !isFullscreen;
-            
-            if (isFullscreen) {
-                gameViewer.classList.add('fullscreen');
-                toggleFullscreen.textContent = '⛶';
-                fullscreenExit.style.display = 'block';
+            // Cargar el iframe después de un breve retraso
+            setTimeout(() => {
+                gameIframe.src = url;
+                loadingOverlay.style.display = 'none';
                 
-                // Ajustes especiales para móvil
-                if (window.innerWidth <= 768) {
-                    document.documentElement.requestFullscreen().catch(err => {
+                // Ocultar footer de Crazy Games
+                hideCrazyGamesFooter();
+                
+                // Pantalla completa si se solicitó
+                if (fullscreen && window.innerWidth > 768) {
+                    gameViewer.requestFullscreen().catch(err => {
                         console.error('Error al intentar pantalla completa:', err);
                     });
-                    
-                    // Ocultar la UI del navegador en móvil
-                    setTimeout(() => {
-                        window.scrollTo(0, 1);
-                    }, 100);
                 }
-            } else {
-                gameViewer.classList.remove('fullscreen');
-                toggleFullscreen.textContent = '⛶';
-                fullscreenExit.style.display = 'none';
-                
-                // Salir de pantalla completa en móvil
-                if (window.innerWidth <= 768 && document.fullscreenElement) {
-                    document.exitFullscreen();
-                }
-            }
+            }, 1500);
         }
-        
+
+        // Ocultar footer de Crazy Games
+        function hideCrazyGamesFooter() {
+            const style = document.createElement('style');
+            style.innerHTML = `
+                iframe.game-iframe {
+                    margin-bottom: -50px !important;
+                    overflow: hidden !important;
+                }
+                
+                iframe.game-iframe body > div:last-child,
+                iframe.game-iframe #footer,
+                iframe.game-iframe .footer,
+                iframe.game-iframe .crazygames-footer {
+                    display: none !important;
+                    height: 0 !important;
+                    visibility: hidden !important;
+                }
+                
+                iframe.game-iframe #game-container {
+                    padding-bottom: 0 !important;
+                    margin-bottom: 0 !important;
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
         // Cerrar visor de juego
         function closeGameViewer() {
             gameIframe.src = '';
             gameViewer.style.display = 'none';
-            gameViewer.classList.remove('fullscreen');
             overlay.style.display = 'none';
-            document.body.classList.remove('fullscreen-mode');
-            isFullscreen = false;
-            fullscreenExit.style.display = 'none';
-            tusiniBanner.style.display = 'none';
-            clearInterval(loadingInterval);
             
             // Salir de pantalla completa si está activa
             if (document.fullscreenElement) {
                 document.exitFullscreen();
             }
         }
-        
+
         // Filtrar juegos por categoría
         function filterByCategory(category) {
             if (category === 'all') {
@@ -1225,7 +905,7 @@
                 displayGames(filteredGames);
             }
         }
-        
+
         // Buscar juegos
         function searchGames() {
             const searchTerm = searchInput.value.toLowerCase().trim();
@@ -1241,17 +921,27 @@
             
             displayGames(filteredGames);
         }
-        
-        // Abrir menú
-        function openMenu() {
-            menuOverlay.style.display = 'flex';
+
+        // Alternar menú
+        function toggleMenu() {
+            menu.classList.toggle('active');
         }
-        
-        // Cerrar menú
-        function closeMenuHandler() {
-            menuOverlay.style.display = 'none';
+
+        // Redirigir al live de TikTok
+        function goToLive() {
+            window.location.href = 'tusinimonedas.html';
         }
-        
+
+        // Redirigir a Tusini Monedas
+        function goToCoins() {
+            window.location.href = 'tusini-monedas.html';
+        }
+
+        // Mostrar información sobre TusiniTusineli
+        function showWhatIs() {
+            alert('TusiniTusineli.com es una plataforma de juegos gratis online donde también puedes interactuar en el live de Periquini Loquini en TikTok.');
+        }
+
         // Event listeners
         categories.forEach(category => {
             category.addEventListener('click', () => {
@@ -1260,49 +950,41 @@
                 filterByCategory(category.dataset.category);
             });
         });
-        
-        searchButton.addEventListener('click', searchGames);
-        
+
+        searchBtn.addEventListener('click', searchGames);
         searchInput.addEventListener('keyup', (e) => {
             if (e.key === 'Enter') {
                 searchGames();
             }
         });
-        
-        closeViewer.addEventListener('click', closeGameViewer);
+
+        viewerClose.addEventListener('click', closeGameViewer);
         overlay.addEventListener('click', closeGameViewer);
-        toggleFullscreen.addEventListener('click', toggleFullscreenMode);
-        fullscreenExit.addEventListener('click', toggleFullscreenMode);
-        skipButton.addEventListener('click', loadGame);
-        
-        menuToggle.addEventListener('click', openMenu);
-        closeMenu.addEventListener('click', closeMenuHandler);
-        menuOverlay.addEventListener('click', (e) => {
-            if (e.target === menuOverlay) {
-                closeMenuHandler();
+        skipBtn.addEventListener('click', () => {
+            loadingOverlay.style.display = 'none';
+        });
+
+        menuBtn.addEventListener('click', toggleMenu);
+        liveBtn.addEventListener('click', goToLive);
+        goToLiveBtn.addEventListener('click', goToLive);
+        goToCoinsBtn.addEventListener('click', goToCoins);
+        whatIsBtn.addEventListener('click', showWhatIs);
+
+        // Cerrar menú al hacer clic fuera
+        document.addEventListener('click', (e) => {
+            if (!menu.contains(e.target) && e.target !== menuBtn) {
+                menu.classList.remove('active');
             }
         });
-        
-        // Manejar tecla ESC para salir de pantalla completa
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && isFullscreen) {
-                toggleFullscreenMode();
-            }
-        });
-        
-        // Manejar cambios de pantalla completa en móvil
+
+        // Manejar cambios de pantalla completa
         document.addEventListener('fullscreenchange', () => {
-            if (window.innerWidth <= 768) {
-                if (document.fullscreenElement) {
-                    gameViewer.classList.add('fullscreen');
-                    fullscreenExit.style.display = 'block';
-                } else {
-                    gameViewer.classList.remove('fullscreen');
-                    fullscreenExit.style.display = 'none';
-                }
+            if (!document.fullscreenElement) {
+                gameViewer.style.width = '100%';
+                gameViewer.style.height = '100%';
             }
         });
-        
+
         // Inicializar
         displayGames(games);
     </script>

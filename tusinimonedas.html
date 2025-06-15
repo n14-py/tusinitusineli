@@ -5,6 +5,8 @@
      crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Tusini Monedas</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Favicon para el logo -->
@@ -32,7 +34,15 @@
             font-family: 'Poppins', sans-serif;
             -webkit-tap-highlight-color: transparent;
             -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
             -webkit-touch-callout: none;
+        }
+
+        html {
+            touch-action: manipulation;
+            -webkit-text-size-adjust: 100%;
         }
 
         body {
@@ -41,8 +51,8 @@
             min-height: 100vh;
             padding-top: 80px;
             padding-bottom: 20px;
-            touch-action: manipulation;
             -webkit-overflow-scrolling: touch;
+            overflow-x: hidden;
         }
 
         .container {
@@ -125,6 +135,7 @@
             gap: 5px;
             padding: 5px;
             -webkit-appearance: none;
+            background-color: transparent;
         }
 
         .menu-dot {
@@ -180,18 +191,21 @@
             margin: 10px 0;
             width: 100%;
             -webkit-appearance: none;
+            font-size: 14px;
         }
 
         .save-username-btn {
             background-color: var(--primary);
             color: white;
             border: none;
-            padding: 8px 15px;
+            padding: 10px 15px;
             border-radius: 8px;
             cursor: pointer;
             width: 100%;
             margin-top: 5px;
             -webkit-appearance: none;
+            font-size: 14px;
+            font-weight: 600;
         }
 
         main {
@@ -286,6 +300,7 @@
             gap: 5px;
             box-shadow: 0 3px 6px rgba(0,0,0,0.1);
             -webkit-appearance: none;
+            font-size: 14px;
         }
 
         .btn-primary {
@@ -322,6 +337,7 @@
             background-color: #b2bec3;
             cursor: not-allowed;
             transform: none !important;
+            opacity: 0.7;
         }
 
         .videos-section {
@@ -371,6 +387,7 @@
             object-fit: cover;
             transition: transform 0.3s ease;
             -webkit-touch-callout: none;
+            pointer-events: none;
         }
 
         .video-card:hover .video-thumbnail {
@@ -571,6 +588,14 @@
             color: var(--dark);
             transition: transform 0.3s ease;
             -webkit-tap-highlight-color: rgba(0,0,0,0);
+            background: none;
+            border: none;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
         }
 
         .close-modal:hover {
@@ -586,6 +611,7 @@
 
         .modal-text {
             margin-bottom: 20px;
+            font-size: 14px;
         }
 
         .video-preview {
@@ -603,6 +629,7 @@
             margin-top: 20px;
             display: none;
             animation: fadeIn 0.5s ease;
+            font-size: 14px;
         }
 
         .toast {
@@ -619,6 +646,9 @@
             display: none;
             animation: fadeInUp 0.5s ease;
             -webkit-transform: translateZ(0);
+            font-size: 14px;
+            max-width: 90%;
+            text-align: center;
         }
 
         .toast.error {
@@ -806,6 +836,19 @@
             .video-thumbnail {
                 height: 80px;
             }
+            
+            .modal-content {
+                padding: 20px 15px;
+            }
+            
+            .modal-title {
+                font-size: 18px;
+            }
+            
+            .close-modal {
+                top: 10px;
+                right: 10px;
+            }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -992,7 +1035,7 @@
     <!-- Modal para visualización de contenido -->
     <div class="modal" id="content-modal">
         <div class="modal-content">
-            <span class="close-modal" id="close-modal">&times;</span>
+            <button class="close-modal" id="close-modal">&times;</button>
             <h2 class="modal-title" id="modal-title">Ver Anuncio</h2>
             <p class="modal-text" id="modal-text">Por favor mira el anuncio completo para recibir tus monedas.</p>
             
@@ -1017,7 +1060,7 @@
     <!-- Modal para compartir -->
     <div class="modal" id="share-modal">
         <div class="modal-content">
-            <span class="close-modal" id="close-share-modal">&times;</span>
+            <button class="close-modal" id="close-share-modal">&times;</button>
             <h2 class="modal-title">Compartir en Redes</h2>
             <p class="modal-text">Comparte nuestro contenido en tus redes sociales y gana 30 monedas.</p>
             
@@ -1041,7 +1084,7 @@
     <!-- Modal Cómo funciona -->
     <div class="modal" id="how-it-works-modal">
         <div class="modal-content">
-            <span class="close-modal" id="close-how-it-works-modal">&times;</span>
+            <button class="close-modal" id="close-how-it-works-modal">&times;</button>
             <h2 class="modal-title">Cómo Funciona Tusini Monedas</h2>
             
             <div class="modal-text">
@@ -1087,8 +1130,8 @@
             { id: 13, title: "BRR BRR PATAPIN PHONK", price: 35, thumbnail: "https://i.ytimg.com/vi/_pqprkBM9d8/sddefault.jpg", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/brrpataminremix?v=1749832688911" },
             { id: 14, title: "TRALALERO TRALALA PHONK", price: 35, thumbnail: "https://i1.sndcdn.com/artworks-oFsNkb2W0MDW-0-t500x500.jpg", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tralalerotralalaremix?v=1749832684969" },
             { id: 15, title: "BOMBARDILO PHONK", price: 35, thumbnail: "https://i1.sndcdn.com/artworks-rksO7i8EfgO8HbsC-RxFZ4w-t500x500.png", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/bombardiloponhk?v=1749832677189" },
-            { id: 15, title: "La poliziaaaa", price: 35, thumbnail: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdT7h-xqWIrrsEzS4MqPYdFbxtOoteC_WO6Q&s", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/lapolizia?v=1749832654802" },
-            { id: 16, title: "TRALALERO TRALALA MUSIC", price: 35, thumbnail: "https://i.ytimg.com/vi/sTRh_NcaYHM/sddefault.jpg", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tralaleroonanananana?v=1749832682475" }
+            { id: 16, title: "La poliziaaaa", price: 35, thumbnail: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdT7h-xqWIrrsEzS4MqPYdFbxtOoteC_WO6Q&s", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/lapolizia?v=1749832654802" },
+            { id: 17, title: "TRALALERO TRALALA MUSIC", price: 35, thumbnail: "https://i.ytimg.com/vi/sTRh_NcaYHM/sddefault.jpg", url: "https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tralaleroonanananana?v=1749832682475" }
         ];  
 
         // Videos de YouTube para ver (3 videos aleatorios)
@@ -1176,40 +1219,55 @@
             updateTimers();
             updateCounts();
             
-            // Configurar event listeners con addEventListener para mejor compatibilidad
-            watchAdBtn.addEventListener('click', startAd, false);
-            watchYtBtn.addEventListener('click', startYtVideo, false);
-            subscribeBtn.addEventListener('click', subscribeToChannel, false);
-            shareBtn.addEventListener('click', openShareModal, false);
-            skipAdBtn.addEventListener('click', skipAd, false);
-            closeModal.addEventListener('click', closeModalHandler, false);
-            closeShareModal.addEventListener('click', closeShareModalHandler, false);
-            whatsappShare.addEventListener('click', shareOnWhatsApp, false);
-            tiktokShare.addEventListener('click', followOnTikTok, false);
-            menuBtn.addEventListener('click', toggleMenu, false);
-            howItWorksBtn.addEventListener('click', openHowItWorksModal, false);
-            goToGamesBtn.addEventListener('click', goToGames, false);
-            closeHowItWorksModal.addEventListener('click', closeHowItWorksModalHandler, false);
-            volumeControl.addEventListener('click', toggleVolume, false);
-            saveUsernameBtn.addEventListener('click', saveUsername, false);
+            // Configurar event listeners
+            watchAdBtn.addEventListener('click', startAd);
+            watchYtBtn.addEventListener('click', startYtVideo);
+            subscribeBtn.addEventListener('click', subscribeToChannel);
+            shareBtn.addEventListener('click', openShareModal);
+            closeModal.addEventListener('click', closeModalHandler);
+            closeShareModal.addEventListener('click', closeShareModalHandler);
+            whatsappShare.addEventListener('click', shareOnWhatsApp);
+            tiktokShare.addEventListener('click', followOnTikTok);
+            menuBtn.addEventListener('click', toggleMenu);
+            howItWorksBtn.addEventListener('click', openHowItWorksModal);
+            goToGamesBtn.addEventListener('click', goToGames);
+            closeHowItWorksModal.addEventListener('click', closeHowItWorksModalHandler);
+            volumeControl.addEventListener('click', toggleVolume);
+            saveUsernameBtn.addEventListener('click', saveUsername);
             logo.addEventListener('click', () => {
                 window.location.href = WEBSITE_URL;
-            }, false);
+            });
             
             // Cargar nombre de usuario si existe
             if (state.username) {
                 usernameInput.value = state.username;
             }
             
-            // Cerrar menú al hacer clic fuera (mejorado para Safari)
+            // Cerrar menú al hacer clic fuera
             document.addEventListener('click', (e) => {
-                if (!menu.contains(e.target) && e.target !== menuBtn && !menuBtn.contains(e.target)) {
+                if (!menu.contains(e.target) && e.target !== menuBtn && !Array.from(menuBtn.children).includes(e.target)) {
                     menu.classList.remove('active');
                 }
-            }, false);
+            });
             
             // Actualizar timers cada segundo
             setInterval(updateTimers, 1000);
+            
+            // Prevenir zoom en dispositivos móviles
+            document.addEventListener('gesturestart', function (e) {
+                e.preventDefault();
+            });
+            
+            // Configurar volumen inicial del widget
+            setTimeout(() => {
+                const iframe = document.querySelector('.live-widget iframe');
+                if (iframe) {
+                    iframe.contentWindow.postMessage({
+                        type: 'setVolume',
+                        volume: state.volumeOn ? 1 : 0
+                    }, '*');
+                }
+            }, 2000);
         }
 
         // Guardar nombre de usuario
@@ -1297,7 +1355,7 @@
                     cooldownEl.textContent = `${remaining}s`;
                     videoCard.appendChild(cooldownEl);
                 } else {
-                    videoCard.addEventListener('click', () => sendVideo(video), false);
+                    videoCard.addEventListener('click', () => sendVideo(video));
                 }
                 
                 videosGrid.appendChild(videoCard);
@@ -1388,9 +1446,9 @@
             }, 3000);
         }
 
-        // Alternar menú (mejorado para Safari)
+        // Alternar menú
         function toggleMenu(e) {
-            e.stopPropagation(); // Evitar que el evento se propague
+            e.stopPropagation();
             menu.classList.toggle('active');
         }
 
@@ -1467,23 +1525,6 @@
             updateTimers();
             
             showToast('¡Has ganado 10 monedas por ver el anuncio!');
-        }
-
-        // Saltar anuncio (para desarrollo)
-        function skipAd() {
-            if (state.adTimer) {
-                clearInterval(state.adTimer);
-            }
-            
-            if (state.skipTimer) {
-                clearInterval(state.skipTimer);
-            }
-            
-            adPlaceholder.innerHTML = 'Anuncio aparecerá aquí';
-            skipAdBtn.style.display = 'none';
-            state.adInProgress = false;
-            
-            finishAd();
         }
 
         // Iniciar video de YouTube
@@ -1700,7 +1741,11 @@
         }
 
         // Inicializar la aplicación cuando el DOM esté listo
-        document.addEventListener('DOMContentLoaded', init);
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
     </script>
 </body>
 </html>

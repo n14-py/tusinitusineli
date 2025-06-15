@@ -7,6 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Tusini Monedas</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Favicon para el logo -->
+    <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tusinitusineli.com?v=1749935984757">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tusinitusineli.com?v=1749935984757">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tusinitusineli.com?v=1749935984757">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#e84393">
     <style>
         :root {
             --primary: #e84393;
@@ -25,6 +31,8 @@
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
             -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
         }
 
         body {
@@ -34,6 +42,7 @@
             padding-top: 80px;
             padding-bottom: 20px;
             touch-action: manipulation;
+            -webkit-overflow-scrolling: touch;
         }
 
         .container {
@@ -55,6 +64,7 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             z-index: 100;
             animation: fadeInDown 0.5s ease;
+            -webkit-backface-visibility: hidden;
         }
 
         .logo {
@@ -65,6 +75,16 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
         }
 
         .user-info {
@@ -104,6 +124,7 @@
             flex-direction: column;
             gap: 5px;
             padding: 5px;
+            -webkit-appearance: none;
         }
 
         .menu-dot {
@@ -124,6 +145,7 @@
             z-index: 101;
             display: none;
             animation: fadeIn 0.3s ease;
+            -webkit-transform: translateZ(0);
         }
 
         .menu.active {
@@ -139,6 +161,7 @@
             align-items: center;
             gap: 10px;
             white-space: nowrap;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
         }
 
         .menu-item:hover {
@@ -156,6 +179,7 @@
             border-radius: 8px;
             margin: 10px 0;
             width: 100%;
+            -webkit-appearance: none;
         }
 
         .save-username-btn {
@@ -167,6 +191,7 @@
             cursor: pointer;
             width: 100%;
             margin-top: 5px;
+            -webkit-appearance: none;
         }
 
         main {
@@ -188,6 +213,7 @@
             padding: 20px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             transition: transform 0.3s ease;
+            -webkit-transform: translateZ(0);
         }
 
         .earn-coins:hover {
@@ -259,6 +285,7 @@
             align-items: center;
             gap: 5px;
             box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            -webkit-appearance: none;
         }
 
         .btn-primary {
@@ -303,6 +330,7 @@
             padding: 20px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             transition: transform 0.3s ease;
+            -webkit-transform: translateZ(0);
         }
 
         .videos-section:hover {
@@ -329,6 +357,7 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
             position: relative;
+            -webkit-transform: translateZ(0);
         }
 
         .video-card:hover {
@@ -341,6 +370,7 @@
             height: 100px;
             object-fit: cover;
             transition: transform 0.3s ease;
+            -webkit-touch-callout: none;
         }
 
         .video-card:hover .video-thumbnail {
@@ -477,6 +507,7 @@
             justify-content: center;
             cursor: pointer;
             z-index: 10;
+            -webkit-appearance: none;
         }
 
         .live-widget-text {
@@ -498,6 +529,7 @@
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.3s ease;
+            -webkit-overflow-scrolling: touch;
         }
 
         .modal.active {
@@ -515,6 +547,8 @@
             overflow-y: auto;
             position: relative;
             animation: modalFadeIn 0.4s ease;
+            -webkit-overflow-scrolling: touch;
+            -webkit-transform: translateZ(0);
         }
 
         @keyframes modalFadeIn {
@@ -536,6 +570,7 @@
             cursor: pointer;
             color: var(--dark);
             transition: transform 0.3s ease;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
         }
 
         .close-modal:hover {
@@ -583,6 +618,7 @@
             z-index: 1001;
             display: none;
             animation: fadeInUp 0.5s ease;
+            -webkit-transform: translateZ(0);
         }
 
         .toast.error {
@@ -631,6 +667,7 @@
             background-color: #f1f2f6;
             cursor: pointer;
             transition: all 0.3s ease;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
         }
 
         .share-option:hover {
@@ -674,6 +711,33 @@
             background: linear-gradient(45deg, var(--primary), var(--secondary));
             border-radius: 10px;
             transition: width 0.3s ease;
+        }
+
+        .download-app-container {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            border: 1px solid #e9ecef;
+        }
+
+        .download-app-btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .download-app-btn:hover {
+            background-color: #d63073;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         @keyframes fadeIn {
@@ -748,7 +812,10 @@
 </head>
 <body>
     <header>
-        <div class="logo" id="logo">Tusini Monedas</div>
+        <div class="logo" id="logo">
+            <img src="https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tusinitusineli.com?v=1749935984757" alt="Tusini Logo" class="logo-img">
+            Tusini Monedas
+        </div>
         <div class="user-info">
             <div class="coins">
                 <i class="fas fa-coins"></i>
@@ -851,14 +918,20 @@
                     </button>
                 </div>
 
+                <!-- Contenedor del anuncio -->
                 <div class="ad-container">
-                    <h3 class="ad-title">Anuncio Patrocinado</h3>
-                    <div class="ad-placeholder" id="ad-placeholder">
-                        Anuncio aparecerá aquí
-                    </div>
-                    <button class="btn btn-secondary" id="skip-ad-btn" style="display: none;">
-                        <i class="fas fa-forward"></i> Saltar en <span id="skip-timer">5</span>s
-                    </button>
+                    <h3 class="ad-title">Anuncios</h3>
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5461370198299696"
+                        crossorigin="anonymous"></script>
+                    <ins class="adsbygoogle"
+                        style="display:block"
+                        data-ad-format="fluid"
+                        data-ad-layout-key="-f8+5e+78-c8-2t"
+                        data-ad-client="ca-pub-5461370198299696"
+                        data-ad-slot="1103420372"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
                 </div>
 
                 <div class="live-widget-container">
@@ -878,6 +951,15 @@
                 <a href="https://www.tiktok.com/@periquiniloquini" target="_blank" class="tiktok-btn pulse">
                     <i class="fab fa-tiktok"></i> Ver Live en TikTok
                 </a>
+
+                <!-- Sección para descargar la app -->
+                <div class="download-app-container">
+                    <h3>¿Quieres la mejor experiencia?</h3>
+                    <p>Descarga nuestra aplicación web para acceder a más funciones y una mejor experiencia de usuario.</p>
+                    <a href="descargar.html" class="download-app-btn">
+                        <i class="fas fa-download"></i> Descargar App
+                    </a>
+                </div>
             </section>
 
             <section class="videos-section">
@@ -886,6 +968,22 @@
                 
                 <div class="videos-grid" id="videos-grid">
                     <!-- Videos se cargarán aquí -->
+                </div>
+
+                <!-- Anuncio adicional en la sección de videos -->
+                <div class="ad-container" style="margin-top: 20px;">
+                    <h3 class="ad-title">Publicidad</h3>
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5461370198299696"
+                        crossorigin="anonymous"></script>
+                    <ins class="adsbygoogle"
+                        style="display:block"
+                        data-ad-format="fluid"
+                        data-ad-layout-key="-f8+5e+78-c8-2t"
+                        data-ad-client="ca-pub-5461370198299696"
+                        data-ad-slot="1103420372"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
                 </div>
             </section>
         </main>
@@ -900,6 +998,14 @@
             
             <div id="modal-content">
                 <!-- Contenido del modal (anuncio, video, etc) -->
+                <div style="text-align: center;">
+                    <img src="https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tusinitusineli.com?v=1749935984757" alt="Tusini Logo" style="width: 100px; height: 100px; border-radius: 50%; margin-bottom: 20px;">
+                    <h3>¡Descarga nuestra aplicación web!</h3>
+                    <p>Para una mejor experiencia, descarga nuestra aplicación web y disfruta de todas las funciones.</p>
+                    <a href="descargar.html" class="download-app-btn" style="display: inline-block; margin-top: 15px;">
+                        <i class="fas fa-download"></i> Descargar Ahora
+                    </a>
+                </div>
             </div>
             
             <div class="reward-message" id="reward-message">
@@ -1070,37 +1176,37 @@
             updateTimers();
             updateCounts();
             
-            // Configurar event listeners
-            watchAdBtn.addEventListener('click', startAd);
-            watchYtBtn.addEventListener('click', startYtVideo);
-            subscribeBtn.addEventListener('click', subscribeToChannel);
-            shareBtn.addEventListener('click', openShareModal);
-            skipAdBtn.addEventListener('click', skipAd);
-            closeModal.addEventListener('click', closeModalHandler);
-            closeShareModal.addEventListener('click', closeShareModalHandler);
-            whatsappShare.addEventListener('click', shareOnWhatsApp);
-            tiktokShare.addEventListener('click', followOnTikTok);
-            menuBtn.addEventListener('click', toggleMenu);
-            howItWorksBtn.addEventListener('click', openHowItWorksModal);
-            goToGamesBtn.addEventListener('click', goToGames);
-            closeHowItWorksModal.addEventListener('click', closeHowItWorksModalHandler);
-            volumeControl.addEventListener('click', toggleVolume);
-            saveUsernameBtn.addEventListener('click', saveUsername);
+            // Configurar event listeners con addEventListener para mejor compatibilidad
+            watchAdBtn.addEventListener('click', startAd, false);
+            watchYtBtn.addEventListener('click', startYtVideo, false);
+            subscribeBtn.addEventListener('click', subscribeToChannel, false);
+            shareBtn.addEventListener('click', openShareModal, false);
+            skipAdBtn.addEventListener('click', skipAd, false);
+            closeModal.addEventListener('click', closeModalHandler, false);
+            closeShareModal.addEventListener('click', closeShareModalHandler, false);
+            whatsappShare.addEventListener('click', shareOnWhatsApp, false);
+            tiktokShare.addEventListener('click', followOnTikTok, false);
+            menuBtn.addEventListener('click', toggleMenu, false);
+            howItWorksBtn.addEventListener('click', openHowItWorksModal, false);
+            goToGamesBtn.addEventListener('click', goToGames, false);
+            closeHowItWorksModal.addEventListener('click', closeHowItWorksModalHandler, false);
+            volumeControl.addEventListener('click', toggleVolume, false);
+            saveUsernameBtn.addEventListener('click', saveUsername, false);
             logo.addEventListener('click', () => {
                 window.location.href = WEBSITE_URL;
-            });
+            }, false);
             
             // Cargar nombre de usuario si existe
             if (state.username) {
                 usernameInput.value = state.username;
             }
             
-            // Cerrar menú al hacer clic fuera
+            // Cerrar menú al hacer clic fuera (mejorado para Safari)
             document.addEventListener('click', (e) => {
-                if (!menu.contains(e.target) && e.target !== menuBtn) {
+                if (!menu.contains(e.target) && e.target !== menuBtn && !menuBtn.contains(e.target)) {
                     menu.classList.remove('active');
                 }
-            });
+            }, false);
             
             // Actualizar timers cada segundo
             setInterval(updateTimers, 1000);
@@ -1139,15 +1245,20 @@
         function loadState() {
             const savedState = localStorage.getItem('tusiniState');
             if (savedState) {
-                state = JSON.parse(savedState);
-                // Convertir fechas de string a objetos Date
-                if (state.lastAdWatch) state.lastAdWatch = new Date(state.lastAdWatch);
-                if (state.lastYtWatch) state.lastYtWatch = new Date(state.lastYtWatch);
-                if (state.youtubeCooldown) state.youtubeCooldown = new Date(state.youtubeCooldown);
-                if (state.shareCooldown) state.shareCooldown = new Date(state.shareCooldown);
-                
-                // Configurar icono de volumen
-                volumeControl.innerHTML = state.volumeOn ? '<i class="fas fa-volume-up"></i>' : '<i class="fas fa-volume-mute"></i>';
+                try {
+                    state = JSON.parse(savedState);
+                    // Convertir fechas de string a objetos Date
+                    if (state.lastAdWatch) state.lastAdWatch = new Date(state.lastAdWatch);
+                    if (state.lastYtWatch) state.lastYtWatch = new Date(state.lastYtWatch);
+                    if (state.youtubeCooldown) state.youtubeCooldown = new Date(state.youtubeCooldown);
+                    if (state.shareCooldown) state.shareCooldown = new Date(state.shareCooldown);
+                    
+                    // Configurar icono de volumen
+                    volumeControl.innerHTML = state.volumeOn ? '<i class="fas fa-volume-up"></i>' : '<i class="fas fa-volume-mute"></i>';
+                } catch (e) {
+                    console.error('Error al cargar el estado:', e);
+                    localStorage.removeItem('tusiniState');
+                }
             }
         }
 
@@ -1186,7 +1297,7 @@
                     cooldownEl.textContent = `${remaining}s`;
                     videoCard.appendChild(cooldownEl);
                 } else {
-                    videoCard.addEventListener('click', () => sendVideo(video));
+                    videoCard.addEventListener('click', () => sendVideo(video), false);
                 }
                 
                 videosGrid.appendChild(videoCard);
@@ -1277,8 +1388,9 @@
             }, 3000);
         }
 
-        // Alternar menú
-        function toggleMenu() {
+        // Alternar menú (mejorado para Safari)
+        function toggleMenu(e) {
+            e.stopPropagation(); // Evitar que el evento se propague
             menu.classList.toggle('active');
         }
 
@@ -1315,8 +1427,13 @@
             modalTitle.textContent = 'Ver Anuncio';
             modalText.textContent = 'Por favor mira el anuncio completo para recibir tus monedas.';
             modalContent.innerHTML = `
-                <div style="width: 100%; height: 300px; background-color: #dfe6e9; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-                    <h3>Anuncio de ejemplo (5 segundos)</h3>
+                <div style="text-align: center;">
+                    <img src="https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tusinitusineli.com?v=1749935984757" alt="Tusini Logo" style="width: 100px; height: 100px; border-radius: 50%; margin-bottom: 20px;">
+                    <h3>¡Descarga nuestra aplicación web!</h3>
+                    <p>Para una mejor experiencia, descarga nuestra aplicación web y disfruta de todas las funciones.</p>
+                    <a href="descargar.html" class="download-app-btn" style="display: inline-block; margin-top: 15px;">
+                        <i class="fas fa-download"></i> Descargar Ahora
+                    </a>
                 </div>
             `;
             rewardMessage.style.display = 'none';
@@ -1350,11 +1467,6 @@
             updateTimers();
             
             showToast('¡Has ganado 10 monedas por ver el anuncio!');
-            
-            // Actualizar la página después de 2 segundos
-            setTimeout(() => {
-                window.location.reload();
-            }, 2000);
         }
 
         // Saltar anuncio (para desarrollo)

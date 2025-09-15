@@ -26,6 +26,7 @@ const cookieParser = require('cookie-parser');
 
 // Configuración básica del servidor
 const app = express();
+app.set('trust proxy', 1); 
 const server = http.createServer(app);
 const io = new Server(server); // Integración de Socket.IO para el chat
 const PORT = process.env.PORT || 3000;

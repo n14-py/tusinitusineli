@@ -1157,50 +1157,45 @@ app.get('/my-movements', requireAuth, async (req, res, next) => {
 
 
 // ==========================================================
-//      ENDPOINT PARA RECIBIR COMPRAS DE ROBLOX
+//      ENDPOINT FINAL Y COMPLETO PARA RECIBIR COMPRAS DE ROBLOX
 // ==========================================================
 app.post('/api/recibir-compra-roblox', async (req, res) => {
-    // Esta será la ruta que pondrás en el script de Roblox Studio
-    // Ejemplo: https://tubrainrotmarketplace.com/api/recibir-compra-roblox
-
-    const { claveSecreta, robloxUserId, monedasAAgregar } = req.body;
+    
+    // Recibimos los datos que nos envía el script de Roblox
+    const { claveSecreta, robloxUsername, monedasAAgregar } = req.body;
 
     console.log('Recibida petición de compra desde Roblox:', req.body);
 
     // --- 1. Verificación de Seguridad ---
-    // Comparamos la clave secreta que nos envía Roblox con la que tenemos guardada en .env
-    // ¡Asegúrate de añadir esta variable a tu archivo .env!
+    // Comparamos la clave secreta recibida con la que tenemos en el archivo .env
     if (claveSecreta !== process.env.ROBLOX_API_SECRET) {
         console.warn('¡ALERTA! Intento de acceso a la API con clave secreta incorrecta.');
         return res.status(403).json({ error: 'Acceso denegado.' });
     }
 
     // --- 2. Validación de Datos ---
-    if (!robloxUserId || !monedasAAgregar || monedasAAgregar <= 0) {
+    if (!robloxUsername || !monedasAAgregar || monedasAAgregar <= 0) {
         console.error('ERROR: Petición de Roblox recibida con datos incompletos o inválidos.');
         return res.status(400).json({ error: 'Datos inválidos.' });
     }
 
     try {
         // --- 3. Buscar y Actualizar al Usuario ---
-        // Buscamos al usuario en la base de datos por su ID de Roblox (que debería ser único)
-        // Usamos $inc para sumar de forma segura las nuevas monedas a su balance actual.
+        // Buscamos al usuario por su 'robloxUsername', convirtiéndolo a minúsculas para coincidir con cómo se guarda en la DB.
         const user = await User.findOneAndUpdate(
-            { robloxId: robloxUserId }, // Asumimos que tienes un campo `robloxId` en tu User Schema
+            { robloxUsername: robloxUsername.toLowerCase() },
             { $inc: { tusinimonedas: monedasAAgregar } },
             { new: true } // Esto nos devuelve el documento del usuario ya actualizado
         );
 
         if (!user) {
-            // Si no encontramos al usuario, guardamos un log y avisamos a Roblox que algo falló.
-            console.error(`ERROR: No se encontró un usuario con el Roblox User ID: ${robloxUserId}`);
-            // Es importante devolver un error para que Roblox sepa que no se procesó.
-            return res.status(404).json({ error: 'Usuario no encontrado.' });
+            // Si no se encuentra un usuario con ese nombre en tu web, se registra el error.
+            console.error(`ERROR: No se encontró un usuario con el Roblox Username: ${robloxUsername}`);
+            return res.status(404).json({ error: 'Usuario no encontrado en la base de datos del marketplace.' });
         }
 
-        // --- 4. Registrar la Acción (¡Importante para auditoría!) ---
+        // --- 4. Registrar la Acción (opcional pero recomendado) ---
         const log = new AdminLog({
-            // No hay un adminId porque esta acción es automática (del sistema)
             action: 'acredito_monedas_roblox',
             targetUserId: user._id,
             details: `Acreditación automática de ${monedasAAgregar} tusinimonedas por compra en Roblox. Nuevo balance: ${user.tusinimonedas}.`
@@ -1210,13 +1205,12 @@ app.post('/api/recibir-compra-roblox', async (req, res) => {
         console.log(`ÉXITO: Se acreditaron ${monedasAAgregar} tusinimonedas a ${user.robloxUsername}.`);
 
         // --- 5. Responder a Roblox ---
-        // Enviamos una respuesta exitosa a Roblox para que sepa que todo salió bien.
+        // Enviamos una respuesta exitosa para que Roblox sepa que todo salió bien.
         res.status(200).json({ message: 'Monedas acreditadas correctamente.' });
 
     } catch (error) {
         console.error('ERROR CRÍTICO al procesar la compra de Roblox:', error);
-        // Si hay un error en la base de datos, le avisamos a Roblox.
-        res.status(500).json({ error: 'Error interno del servidor.' });
+        res.status(500).json({ error: 'Error interno del servidor al actualizar la base de datos.' });
     }
 });
 

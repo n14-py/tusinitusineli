@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= pageTitle %></title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+
+<%- include('partials/header.html') %>
+
+<main class="container">
+    <div class="transaction-container">
+        <div class="transaction-info">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Detalles de la Transacción</h3>
+                </div>
+                <div class="card-body">
+                    <div class="item-summary">
+                        <img src="<%= transaction.brainrotId.imageUrl.replace('/upload/', '/upload/w_150,h_150,c_fill,g_auto/') %>" alt="<%= transaction.brainrotId.title %>">
+                        <div>
+                            <h4><%= transaction.brainrotId.title %></h4>
+                            <p class="price"><i class="fas fa-coins"></i> <%= transaction.amount.toLocaleString('es-PY') %> tusinimonedas</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <h4>Instrucciones para el Intercambio:</h4>
+                    <ol class="instructions">
+                        <li><strong>Agrégense en Roblox:</strong>
+                            <ul>
+                                <li>Comprador: <strong><%= transaction.buyerId.robloxUsername %></strong></li>
+                                <li>Vendedor: <strong><%= transaction.sellerId.robloxUsername %></strong></li>
+                            </ul>
+                        </li>
+                        <li>Coordinen en el chat para encontrarse en un servidor del juego.</li>
+                        <li>El Vendedor debe entregar el artículo al Comprador.</li>
+                        <li>Una vez recibido, el <strong>Comprador</strong> debe presionar el botón <strong>"He Recibido el Artículo"</strong> para liberar el pago.</li>
+                    </ol>
+                    <hr>
+                    <div class="status-box status-<%= transaction.status %>">
+                        <strong>Estado:</strong> <%= transaction.status.replace('_', ' ').toUpperCase() %>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>Acciones</h3>
+                </div>
+                <div class="card-body">
+                    <% if (isBuyer && transaction.status === 'pending_delivery') { %>
+                        <form action="/transaction/<%= transaction._id %>/confirm-delivery" method="POST" onsubmit="return confirm('¿Estás seguro de que has recibido el artículo? Esta acción liberará el pago al vendedor y no se puede deshacer.');">
+                            <button type="submit" class="btn btn-success btn-block"><i class="fas fa-check-circle"></i> He Recibido el Artículo</button>
+                        </form>
+                    <% } %>
+
+                    <% if ((isBuyer || isSeller) && transaction.status === 'pending_delivery') { %>
+                        <form action="/transaction/<%= transaction._id %>/raise-dispute" method="POST" class="mt-2" onsubmit="return confirm('¿Iniciar una disputa? Un administrador revisará el caso. Úsalo solo si hay un problema con la entrega.');">
+                            <button type="submit" class="btn btn-danger btn-block"><i class="fas fa-gavel"></i> Iniciar Disputa</button>
+                        </form>
+                    <% } %>
+                    
+                    <% if (transaction.status === 'completed') { %>
+                        <p class="text-center">¡Transacción completada con éxito!</p>
+                        <div class="rating-form">
+                            <h4>Califica tu experiencia</h4>
+                            <% const userToRate = isBuyer ? transaction.sellerId : transaction.buyerId; %>
+                            <form action="/transaction/<%= transaction._id %>/rate" method="POST">
+                                <input type="hidden" name="ratedUserId" value="<%= userToRate._id %>">
+                                <div class="stars">
+                                    <input type="radio" id="star5" name="stars" value="5" required/><label for="star5"></label>
+                                    <input type="radio" id="star4" name="stars" value="4"/><label for="star4"></label>
+                                    <input type="radio" id="star3" name="stars" value="3"/><label for="star3"></label>
+                                    <input type="radio" id="star2" name="stars" value="2"/><label for="star2"></label>
+                                    <input type="radio" id="star1" name="stars" value="1"/><label for="star1"></label>
+                                </div>
+                                <textarea name="comment" class="form-control" rows="2" placeholder="Comentario (opcional)"></textarea>
+                                <button type="submit" class="btn btn-primary btn-sm mt-2">Enviar Calificación</button>
+                            </form>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+
+        <div class="transaction-chat">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Chat de la Transacción</h3>
+                </div>
+                <div class="chat-box" id="chat-box">
+                    <% transaction.chat.forEach(msg => { %>
+                        <% if (msg.senderId) { %>
+                            <div class="chat-message <%= currentUser._id.equals(msg.senderId) ? 'sent' : 'received' %>">
+                                <div class="message-content">
+                                    <strong><%= currentUser._id.equals(msg.senderId) ? 'Tú' : (transaction.buyerId._id.equals(msg.senderId) ? transaction.buyerId.robloxUsername : transaction.sellerId.robloxUsername) %>:</strong>
+                                    <p><%= msg.text %></p>
+                                </div>
+                            </div>
+                        <% } else { %>
+                            <div class="system-message"><span><%= msg.text %></span></div>
+                        <% } %>
+                    <% }); %>
+                </div>
+                <div class="chat-input">
+                    <form id="chat-form">
+                        <input type="text" id="message-input" class="form-control" placeholder="Escribe tu mensaje..." autocomplete="off">
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include('partials/footer.html') %>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const socket = io();
+        const transactionId = "<%= transaction._id %>";
+        
+        const chatBox = document.getElementById('chat-box');
+        const chatForm = document.getElementById('chat-form');
+        const messageInput = document.getElementById('message-input');
+
+        // Unirse a la sala de la transacción
+        socket.emit('join_transaction_room', transactionId);
+
+        // Función para añadir un mensaje al chat
+        const appendMessage = (msg) => {
+            const currentUserId = "<%= currentUser._id %>";
+            let messageElement;
+            if (msg.sender) { // Mensajes de usuario
+                const isSent = msg.sender._id === currentUserId;
+                const senderName = isSent ? 'Tú' : msg.sender.robloxUsername;
+                messageElement = `
+                    <div class="chat-message ${isSent ? 'sent' : 'received'}">
+                        <div class="message-content">
+                            <strong>${senderName}:</strong>
+                            <p>${msg.text}</p>
+                        </div>
+                    </div>`;
+            } else { // Mensajes del sistema
+                messageElement = `<div class="system-message"><span>${msg.text}</span></div>`;
+            }
+            chatBox.innerHTML += messageElement;
+            chatBox.scrollTop = chatBox.scrollHeight;
+        };
+
+        // Enviar un mensaje
+        chatForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const messageText = messageInput.value.trim();
+            if (messageText) {
+                socket.emit('send_message', { transactionId, messageText });
+                messageInput.value = '';
+            }
+        });
+
+        // Recibir un mensaje
+        socket.on('receive_message', (msg) => {
+            appendMessage(msg);
+        });
+
+        // Scroll al final del chat al cargar
+        chatBox.scrollTop = chatBox.scrollHeight;
+    });
+</script>
+
+<style>
+/* Estilos específicos para esta página */
+.transaction-container { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+@media (min-width: 992px) { .transaction-container { grid-template-columns: 1fr 1.2fr; } }
+
+.card { background: var(--surface-color); border-radius: var(--border-radius); box-shadow: var(--shadow-sm); margin-bottom: 2rem; }
+.card-header { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border-color); }
+.card-body { padding: 1.5rem; }
+.item-summary { display: flex; align-items: center; gap: 1rem; }
+.item-summary img { width: 80px; height: 80px; border-radius: var(--border-radius-soft); object-fit: cover; }
+.item-summary .price { font-size: 1.2rem; font-weight: 600; color: var(--primary-color); }
+.instructions { padding-left: 20px; }
+.status-box { padding: 1rem; border-radius: var(--border-radius-soft); text-align: center; font-weight: 600; }
+.status-pending_delivery { background-color: #fff3cd; color: #856404; }
+.status-completed { background-color: #d4edda; color: #155724; }
+.status-in_dispute { background-color: #f8d7da; color: #721c24; }
+
+.chat-box { height: 400px; overflow-y: auto; padding: 1rem; }
+.chat-message { display: flex; margin-bottom: 1rem; }
+.message-content { padding: 0.75rem 1rem; border-radius: 18px; max-width: 80%; }
+.chat-message.sent { justify-content: flex-end; }
+.chat-message.sent .message-content { background-color: var(--primary-color); color: white; border-bottom-right-radius: 4px; }
+.chat-message.received .message-content { background-color: #e9ecef; color: var(--text-color); border-bottom-left-radius: 4px; }
+.message-content p { margin: 0.25rem 0 0; }
+.system-message { text-align: center; font-size: 0.8rem; color: var(--text-muted-color); margin: 1rem 0; }
+.system-message span { background: #f8f9fa; padding: 0.25rem 0.75rem; border-radius: 12px; }
+
+.chat-input { padding: 1rem; border-top: 1px solid var(--border-color); }
+.chat-input form { display: flex; gap: 0.5rem; }
+
+/* Rating Form */
+.rating-form h4 { text-align: center; margin-bottom: 0.5rem; }
+.stars { display: flex; flex-direction: row-reverse; justify-content: center; }
+.stars input { display: none; }
+.stars label { font-size: 2rem; color: #ccc; cursor: pointer; transition: color 0.2s; }
+.stars input:checked ~ label, .stars label:hover, .stars label:hover ~ label { color: var(--warning-color); }
+</style>
+
+</body>
+</html>

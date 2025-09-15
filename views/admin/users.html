@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios - Panel de Administrador</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+
+<div class="d-flex">
+    <div class="sidebar">
+        <div class="sidebar-content">
+            <div class="sidebar-header">
+                BRAINROT ADMIN
+            </div>
+            <ul class="nav flex-column">
+                <li class="nav-item"><a href="/admin/dashboard" class="nav-link"><i class="fa-solid fa-tachometer-alt fa-fw"></i> Dashboard</a></li>
+                <li class="nav-item"><a href="/admin/users" class="nav-link active"><i class="fa-solid fa-users fa-fw"></i> Usuarios</a></li>
+                <li class="nav-item"><a href="/admin/disputes" class="nav-link"><i class="fa-solid fa-gavel fa-fw"></i> Disputas</a></li>
+            </ul>
+        </div>
+        <div class="sidebar-footer">
+            <a href="/marketplace" class="nav-link"><i class="fa-solid fa-arrow-left fa-fw"></i> Volver al Marketplace</a>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <div class="container-fluid">
+            <h1 class="h3 mb-2 text-gray-800">Gestión de Usuarios</h1>
+            <p class="mb-4">Busca, visualiza y modera a todos los usuarios de la plataforma.</p>
+
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Buscar Usuario</h6>
+                </div>
+                <div class="card-body">
+                    <form action="/admin/users" method="GET">
+                        <div class="input-group">
+                            <input type="text" name="search" class="form-control" placeholder="Buscar por usuario de Roblox o email..." value="<%= query.search || '' %>">
+                            <button class="btn btn-primary" type="submit"><i class="fas fa-search fa-sm"></i> Buscar</button>
+                            <a href="/admin/users" class="btn btn-secondary" title="Limpiar búsqueda"><i class="fas fa-times"></i></a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Lista de Usuarios</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Usuario de Roblox</th>
+                                    <th>Email</th>
+                                    <th>Tusinimonedas</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if (users && users.length > 0) { %>
+                                    <% users.forEach(user => { %>
+                                        <tr class="<%= user.isBanned ? 'table-danger' : '' %>">
+                                            <td><strong><%= user.robloxUsername %></strong></td>
+                                            <td><%= user.email %></td>
+                                            <td>
+                                                <span class="badge bg-warning text-dark">
+                                                    <i class="fas fa-coins"></i> <%= user.tusinimonedas.toLocaleString('es-PY') %>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <% if(user.isBanned) { %><span class="badge bg-danger">Baneado</span><% } else { %><span class="badge bg-success">Activo</span><% } %>
+                                            </td>
+                                            <td>
+                                                <a href="/admin/user/<%= user._id %>/manage-currency" class="btn btn-sm btn-primary">
+                                                    <i class="fas fa-coins fa-sm"></i> Gestionar Monedas
+                                                </a>
+                                                <form action="/admin/user/<%= user._id %>/toggle-ban" method="POST" class="d-inline" onsubmit="return confirm('¿Estás seguro?');">
+                                                    <button type="submit" class="btn btn-sm <%= user.isBanned ? 'btn-success' : 'btn-danger' %>">
+                                                        <%= user.isBanned ? 'Desbanear' : 'Banear' %>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    <% }); %>
+                                <% } else { %>
+                                    <tr><td colspan="5" class="text-center">No se encontraron usuarios.</td></tr>
+                                <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

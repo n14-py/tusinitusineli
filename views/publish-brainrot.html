@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publicar un Brainrot - Marketplace</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+
+<%- include('partials/header.html') %>
+
+<main class="container">
+    <div class="form-container" style="max-width: 600px;">
+        <h2>Publicar un Brainrot</h2>
+        <p>Sube una foto de tu Brainrot, establece un precio en tusinimonedas y ponlo a la venta en el marketplace.</p>
+        <hr>
+
+        <% if (locals.error) { %>
+            <div class="alert alert-danger"><%= error %></div>
+        <% } %>
+
+        <form action="/publish-brainrot" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="title">Nombre del Brainrot</label>
+                <input type="text" id="title" name="title" class="form-control" required placeholder="Ej: Espada de Fuego Legendaria">
+            </div>
+
+            <div class="form-group">
+                <label for="description">Descripción (opcional)</label>
+                <textarea id="description" name="description" rows="4" class="form-control" placeholder="Describe tu ítem, su estado, o cualquier detalle especial."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="price">Precio en tusinimonedas</label>
+                <input type="number" id="price" name="price" class="form-control" required placeholder="Ej: 500" min="1">
+            </div>
+
+            <div class="form-group">
+                <label for="rarity">Rareza</label>
+                <select id="rarity" name="rarity" class="form-control" required>
+                    <option value="Común">Común</option>
+                    <option value="Poco Común">Poco Común</option>
+                    <option value="Raro">Raro</option>
+                    <option value="Épico">Épico</option>
+                    <option value="Legendario">Legendario</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="image">Imagen del Brainrot</label>
+                <input type="file" id="image" name="image" class="form-control" required accept="image/jpeg, image/png, image/jpg">
+                <small class="form-text text-muted">Asegúrate de que la imagen sea clara y muestre bien el ítem.</small>
+            </div>
+
+            <hr>
+            <button type="submit" class="btn btn-primary btn-block">Poner a la Venta</button>
+        </form>
+    </div>
+</main>
+
+<%- include('partials/footer.html') %>
+
+</body>
+</html>

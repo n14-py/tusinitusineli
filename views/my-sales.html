@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Ventas - Brainrot Marketplace</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+
+<%- include('partials/header.html') %>
+
+<main class="container">
+    <div class="page-header">
+        <h1><i class="fas fa-handshake"></i> Mis Ventas</h1>
+        <p>Aquí puedes ver un historial de tus ventas y gestionar las entregas pendientes.</p>
+    </div>
+
+    <div class="list-container">
+        <% if (transactions && transactions.length > 0) { %>
+            <div class="table-responsive">
+                <table class="dashboard-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha de Venta</th>
+                            <th>Artículo</th>
+                            <th>Comprador</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% transactions.forEach(transaction => { %>
+                            <tr>
+                                <td><%= new Date(transaction.createdAt).toLocaleDateString('es-PY') %></td>
+                                <td>
+                                    <% if (transaction.brainrotId) { %>
+                                        <a href="/brainrot/<%= transaction.brainrotId._id %>" style="font-weight: bold;"><%= transaction.brainrotId.title %></a>
+                                    <% } else { %>
+                                        <span class="text-muted">Artículo eliminado</span>
+                                    <% } %>
+                                </td>
+                                <td>
+                                    <% if (transaction.buyerId) { %>
+                                        <span><%= transaction.buyerId.robloxUsername %></span>
+                                    <% } else { %>
+                                        <span class="text-muted">Comprador eliminado</span>
+                                    <% } %>
+                                </td>
+                                <td>
+                                     <span class="badge status-<%= transaction.status %>">
+                                        <%= transaction.status.replace('_', ' ').toUpperCase() %>
+                                    </span>
+                                </td>
+                                <td>
+                                    <a href="/transaction/<%= transaction._id %>" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-comments"></i> Ir al Chat
+                                    </a>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        <% } else { %>
+            <div class="no-results-card">
+                <h3>Aún no has vendido ningún Brainrot</h3>
+                <p>¡Publica un ítem en el marketplace para empezar!</p>
+                <a href="/publish-brainrot" class="btn btn-primary">Publicar un Artículo</a>
+            </div>
+        <% } %>
+    </div>
+</main>
+
+<%- include('partials/footer.html') %>
+</body>
+</html>

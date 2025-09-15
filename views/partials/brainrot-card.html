@@ -1,0 +1,73 @@
+<% if (brainrot && brainrot.sellerId) { %>
+<div class="campaign-card">
+    <a href="/brainrot/<%= brainrot._id %>" class="card-image-link">
+        <% 
+            // Optimización de imagen de Cloudinary
+            const thumbnailUrl = brainrot.imageUrl.replace('/upload/', '/upload/w_400,h_300,c_fill,g_auto,q_auto,f_auto/');
+        %>
+        <img 
+            src="<%= thumbnailUrl %>" 
+            alt="Brainrot: <%= brainrot.title %>" 
+            class="campaign-card-image"
+            loading="lazy">
+        
+        <span class="campaign-card-category"><%= brainrot.rarity || brainrot.category %></span>
+    </a>
+
+    <div class="card-content">
+        <h3 class="card-title">
+            <a href="/brainrot/<%= brainrot._id %>"><%= brainrot.title %></a>
+        </h3>
+        
+        <div class="card-organizer">
+            <img src="https://res.cloudinary.com/dmedd6w1q/image/upload/v1752519015/Gemini_Generated_Image_jafmcpjafmcpjafm_i5ptpl.png" alt="Vendedor" class="organizer-avatar">
+            <span>Vendido por <a href="#" class="organizer-link"><%= brainrot.sellerId.robloxUsername %></a></span>
+        </div>
+
+        <div class="price-stats">
+            <div class="price-display">
+                <i class="fas fa-coins"></i>
+                <strong><%= new Intl.NumberFormat('es-PY').format(brainrot.price) %></strong>
+                <span>tusinimonedas</span>
+            </div>
+        </div>
+
+        <a href="/brainrot/<%= brainrot._id %>" class="btn btn-primary btn-block">
+            <i class="fas fa-shopping-cart"></i> Ver Artículo
+        </a>
+    </div>
+</div>
+<% } %>
+
+<style>
+    .price-stats {
+        margin-top: auto; /* Empuja el precio y el botón hacia abajo */
+        padding-top: 1rem;
+        border-top: 1px solid var(--border-color);
+    }
+    .price-display {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+    .price-display .fa-coins {
+        color: #ffc107;
+        font-size: 1.5rem;
+    }
+    .price-display strong {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--primary-color);
+    }
+    .price-display span {
+        font-size: 0.9rem;
+        color: var(--text-muted-color);
+        align-self: flex-end;
+        padding-bottom: 0.3rem;
+    }
+    .campaign-card .btn {
+        margin-top: 0; /* Quitamos el margen superior que tenía antes */
+    }
+</style>

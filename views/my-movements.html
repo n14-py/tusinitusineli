@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Movimientos - Brainrot Marketplace</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+
+<%- include('partials/header.html') %>
+
+<main class="container">
+    <div class="page-header">
+        <h1><i class="fas fa-wallet"></i> Mis Movimientos</h1>
+        <p>Aquí tienes un resumen de toda tu actividad económica en el marketplace.</p>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h4><i class="fas fa-arrow-up"></i> Total Ganado (Ventas)</h4>
+            <p class="stat-value positive">+ <%= stats.totalEarned.toLocaleString('es-PY') %> </p>
+        </div>
+        <div class="stat-card">
+            <h4><i class="fas fa-arrow-down"></i> Total Gastado (Compras)</h4>
+            <p class="stat-value negative">- <%= stats.totalSpent.toLocaleString('es-PY') %></p>
+        </div>
+        <div class="stat-card">
+            <h4><i class="fas fa-hourglass-half"></i> Saldo Pendiente de Recibir</h4>
+            <p class="stat-value pending"><%= stats.pendingBalance.toLocaleString('es-PY') %></p>
+        </div>
+    </div>
+
+    <div class="list-container">
+        <h3>Historial Detallado</h3>
+        <% if (movements && movements.length > 0) { %>
+            <div class="table-responsive">
+                <table class="dashboard-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Tipo</th>
+                            <th>Descripción</th>
+                            <th>Monto</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% movements.forEach(mov => { %>
+                            <tr>
+                                <td><%= new Date(mov.date).toLocaleString('es-PY') %></td>
+                                <td>
+                                    <% if (mov.type === 'Venta') { %>
+                                        <span class="badge status-approved"><%= mov.type %></span>
+                                    <% } else { %>
+                                        <span class="badge status-sold"><%= mov.type %></span>
+                                    <% } %>
+                                </td>
+                                <td><%= mov.description %></td>
+                                <td class="<%= mov.amount > 0 ? 'positive' : 'negative' %>">
+                                    <strong><%= mov.amount.toLocaleString('es-PY') %></strong>
+                                </td>
+                                <td>
+                                    <span class="badge status-<%= mov.status %>">
+                                        <%= mov.status.replace('_', ' ').toUpperCase() %>
+                                    </span>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        <% } else { %>
+            <div class="no-results-card" style="padding: 2rem;">
+                <h3>Aún no tienes movimientos en tu cuenta.</h3>
+                <p>Realiza una compra o una venta para ver tu historial aquí.</p>
+            </div>
+        <% } %>
+    </div>
+</main>
+
+<%- include('partials/footer.html') %>
+
+<style>
+    .stats-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-bottom: 2rem; }
+    @media (min-width: 768px) { .stats-grid { grid-template-columns: repeat(3, 1fr); } }
+    
+    .stat-card { background: var(--surface-color); padding: 1.5rem; border-radius: var(--border-radius); box-shadow: var(--shadow-sm); text-align: center; }
+    .stat-card h4 { font-size: 1rem; color: var(--text-muted-color); margin-bottom: 0.5rem; }
+    .stat-card .stat-value { font-size: 2rem; font-weight: 700; }
+    .stat-value.positive { color: var(--success-color); }
+    .stat-value.negative { color: var(--danger-color); }
+    .stat-value.pending { color: var(--primary-color); }
+    
+    .dashboard-table .positive { color: var(--success-color); }
+    .dashboard-table .negative { color: var(--danger-color); }
+</style>
+
+</body>
+</html>

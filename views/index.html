@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brainrot Marketplace - Compra y Vende Items de Roblox</title>
+    <meta name="description" content="El lugar más seguro para comprar y vender Brainrots del juego 'Roba un Brainrot' de Roblox. Usa tusinimonedas para conseguir los mejores ítems.">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+
+<%- include('partials/header.html') %>
+
+<main class="container">
+    <div class="hero-section">
+        <h1>El Marketplace de Brainrots</h1>
+        <p>Encuentra, compra y vende los Brainrots más raros de Roblox de forma segura.</p>
+    </div>
+
+    <div class="search-filter-container">
+        <div class="search-input-wrapper">
+            <i class="fas fa-search"></i>
+            <form action="/marketplace" method="GET">
+                <input type="text" name="q" id="search-input" class="form-control" placeholder="Buscar un Brainrot por nombre..." value="<%= query.q || '' %>">
+            </form>
+        </div>
+        <button id="filter-toggle-btn" class="btn btn-secondary">
+            <i class="fas fa-filter"></i>
+            Filtros
+        </button>
+    </div>
+
+    <div class="filter-bar" id="filter-bar">
+        <form action="/marketplace" method="GET" id="filter-form">
+            <div class="filter-group">
+                <label for="category">Categoría</label>
+                <select name="category" id="category" class="form-control">
+                    <option value="">Todas</option>
+                    <option value="Armas" <%= (query.category === 'Armas') ? 'selected' : '' %>>Armas</option>
+                    <option value="Accesorios" <%= (query.category === 'Accesorios') ? 'selected' : '' %>>Accesorios</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="rarity">Rareza</label>
+                <select name="rarity" id="rarity" class="form-control">
+                    <option value="">Todas</option>
+                    <option value="Común" <%= (query.rarity === 'Común') ? 'selected' : '' %>>Común</option>
+                    <option value="Raro" <%= (query.rarity === 'Raro') ? 'selected' : '' %>>Raro</option>
+                    <option value="Épico" <%= (query.rarity === 'Épico') ? 'selected' : '' %>>Épico</option>
+                    <option value="Legendario" <%= (query.rarity === 'Legendario') ? 'selected' : '' %>>Legendario</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Aplicar</button>
+            <a href="/marketplace" class="btn btn-secondary">Limpiar</a>
+        </form>
+    </div>
+
+    <div class="post-grid">
+        <% if (brainrots && brainrots.length > 0) { %>
+            <% brainrots.forEach(brainrot => { %>
+                <%- include('partials/brainrot-card.html', { brainrot: brainrot }) %>
+            <% }); %>
+        <% } else { %>
+            <div class="no-results-card">
+                <h3>No se encontraron Brainrots</h3>
+                <p>Prueba con otros filtros o vuelve a intentarlo más tarde.</p>
+            </div>
+        <% } %>
+    </div>
+
+    <% if (totalPages > 1) { %>
+        <nav class="pagination-container">
+            <ul class="pagination">
+                <% const urlParams = new URLSearchParams(query); %>
+                <% if (currentPage > 1) { %>
+                    <% urlParams.set('page', currentPage - 1); %>
+                    <li class="page-item"><a class="page-link" href="/marketplace?<%= urlParams.toString() %>">Anterior</a></li>
+                <% } %>
+                <% for(let i = 1; i <= totalPages; i++) { %>
+                    <% urlParams.set('page', i); %>
+                    <li class="page-item <%= i === currentPage ? 'active' : '' %>"><a class="page-link" href="/marketplace?<%= urlParams.toString() %>"><%= i %></a></li>
+                <% } %>
+                <% if (currentPage < totalPages) { %>
+                    <% urlParams.set('page', currentPage + 1); %>
+                    <li class="page-item"><a class="page-link" href="/marketplace?<%= urlParams.toString() %>">Siguiente</a></li>
+                <% } %>
+            </ul>
+        </nav>
+    <% } %>
+</main>
+
+<% if (currentUser) { %>
+    <a href="/publish-brainrot" class="site-fab" title="Publicar Brainrot"><i class="fas fa-plus"></i></a>
+<% } %>
+
+<%- include('partials/footer.html') %>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Lógica para mostrar/ocultar los filtros
+    const filterToggleButton = document.getElementById('filter-toggle-btn');
+    const filterBar = document.getElementById('filter-bar');
+
+    if (filterToggleButton && filterBar) {
+        filterToggleButton.addEventListener('click', () => {
+            filterBar.classList.toggle('active');
+        });
+    }
+});
+</script>
+
+<style>
+    .site-fab {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        box-shadow: var(--shadow-md);
+        z-index: 999;
+        transition: transform 0.3s ease;
+    }
+    .site-fab:hover {
+        transform: scale(1.1);
+        color: white;
+    }
+</style>
+
+</body>
+</html>

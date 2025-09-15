@@ -1,0 +1,147 @@
+/* ============================================= */
+/* --- ESTILOS PARA EL PANEL DE ADMINISTRADOR --- */
+/* ============================================= */
+
+:root {
+    --admin-bg: #f8f9fc;
+    --sidebar-bg: #4e73df;
+    --sidebar-text: rgba(255, 255, 255, 0.8);
+    --sidebar-active-text: #fff;
+    --sidebar-hover-bg: #4364c7;
+    --topbar-bg: #fff;
+    --text-gray-800: #5a5c69;
+    --text-gray-300: #dddfeb;
+    --border-color: #e3e6f0;
+    --primary-color: #4e73df;
+    --danger-color: #e74a3b;
+    --success-color: #1cc88a;
+    --warning-color: #f6c23e;
+    --info-color: #36b9cc;
+}
+
+body {
+    background-color: var(--admin-bg);
+    font-family: 'Poppins', sans-serif;
+}
+
+.d-flex {
+    display: flex;
+}
+
+/* ============================================= */
+/* --- BARRA LATERAL (SIDEBAR) --- */
+/* ============================================= */
+
+.sidebar {
+    width: 240px;
+    min-height: 100vh;
+    background-color: var(--sidebar-bg);
+    color: var(--sidebar-text);
+    display: flex;
+    flex-direction: column;
+    transition: width 0.3s ease;
+}
+
+.sidebar-content {
+    flex-grow: 1;
+}
+
+.sidebar-header {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    padding: 1.5rem 1rem;
+    color: var(--sidebar-active-text);
+}
+
+.sidebar .nav-link {
+    color: var(--sidebar-text);
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+}
+
+.sidebar .nav-link:hover {
+    background-color: var(--sidebar-hover-bg);
+    color: var(--sidebar-active-text);
+}
+
+.sidebar .nav-link.active {
+    background-color: var(--sidebar-hover-bg);
+    color: var(--sidebar-active-text);
+    font-weight: 600;
+}
+
+.sidebar-footer {
+    padding: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-footer .nav-link {
+    justify-content: center;
+}
+
+/* ============================================= */
+/* --- CONTENIDO PRINCIPAL --- */
+/* ============================================= */
+
+.main-content {
+    flex: 1;
+    padding: 2rem;
+    overflow-x: hidden;
+}
+
+h1.h3, h6.m-0 {
+    color: var(--text-gray-800);
+}
+
+.card {
+    border: 1px solid var(--border-color);
+    border-radius: .35rem;
+}
+
+.card-header {
+    background-color: #f8f9fc;
+    border-bottom: 1px solid var(--border-color);
+    padding: .75rem 1.25rem;
+}
+
+.font-weight-bold {
+    font-weight: 700 !important;
+}
+
+.text-primary {
+    color: var(--primary-color) !important;
+}
+
+/* Estilos para las tarjetas del dashboard */
+.card.border-left-primary { border-left: .25rem solid var(--primary-color) !important; }
+.card.border-left-success { border-left: .25rem solid var(--success-color) !important; }
+.card.border-left-info { border-left: .25rem solid var(--info-color) !important; }
+.card.border-left-warning { border-left: .25rem solid var(--warning-color) !important; }
+.card.border-left-danger { border-left: .25rem solid var(--danger-color) !important; }
+.card.border-left-secondary { border-left: .25rem solid #858796 !important; }
+
+
+.text-xs {
+    font-size: .7rem;
+}
+
+.text-uppercase {
+    text-transform: uppercase !important;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f8f9fc;
+}
+
+.table .badge {
+    font-size: 0.8em;
+}
+
+.badge.bg-warning.text-dark {
+    color: #5a5c69 !important;
+}

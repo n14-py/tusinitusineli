@@ -1,0 +1,40 @@
+<footer class="main-footer">
+    <div class="footer-container">
+        <div class="footer-section about">
+            <h3 class="footer-title">
+                <i class="fas fa-robot"></i> Brainrot Marketplace
+            </h3>
+            <p>Un intermediario seguro para la compra y venta de tus Brainrots de Roblox.</p>
+        </div>
+
+        <div class="footer-section links">
+            <h4 class="footer-title">Navegación</h4>
+            <ul>
+                <li><a href="/marketplace">Ver Marketplace</a></li>
+                <li><a href="/how-it-works">¿Cómo Recargar Monedas?</a></li>
+                </ul>
+        </div>
+
+        <div class="footer-section contact">
+            <h4 class="footer-title">Contacto</h4>
+            <p>¿Tienes preguntas? Estamos aquí para ayudarte.</p>
+            <a href="mailto:soporte.brainrotmp@gmail.com" class="btn btn-secondary">Enviar un Correo</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; <%= new Date().getFullYear() %> Brainrot Marketplace | Creado por TusiniRoblox.
+    </div>
+</footer>
+
+<div id="confirmationModal" class="modal-background" style="display: none;">
+    <div class="modal-content">
+        <button class="close-button" id="modalCloseBtn">&times;</button>
+        <h3 id="modalTitle">Confirmar Acción</h3>
+        <p id="modalMessage">¿Estás seguro?</p>
+        <div id="modal-additional-content"></div>
+        <div class="modal-actions">
+            <button id="modalCancelBtn" class="btn btn-secondary">Cancelar</button>
+            <button id="modalConfirmBtn" class="btn btn-primary">Confirmar</button>
+        </div>
+    </div>
+</div>

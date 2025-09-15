@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logs de Administrador - Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+<div class="d-flex">
+    <div class="sidebar">
+        <div class="sidebar-content">
+            <div class="sidebar-header">BRAINROT ADMIN</div>
+            <ul class="nav flex-column">
+                <li class="nav-item"><a href="/admin/dashboard" class="nav-link"><i class="fa-solid fa-tachometer-alt fa-fw"></i> Dashboard General</a></li>
+                <li class="nav-item"><a href="/admin/economic-dashboard" class="nav-link"><i class="fa-solid fa-chart-line fa-fw"></i> Dashboard Económico</a></li>
+                <li class="nav-item"><a href="/admin/users" class="nav-link"><i class="fa-solid fa-users fa-fw"></i> Usuarios</a></li>
+                <li class="nav-item"><a href="/admin/articles" class="nav-link"><i class="fa-solid fa-box-open fa-fw"></i> Artículos</a></li>
+                <li class="nav-item"><a href="/admin/transactions" class="nav-link"><i class="fa-solid fa-list-alt fa-fw"></i> Transacciones</a></li>
+                <li class="nav-item"><a href="/admin/disputes" class="nav-link"><i class="fa-solid fa-gavel fa-fw"></i> Disputas</a></li>
+                <li class="nav-item"><a href="/admin/logs" class="nav-link active"><i class="fa-solid fa-file-alt fa-fw"></i> Logs</a></li>
+            </ul>
+        </div>
+        <div class="sidebar-footer">
+            <a href="/marketplace" class="nav-link"><i class="fa-solid fa-arrow-left fa-fw"></i> Volver al Marketplace</a>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <div class="container-fluid">
+            <h1 class="h3 mb-2 text-gray-800">Logs de Auditoría del Administrador</h1>
+            <p class="mb-4">Un registro de todas las acciones administrativas realizadas en el sistema.</p>
+
+            <div class="card shadow mb-4">
+                <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">Historial de Acciones</h6></div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Administrador</th>
+                                    <th>Acción</th>
+                                    <th>Detalles</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if (logs && logs.length > 0) { %>
+                                    <% logs.forEach(log => { %>
+                                        <tr>
+                                            <td><%= new Date(log.createdAt).toLocaleString('es-PY') %></td>
+                                            <td><%= log.adminId ? log.adminId.robloxUsername : 'Sistema' %></td>
+                                            <td><span class="badge bg-info text-dark"><%= log.action %></span></td>
+                                            <td><%= log.details %></td>
+                                        </tr>
+                                    <% }); %>
+                                <% } else { %>
+                                    <tr><td colspan="4" class="text-center">No hay registros para mostrar.</td></tr>
+                                <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

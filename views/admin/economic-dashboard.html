@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Económico - Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+<div class="d-flex">
+    <div class="sidebar">
+        <div class="sidebar-content">
+            <div class="sidebar-header">BRAINROT ADMIN</div>
+            <ul class="nav flex-column">
+                <li class="nav-item"><a href="/admin/dashboard" class="nav-link"><i class="fa-solid fa-tachometer-alt fa-fw"></i> Dashboard General</a></li>
+                <li class="nav-item"><a href="/admin/economic-dashboard" class="nav-link active"><i class="fa-solid fa-chart-line fa-fw"></i> Dashboard Económico</a></li>
+                <li class="nav-item"><a href="/admin/users" class="nav-link"><i class="fa-solid fa-users fa-fw"></i> Usuarios</a></li>
+                <li class="nav-item"><a href="/admin/disputes" class="nav-link"><i class="fa-solid fa-gavel fa-fw"></i> Disputas</a></li>
+            </ul>
+        </div>
+        <div class="sidebar-footer">
+            <a href="/marketplace" class="nav-link"><i class="fa-solid fa-arrow-left fa-fw"></i> Volver al Marketplace</a>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <div class="container-fluid">
+            <h1 class="h3 mb-4 text-gray-800">Dashboard Económico</h1>
+
+            <div class="row">
+                <div class="col-xl-4 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Masa Monetaria Total</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><i class="fas fa-coins"></i> <%= stats.totalCurrency.toLocaleString('es-PY') %></div>
+                                </div>
+                                <div class="col-auto"><i class="fas fa-globe-americas fa-2x text-gray-300"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-4 col-md-6 mb-4">
+                    <div class="card border-left-warning shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Monedas en Tránsito (Escrow)</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><i class="fas fa-coins"></i> <%= stats.currencyInEscrow.toLocaleString('es-PY') %></div>
+                                </div>
+                                <div class="col-auto"><i class="fas fa-hourglass-half fa-2x text-gray-300"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-4 col-md-6 mb-4">
+                    <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Volumen (Últimas 24h)</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><i class="fas fa-coins"></i> <%= stats.volume24h.toLocaleString('es-PY') %></div>
+                                </div>
+                                <div class="col-auto"><i class="fas fa-exchange-alt fa-2x text-gray-300"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-6 col-md-6 mb-4">
+                    <div class="card border-left-info shadow h-100 py-2">
+                        <div class="card-body">
+                             <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Nuevos Usuarios (Hoy)</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><%= stats.newUsersToday %></div>
+                                </div>
+                                <div class="col-auto"><i class="fas fa-user-plus fa-2x text-gray-300"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="col-xl-6 col-md-6 mb-4">
+                    <div class="card border-left-secondary shadow h-100 py-2">
+                        <div class="card-body">
+                             <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">Nuevos Artículos (Hoy)</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><%= stats.newBrainrotsToday %></div>
+                                </div>
+                                <div class="col-auto"><i class="fas fa-box fa-2x text-gray-300"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

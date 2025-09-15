@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionar Monedas - Panel de Administrador</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+
+<div class="d-flex">
+    <div class="sidebar">
+        <div class="sidebar-content">
+            <div class="sidebar-header">
+                BRAINROT ADMIN
+            </div>
+            <ul class="nav flex-column">
+                <li class="nav-item"><a href="/admin/dashboard" class="nav-link"><i class="fa-solid fa-tachometer-alt fa-fw"></i> Dashboard</a></li>
+                <li class="nav-item"><a href="/admin/users" class="nav-link active"><i class="fa-solid fa-users fa-fw"></i> Usuarios</a></li>
+                 <li class="nav-item"><a href="/admin/disputes" class="nav-link"><i class="fa-solid fa-gavel fa-fw"></i> Disputas</a></li>
+            </ul>
+        </div>
+        <div class="sidebar-footer">
+            <a href="/marketplace" class="nav-link"><i class="fa-solid fa-arrow-left fa-fw"></i> Volver al Marketplace</a>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Gestionar Monedas: <strong><%= userToManage.robloxUsername %></strong></h1>
+                <a href="/admin/users" class="btn btn-sm btn-secondary"><i class="fas fa-arrow-left fa-sm"></i> Volver a la lista</a>
+            </div>
+
+            <% if (locals.success) { %>
+                <div class="alert alert-success"><%= success %></div>
+            <% } %>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Acreditar tusinimonedas</h6>
+                        </div>
+                        <div class="card-body">
+                            <form action="/admin/user/<%= userToManage._id %>/add-currency" method="POST">
+                                <p>Ingresa la cantidad de monedas que quieres añadir a la cuenta de este usuario. Esta acción es irreversible.</p>
+                                <div class="form-group mb-3">
+                                    <label for="amount">Cantidad a añadir</label>
+                                    <input type="number" name="amount" id="amount" class="form-control" placeholder="Ej: 1000" required min="1">
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-plus-circle"></i> Acreditar Monedas
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Información del Usuario</h6>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <strong>Usuario de Roblox:</strong> <%= userToManage.robloxUsername %>
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>Email:</strong> <%= userToManage.email %>
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>Balance Actual:</strong> 
+                                    <span class="badge bg-warning text-dark fs-6">
+                                        <i class="fas fa-coins"></i> <%= userToManage.tusinimonedas.toLocaleString('es-PY') %>
+                                    </span>
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>Miembro desde:</strong> <%= new Date(userToManage.createdAt).toLocaleDateString('es-PY') %>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

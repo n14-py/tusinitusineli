@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Cómo Recargar Tusinimonedas? - Brainrot Marketplace</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+<%- include('partials/header.html') %>
+<main class="container">
+    <div class="static-page-container" style="max-width: 800px; margin: auto;">
+        <h1>¿Cómo Obtener Tusinimonedas?</h1>
+        <p>Sigue estos sencillos pasos para recargar tu saldo y empezar a comprar los mejores Brainrots.</p>
+        <hr>
+
+        <div class="alert alert-danger">
+            <h4><i class="fas fa-exclamation-triangle"></i> ¡MUY IMPORTANTE!</h4>
+            <p>Para que podamos acreditar tus monedas correctamente, tu nombre de usuario en esta página web debe ser <strong>exactamente igual</strong> a tu nombre de usuario en Roblox (mayúsculas y minúsculas incluidas).</p>
+        </div>
+        
+        <div class="step">
+            <div class="step-icon"><i class="fas fa-gamepad"></i><span>1</span></div>
+            <div class="step-content">
+                <h2>Ve a Nuestro Juego en Roblox</h2>
+                <p>El primer paso es unirte a nuestro juego oficial. Aquí es donde administramos todas las compras de forma segura.</p>
+                <a href="URL_DE_TU_JUEGO_EN_ROBLOX" class="btn btn-primary" target="_blank" rel="noopener noreferrer">¡Ir al Juego Ahora!</a>
+                 <p class="text-muted" style="margin-top: 1rem;">(Asegúrate de haber iniciado sesión en Roblox con la cuenta correcta)</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-icon"><i class="fas fa-store"></i><span>2</span></div>
+            <div class="step-content">
+                <h2>Busca la Tienda del Juego</h2>
+                <p>Una vez dentro del juego, busca el área de la tienda. Allí encontrarás diferentes paquetes de <strong>tusinimonedas</strong> que puedes comprar directamente con <strong>Robux</strong>.</p>
+                 <img src="/img/tienda-ejemplo.png" alt="Ejemplo de la tienda en el juego" style="border-radius: var(--border-radius); margin-top: 1rem; box-shadow: var(--shadow-sm);">
+                 <small><i>(Nota: Necesitarás crear una imagen de ejemplo y guardarla en `public/img/tienda-ejemplo.png`)</i></small>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-icon"><i class="fas fa-check-circle"></i><span>3</span></div>
+            <div class="step-content">
+                <h2>¡Espera la Acreditación y Listo!</h2>
+                <p>Después de completar tu compra en Roblox, nuestro equipo la verificará. Tus <strong>tusinimonedas</strong> serán acreditadas en tu cuenta de esta página web en un plazo de <strong>5 a 15 minutos</strong>.</p>
+                <div class="alert alert-info" style="margin-top:1rem;">
+                    <strong>¿Por qué no es instantáneo?</strong> Realizamos una verificación manual para garantizar la seguridad de todas las transacciones. ¡Agradecemos tu paciencia!
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</main>
+<%- include('partials/footer.html') %>
+
+<style>
+    .static-page-container {
+        background-color: var(--surface-color);
+        padding: 2.5rem;
+        border-radius: var(--border-radius);
+    }
+    .step {
+        display: flex;
+        gap: 2rem;
+        align-items: flex-start;
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+    }
+    .step-icon {
+        position: relative;
+        font-size: 3rem;
+        color: var(--primary-color);
+    }
+    .step-icon span {
+        position: absolute;
+        top: -10px;
+        right: -15px;
+        background-color: var(--primary-color);
+        color: white;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        font-weight: 700;
+        border: 2px solid white;
+    }
+    .step-content h2 {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+    }
+</style>
+
+</body>
+</html>

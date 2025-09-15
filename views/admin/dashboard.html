@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Panel de Administrador</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+
+<div class="d-flex">
+    <div class="sidebar">
+        <div class="sidebar-content">
+            <div class="sidebar-header">
+                BRAINROT ADMIN
+            </div>
+<ul class="nav flex-column">
+    <li class="nav-item"><a href="/admin/dashboard" class="nav-link"><i class="fa-solid fa-tachometer-alt fa-fw"></i> Dashboard General</a></li>
+    <li class="nav-item"><a href="/admin/economic-dashboard" class="nav-link"><i class="fa-solid fa-chart-line fa-fw"></i> Dashboard Económico</a></li>
+    <li class="nav-item"><a href="/admin/users" class="nav-link"><i class="fa-solid fa-users fa-fw"></i> Usuarios</a></li>
+    <li class="nav-item"><a href="/admin/articles" class="nav-link"><i class="fa-solid fa-box-open fa-fw"></i> Artículos</a></li> <li class="nav-item"><a href="/admin/disputes" class="nav-link"><i class="fa-solid fa-gavel fa-fw"></i> Disputas</a></li>
+</ul>
+        </div>
+        <div class="sidebar-footer">
+            <a href="/marketplace" class="nav-link">
+                <i class="fa-solid fa-arrow-left fa-fw"></i> Volver al Marketplace
+            </a>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <div class="container-fluid">
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Usuarios Registrados</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><%= stats.totalUsers %></div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-users fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Brainrots Publicados</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><%= stats.totalBrainrots %></div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-box-open fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-info shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Ventas Completadas</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><%= stats.totalSold %></div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-check-circle fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-danger shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Disputas Pendientes</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><%= stats.totalDisputes %></div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-gavel fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">¡Bienvenido al Panel de Control!</h6>
+                        </div>
+                        <div class="card-body">
+                            <p>Desde aquí puedes gestionar todas las operaciones de la plataforma. Tu tarea más importante será la de acreditar <strong>tusinimonedas</strong> a los usuarios que te paguen con Robux en el juego.</p>
+                            <p>Para hacerlo, ve a la sección de <a href="/admin/users">Usuarios</a>, busca al usuario por su nombre de Roblox y haz clic en "Gestionar Monedas".</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

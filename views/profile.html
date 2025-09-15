@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de <%= userProfile.robloxUsername %> - Brainrot Marketplace</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+
+<%- include('partials/header.html') %>
+
+<% if (locals.userProfile) { %>
+<main class="container">
+    <div class="profile-header">
+        <div class="profile-avatar">
+            <img src="<%= userProfile.profilePic %>" alt="Foto de perfil de <%= userProfile.robloxUsername %>">
+        </div>
+        <div class="profile-info">
+            <h1><%= userProfile.robloxUsername %></h1>
+
+            <div class="profile-stats">
+                <div class="stat-item">
+                    <i class="fas fa-star"></i>
+                    <strong><%= userProfile.averageRating || 'Nuevo' %></strong>
+                    <span>(<%= ratings.length %> calificaciones)</span>
+                </div>
+                <div class="stat-item">
+                    <strong><%= userProfile.totalSales %></strong>
+                    <span>Ventas</span>
+                </div>
+                <div class="stat-item">
+                    <strong><%= userProfile.totalPurchases %></strong>
+                    <span>Compras</span>
+                </div>
+            </div>
+            
+            <% if (currentUser && currentUser._id.equals(userProfile._id)) { %>
+                <div class="profile-actions">
+                    <a href="/my-publications" class="btn btn-secondary">Editar Mis Publicaciones</a>
+                </div>
+            <% } %>
+        </div>
+    </div>
+
+    <div class="profile-tabs">
+        <a href="#" class="tab-link active" data-tab="items-for-sale">
+            <i class="fas fa-store"></i> Artículos en Venta (<%= itemsForSale.length %>)
+        </a>
+        <a href="#" class="tab-link" data-tab="ratings">
+            <i class="fas fa-comment-dots"></i> Calificaciones Recibidas (<%= ratings.length %>)
+        </a>
+    </div>
+
+    <div id="items-for-sale-content" class="tab-content active">
+        <div class="post-grid">
+            <% if (itemsForSale && itemsForSale.length > 0) { %>
+                <% itemsForSale.forEach(item => { %>
+                    <%- include('partials/brainrot-card.html', { brainrot: item }) %>
+                <% }); %>
+            <% } else { %>
+                <div class="no-results-card">
+                    <h3>Este usuario no tiene artículos a la venta en este momento.</h3>
+                </div>
+            <% } %>
+        </div>
+    </div>
+    
+    <div id="ratings-content" class="tab-content" style="display: none;">
+         <% if (ratings && ratings.length > 0) { %>
+            <div class="ratings-list">
+                <% ratings.forEach(rating => { %>
+                    <div class="rating-item">
+                        <div class="rating-author">
+                            <img src="<%= rating.raterId.profilePic %>" alt="Avatar">
+                            <strong><%= rating.raterId.robloxUsername %></strong>
+                        </div>
+                        <div class="rating-content">
+                            <div class="stars-display" data-rating="<%= rating.stars %>"></div>
+                            <% if (rating.comment) { %>
+                                <p class="rating-comment">"<%= rating.comment %>"</p>
+                            <% } %>
+                            <small class="rating-time"><%= new Date(rating.createdAt).toLocaleDateString('es-PY') %></small>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        <% } else { %>
+            <div class="no-results-card">
+                <h3>Este usuario aún no ha recibido ninguna calificación.</h3>
+            </div>
+        <% } %>
+    </div>
+</main>
+<% } %>
+
+<%- include('partials/footer.html') %>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Script para manejar las pestañas
+    const tabs = document.querySelectorAll('.tab-link');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = tab.getAttribute('data-tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            tabContents.forEach(content => { content.style.display = 'none'; });
+            document.getElementById(targetId + '-content').style.display = 'block';
+        });
+    });
+
+    // Script para mostrar las estrellas
+    document.querySelectorAll('.stars-display').forEach(starContainer => {
+        const rating = parseInt(starContainer.dataset.rating, 10);
+        let starsHtml = '';
+        for (let i = 1; i <= 5; i++) {
+            starsHtml += `<i class="fas fa-star ${i <= rating ? 'filled' : ''}"></i>`;
+        }
+        starContainer.innerHTML = starsHtml;
+    });
+});
+</script>
+
+<style>
+/* Estilos para esta página */
+.profile-header {
+    background: var(--surface-color);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+@media (min-width: 768px) {
+    .profile-header { flex-direction: row; text-align: left; }
+}
+.profile-avatar img { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 5px solid var(--surface-color); box-shadow: var(--shadow-md); margin-bottom: 1rem; }
+@media (min-width: 768px) { .profile-avatar { margin-right: 2rem; margin-bottom: 0; } }
+
+.profile-stats { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem 2rem; margin: 1rem 0; }
+@media (min-width: 768px) { .profile-stats { justify-content: flex-start; } }
+.stat-item { display: flex; align-items: center; gap: 0.5rem; color: var(--text-muted-color); }
+.stat-item strong { font-size: 1.5rem; font-weight: 700; color: var(--text-color); }
+.stat-item .fa-star { color: var(--warning-color); }
+
+.profile-tabs { display: flex; gap: 1rem; border-bottom: 1px solid var(--border-color); margin-bottom: 2rem; }
+.tab-link { padding: 1rem 0.5rem; font-weight: 600; color: var(--text-muted-color); border-bottom: 3px solid transparent; cursor: pointer; }
+.tab-link.active, .tab-link:hover { color: var(--primary-color); border-bottom-color: var(--primary-color); }
+
+.ratings-list { max-width: 800px; margin: 0 auto; }
+.rating-item { display: flex; gap: 1rem; background: var(--surface-color); padding: 1rem; border-radius: var(--border-radius); margin-bottom: 1rem; border: 1px solid var(--border-color); }
+.rating-author img { width: 45px; height: 45px; border-radius: 50%; }
+.stars-display .fa-star { color: #ccc; }
+.stars-display .fa-star.filled { color: var(--warning-color); }
+.rating-comment { font-style: italic; margin: 0.5rem 0; }
+.rating-time { font-size: 0.8rem; color: var(--text-muted-color); }
+</style>
+
+</body>
+</html>

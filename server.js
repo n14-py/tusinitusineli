@@ -1341,6 +1341,41 @@ app.post('/api/recibir-compra-roblox', async (req, res) => {
 app.get('/how-it-works', (req, res) => res.render('how-it-works'));
 app.get('/how-it-works-general', (req, res) => res.render('how-it-works-general')); // <-- AÑADE ESTA LÍNEA
 
+
+
+
+// ==========================================================
+//      ENDPOINT PARA VERIFICAR SI UN USUARIO EXISTE
+// ==========================================================
+app.get('/api/verificar-usuario/:username', async (req, res) => {
+    // Esta ruta recibirá el nombre de usuario desde Roblox
+    // Ejemplo: https://www.tusinitusineli.com/api/verificar-usuario/httnando14
+
+    try {
+        const username = req.params.username;
+        if (!username) {
+            return res.status(400).json({ exists: false, message: 'No se proporcionó nombre de usuario.' });
+        }
+
+        // Buscamos en la base de datos un usuario con ese robloxUsername (insensible a mayúsculas/minúsculas)
+        const user = await User.findOne({ robloxUsername: username.toLowerCase() });
+
+        if (user) {
+            // Si el usuario se encuentra, respondemos que sí existe.
+            console.log(`Verificación exitosa para: ${username}`);
+            res.status(200).json({ exists: true });
+        } else {
+            // Si no se encuentra, respondemos que no existe.
+            console.log(`Verificación fallida, usuario no encontrado: ${username}`);
+            res.status(404).json({ exists: false });
+        }
+
+    } catch (error) {
+        console.error('Error en la verificación de usuario:', error);
+        res.status(500).json({ exists: false, message: 'Error interno del servidor.' });
+    }
+});
+
 // =============================================
 // MANEJADORES DE ERRORES Y ARRANQUE DEL SERVIDOR
 // =============================================

@@ -282,3 +282,307 @@ hr { border: none; border-top: 1px solid var(--border-color); margin: 2rem 0; }
 @media (min-width: 1200px) {
     .post-grid { grid-template-columns: repeat(4, 1fr); }
 }
+
+
+
+
+/* ============================================= */
+/* --- HEADER Y NAVEGACIÓN (MOBILE-FIRST DEFINITIVO) --- */
+/* ============================================= */
+
+.main-header {
+    background-color: var(--surface-color);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky; top: 0; z-index: 1000;
+}
+.navbar-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    height: 70px; /* Altura fija del header */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+.navbar-brand a {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-color);
+    white-space: nowrap;
+}
+.navbar-brand a i { color: var(--primary-color); margin-right: 0.5rem; }
+
+/* --- Botón Hamburguesa --- */
+.navbar-toggle-btn {
+    display: block; /* Visible SOLO en móvil (definido aquí) */
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-color);
+    cursor: pointer;
+    z-index: 1002;
+    padding: 0.5rem;
+    line-height: 1;
+}
+
+/* --- Contenedor Colapsable (Oculto en Móvil) --- */
+.navbar-collapse {
+    display: none; /* Oculto por defecto */
+    flex-direction: column;
+    position: absolute;
+    top: 70px; /* Inicia justo debajo del header */
+    left: 0;
+    width: 100%;
+    background-color: var(--surface-color);
+    z-index: 1001;
+    border-bottom: 1px solid var(--border-color);
+    
+    /* === LA MAGIA DEL SCROLL === */
+    bottom: 0; /* Ocupa hasta abajo */
+    height: calc(100vh - 70px); /* Ocupa el 100% de la altura de la pantalla menos el header */
+    overflow-y: auto; /* PERMITE DESLIZAR (SCROLL) */
+    padding: 1rem;
+    padding-bottom: 4rem; /* Espacio extra al final para que no quede pegado */
+}
+.navbar-collapse.active {
+    display: flex; /* Mostrar al hacer clic */
+}
+
+/* --- Links de Navegación (en Móvil) --- */
+.navbar-nav {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
+}
+.navbar-nav a {
+    font-weight: 500;
+    color: var(--text-muted-color);
+    padding: 0.75rem 1rem;
+    border-bottom: none;
+    border-radius: var(--border-radius-soft);
+}
+.navbar-nav a:hover, .navbar-nav a.active {
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+/* --- Acciones y Menú de Usuario (en Móvil) --- */
+.navbar-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+.user-menu {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+}
+.user-avatar-button {
+    background: var(--background-color);
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border-radius: var(--border-radius-soft);
+    justify-content: space-between;
+    width: 100%;
+    pointer-events: none; /* No es un botón clickeable en móvil */
+}
+.user-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+.user-avatar-button span { font-weight: 600; }
+.user-avatar-button .toggle-chevron { display: none; /* Ocultamos la flecha en móvil */ }
+
+
+/* === ELIMINANDO EL "SEGUNDO MENÚ" EN MÓVIL === */
+.user-dropdown {
+    display: block !important; /* ¡FORZAR A QUE SE VEA SIEMPRE EN MÓVIL! */
+    position: static !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    border: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    padding-left: 1rem !important; /* Indentación para mostrar jerarquía */
+    border-left: 3px solid var(--primary-color) !important;
+}
+/* Ocultamos los divisores que no necesitamos en la lista unificada */
+.user-menu .dropdown-divider {
+    display: none;
+}
+/* Hacemos que los links de usuario se vean como una continuación de los links de nav */
+.user-dropdown a {
+    font-weight: 500;
+    color: var(--text-muted-color);
+    padding: 0.75rem 1rem;
+    border-radius: var(--border-radius-soft);
+}
+.user-dropdown a:hover {
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+
+/* ======================================================= */
+/* --- VISTA TABLET Y ESCRITORIO (RESTAURANDO TODO) --- */
+/* ======================================================= */
+@media (min-width: 768px) {
+    .navbar-brand a { font-size: 1.4rem; }
+
+    .navbar-toggle-btn {
+        display: none; /* Ocultar botón hamburguesa */
+    }
+
+    /* Restaurar el contenedor colapsable */
+    .navbar-collapse {
+        display: flex !important; /* Forzar display (ignorar .active) */
+        position: static;
+        flex-direction: row;
+        align-items: center;
+        width: auto;
+        background: none;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        /* Restaurar valores de scroll/altura */
+        height: auto;
+        overflow-y: visible;
+        bottom: auto;
+    }
+
+    /* Restaurar nav links */
+    .navbar-nav {
+        flex-direction: row;
+        width: auto;
+        gap: 1.5rem;
+        margin-right: 2rem; /* Separar nav de acciones */
+    }
+    .navbar-nav a {
+        padding: 0.5rem 0;
+        border-bottom: 2px solid transparent;
+        border-radius: 0;
+    }
+    .navbar-nav a:hover, .navbar-nav a.active {
+        border-bottom-color: var(--primary-color);
+        background-color: transparent;
+    }
+
+    /* Restaurar acciones */
+    .navbar-actions {
+        flex-direction: row;
+        width: auto;
+        margin-top: 0;
+        padding-top: 0;
+        border-top: none;
+        gap: 0.5rem;
+    }
+
+    /* Restaurar menú de usuario */
+    .user-menu {
+        position: relative;
+        flex-direction: row;
+        gap: 1rem;
+    }
+    .user-avatar-button {
+        background: none;
+        border: none;
+        padding: 0.5rem;
+        border-radius: 50px;
+        width: auto;
+        pointer-events: auto; /* Es clickeable en desktop */
+        cursor: pointer;
+    }
+    .user-avatar-button .toggle-chevron { display: inline; /* Mostrar flecha */ }
+
+    /* === RESTAURAR EL DROPDOWN DE ESCRITORIO === */
+    .user-dropdown {
+        display: none !important; /* ¡VOLVER A OCULTARLO POR DEFECTO! */
+        position: absolute !important;
+        top: calc(100% + 10px) !important;
+        right: 0 !important;
+        width: 240px !important;
+        background-color: var(--surface-color);
+        border-radius: var(--border-radius) !important;
+        box-shadow: var(--shadow-md) !important;
+        border: 1px solid var(--border-color) !important;
+        opacity: 0 !important;
+        transform: translateY(10px) !important;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+        padding-left: 0 !important;
+        border-left: none !important;
+    }
+    /* El JS ahora controla esto en desktop: */
+    .user-dropdown.active {
+        display: block !important;
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+    }
+    .user-menu .dropdown-divider {
+        display: block; /* Mostrar divisores en desktop */
+    }
+    .user-dropdown a {
+        font-size: 0.95rem;
+        padding: 12px 15px;
+    }
+    .user-dropdown a:hover {
+        background-color: var(--background-color);
+    }
+}
+
+
+
+
+/* ============================================= */
+/* --- AJUSTES FINALES RESPONSIVE --- */
+/* ============================================= */
+
+@media (max-width: 400px) {
+    .container {
+        padding: 0 0.75rem; /* Menos padding lateral */
+    }
+    
+    /* Reducir padding en formularios */
+    .form-container, .auth-container {
+        padding: 1.5rem;
+    }
+
+    /* Reducir tamaño de fuentes grandes */
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+    .anuncio-info h1 {
+        font-size: 1.8rem;
+    }
+    .page-header h1 {
+        font-size: 2rem;
+    }
+    
+    /* Hacer botones 100% ancho en contenedores de formulario */
+    .auth-container .btn, .form-container .btn {
+        width: 100%;
+    }
+    
+    /* Ajustar botones en filtros */
+    #filter-form {
+        grid-template-columns: 1fr; /* 1 columna en móvil */
+    }
+    
+    /* Ajustar perfil */
+    .profile-header {
+        padding: 1.5rem;
+    }
+    .profile-avatar img {
+        width: 100px;
+        height: 100px;
+    }
+    .stat-item strong {
+        font-size: 1.2rem;
+    }
+}

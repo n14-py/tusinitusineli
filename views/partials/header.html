@@ -6,44 +6,53 @@
             </a>
         </div>
 
-        <nav class="navbar-nav">
-             <a href="/marketplace">Marketplace</a>
-             <a href="/how-it-works">¿Cómo Recargar?</a>
-        </nav>
+        <button class="navbar-toggle-btn" id="navbar-toggle" aria-label="Toggle navigation" aria-expanded="false">
+            <i class="fas fa-bars"></i>
+        </button>
 
-        <div class="navbar-actions">
-            <% if (currentUser) { %>
-                <div class="user-menu">
-                    <div class="currency-display">
-                        <i class="fas fa-coins"></i>
-                        <span><%= currentUser.tusinimonedas.toLocaleString('es-PY') %></span>
+        <div class="navbar-collapse" id="navbar-collapse-menu">
+            <nav class="navbar-nav">
+                 <a href="/marketplace">Marketplace</a>
+                 <a href="/how-it-works">¿Cómo Recargar?</a>
+            </nav>
+
+            <div class="navbar-actions">
+                <% if (currentUser) { %>
+                    <div class="user-menu">
+                        <div class="currency-display">
+                            <i class="fas fa-coins"></i>
+                            <span><%= currentUser.tusinimonedas.toLocaleString('es-PY') %></span>
+                        </div>
+
+                        <button class="user-avatar-button" id="user-avatar-toggle" aria-expanded="false">
+                            <img src="<%= currentUser.profilePic %>" alt="Avatar de <%= currentUser.robloxUsername %>" class="user-avatar">
+                            <span><%= currentUser.robloxUsername %></span>
+                            <i class="fas fa-chevron-down toggle-chevron"></i>
+                        </button>
+                        
+                        <div class="user-dropdown" id="user-dropdown-menu">
+                            <a href="/profile/<%= currentUser.robloxUsername %>"><i class="fas fa-user-circle fa-fw"></i> Mi Perfil</a>
+                            <a href="/my-movements"><i class="fas fa-wallet fa-fw"></i> Mis Movimientos</a>
+                            <a href="/my-publications"><i class="fas fa-store fa-fw"></i> Mis Publicaciones</a>
+                            <a href="/my-sales"><i class="fas fa-handshake fa-fw"></i> Mis Ventas</a>
+                            <a href="/my-purchases"><i class="fas fa-shopping-bag fa-fw"></i> Mis Compras</a>
+                            <a href="/publish-brainrot"><i class="fas fa-plus-circle fa-fw"></i> Publicar Brainrot</a>
+                            
+                            <div class="dropdown-divider"></div>
+                            <a href="/how-it-works"><i class="fas fa-coins fa-fw"></i> Cómo Recargar Monedas</a> 
+                            <% if (currentUser.role === 'Admin') { %>
+                                <div class="dropdown-divider"></div>
+                                <a href="/admin/dashboard"><i class="fas fa-user-shield fa-fw"></i> Panel de Admin</a>
+                            <% } %>
+                            <div class="dropdown-divider"></div>
+                            <a href="/logout" class="dropdown-logout"><i class="fas fa-sign-out-alt fa-fw"></i> Cerrar Sesión</a>
+                        </div>
                     </div>
-
-                    <button class="user-avatar-button" id="user-avatar-toggle">
-                        <img src="<%= currentUser.profilePic %>" alt="Avatar de <%= currentUser.robloxUsername %>" class="user-avatar">
-                        <span><%= currentUser.robloxUsername %></span>
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <div class="user-dropdown" id="user-dropdown-menu">
-    <a href="/profile/<%= currentUser.robloxUsername %>"><i class="fas fa-user-circle fa-fw"></i> Mi Perfil</a>
-    <a href="/my-movements"><i class="fas fa-wallet fa-fw"></i> Mis Movimientos</a>
-    <a href="/my-publications"><i class="fas fa-store fa-fw"></i> Mis Publicaciones</a>
-    <a href="/my-sales"><i class="fas fa-handshake fa-fw"></i> Mis Ventas</a>
-    <a href="/my-purchases"><i class="fas fa-shopping-bag fa-fw"></i> Mis Compras</a>
-    <a href="/publish-brainrot"><i class="fas fa-plus-circle fa-fw"></i> Publicar Brainrot</a>
-    
-    <div class="dropdown-divider"></div>
-    <a href="/how-it-works"><i class="fas fa-coins fa-fw"></i> Cómo Recargar Monedas</a> <% if (currentUser.role === 'Admin') { %>
-        <div class="dropdown-divider"></div>
-        <a href="/admin/dashboard"><i class="fas fa-user-shield fa-fw"></i> Panel de Admin</a>
-    <% } %>
-    <div class="dropdown-divider"></div>
-    <a href="/logout" class="dropdown-logout"><i class="fas fa-sign-out-alt fa-fw"></i> Cerrar Sesión</a>
-</div>
-            <% } else { %>
-                <a href="/login" class="btn btn-secondary">Iniciar Sesión</a>
-                <a href="/register" class="btn btn-primary">Registrarse</a>
-            <% } %>
+                <% } else { %>
+                    <a href="/login" class="btn btn-secondary">Iniciar Sesión</a>
+                    <a href="/register" class="btn btn-primary">Registrarse</a>
+                <% } %>
+            </div>
         </div>
     </div>
 </header>
@@ -52,18 +61,66 @@
     document.addEventListener('DOMContentLoaded', () => {
         const userAvatarButton = document.getElementById('user-avatar-toggle');
         const userDropdown = document.getElementById('user-dropdown-menu');
+        const navbarToggle = document.getElementById('navbar-toggle');
+        const navbarMenu = document.getElementById('navbar-collapse-menu');
 
-        if (userAvatarButton && userDropdown) {
-            userAvatarButton.addEventListener('click', (event) => {
+        // Lógica para el menú hamburguesa
+        if (navbarToggle && navbarMenu) {
+            navbarToggle.addEventListener('click', (event) => {
                 event.stopPropagation();
-                userDropdown.classList.toggle('active');
+                const isNavActive = navbarMenu.classList.toggle('active');
+                navbarToggle.setAttribute('aria-expanded', isNavActive);
+
+                // Si cerramos el nav principal, también reseteamos el dropdown de usuario
+                if (!isNavActive && userDropdown) {
+                    userDropdown.classList.remove('active');
+                    userAvatarButton.setAttribute('aria-expanded', 'false');
+                }
             });
         }
-        
+
+        // Lógica para el dropdown de usuario
+        if (userAvatarButton && userDropdown) {
+            userAvatarButton.addEventListener('click', (event) => {
+                event.stopPropagation(); // Prevenir que el clic se propague
+                const isUserMenuActive = userDropdown.classList.toggle('active');
+                userAvatarButton.setAttribute('aria-expanded', isUserMenuActive);
+
+                // FIX: Solo cerrar el nav principal si NO estamos en vista móvil
+                // (detectamos vista móvil si el botón hamburguesa es visible)
+                const isMobileView = navbarToggle && navbarToggle.offsetParent !== null;
+
+                if (navbarMenu && !isMobileView) {
+                    // Si estamos en desktop, cerramos el nav (aunque no debería estar abierto)
+                    navbarMenu.classList.remove('active');
+                    navbarToggle.setAttribute('aria-expanded', 'false');
+                }
+                // Si estamos en móvil (isMobileView = true), NO hacemos nada al navbarMenu.
+                // Simplemente dejamos que el userDropdown se abra/cierre DENTRO del navbarMenu.
+            });
+        }
+
+        // Cerrar ambos menús al hacer clic fuera
         document.addEventListener('click', (event) => {
+            // Cerrar dropdown de usuario si está abierto
             if (userDropdown && userDropdown.classList.contains('active')) {
                 if (!userDropdown.contains(event.target) && !userAvatarButton.contains(event.target)) {
                     userDropdown.classList.remove('active');
+                    userAvatarButton.setAttribute('aria-expanded', 'false');
+                }
+            }
+
+            // Cerrar nav móvil si está abierto
+            if (navbarMenu && navbarMenu.classList.contains('active')) {
+                 if (!navbarMenu.contains(event.target) && !navbarToggle.contains(event.target)) {
+                    navbarMenu.classList.remove('active');
+                    navbarToggle.setAttribute('aria-expanded', 'false');
+                    
+                    // Asegurarnos de que el menú de usuario también se cierre
+                    if (userDropdown) {
+                         userDropdown.classList.remove('active');
+                         userAvatarButton.setAttribute('aria-expanded', 'false');
+                    }
                 }
             }
         });
@@ -71,6 +128,7 @@
 </script>
 
 <style>
+    /* Estilos para el balance de monedas (los moví aquí desde el header para que estén juntos) */
     .currency-display {
         display: flex;
         align-items: center;
@@ -83,10 +141,5 @@
     }
     .currency-display .fa-coins {
         color: #ffc107; /* Color dorado */
-    }
-    .user-menu {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
     }
 </style>

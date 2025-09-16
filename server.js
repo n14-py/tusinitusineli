@@ -1364,12 +1364,11 @@ app.get('/api/verificar-usuario/:username', async (req, res) => {
             // Si el usuario se encuentra, respondemos que sí existe.
             console.log(`Verificación exitosa para: ${username}`);
             res.status(200).json({ exists: true });
-        } else {
-            // Si no se encuentra, respondemos que no existe.
-            console.log(`Verificación fallida, usuario no encontrado: ${username}`);
-            res.status(404).json({ exists: false });
-        }
-
+       } else {
+    // Si no se encuentra, respondemos que no existe, PERO con un código de éxito.
+    console.log(`Verificación fallida, usuario no encontrado: ${username}`);
+    res.status(200).json({ exists: false }); // <--- ¡ASÍ DEBE SER!
+}
     } catch (error) {
         console.error('Error en la verificación de usuario:', error);
         res.status(500).json({ exists: false, message: 'Error interno del servidor.' });

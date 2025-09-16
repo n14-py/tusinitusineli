@@ -586,3 +586,108 @@ hr { border: none; border-top: 1px solid var(--border-color); margin: 2rem 0; }
         font-size: 1.2rem;
     }
 }
+
+
+
+/* ... (todo tu código CSS existente) ... */
+
+/* ============================================= */
+/* --- ESTILOS DE RESPONSIVIDAD PARA TABLAS --- */
+/* ============================================= */
+
+.table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto; /* La clave está aquí: permite el scroll horizontal */
+    -webkit-overflow-scrolling: touch; /* Deslizamiento suave en iOS */
+}
+
+.dashboard-table {
+    width: 100%;
+    min-width: 600px; /* Asegura que la tabla tenga un ancho mínimo antes de empezar a encogerse */
+}
+
+
+/* ================================================================= */
+/* --- CSS DEFINITIVO PARA TABLAS 100% RESPONSIVAS SIN SCROLL --- */
+/* =============================================================== */
+
+@media (max-width: 767px) {
+
+  /* FORZAMOS al contenedor a no ser deslizable */
+  .table-responsive {
+    overflow-x: hidden !important; /* Previene cualquier scroll horizontal */
+    border: none !important;
+  }
+
+  /* Hacemos que la tabla ocupe el ancho completo y quitamos su ancho mínimo */
+  .dashboard-table {
+    width: 100%;
+    min-width: 0 !important; /* MUY IMPORTANTE: elimina el ancho mínimo que causa el scroll */
+  }
+
+  /* Ocultamos la cabecera de la tabla */
+  .dashboard-table thead {
+    display: none;
+  }
+
+  /* Hacemos que los elementos de la tabla se comporten como bloques */
+  .dashboard-table,
+  .dashboard-table tbody,
+  .dashboard-table tr,
+  .dashboard-table td {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Cada fila es ahora una "tarjeta" compacta */
+  .dashboard-table tr {
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-soft);
+    padding: 0.75rem; /* Padding más compacto para la tarjeta */
+  }
+
+  /* Cada celda es una línea dentro de la tarjeta */
+  .dashboard-table td {
+    padding: 0.6rem 0; /* Menos padding vertical */
+    border-bottom: 1px solid #f0f0f0;
+    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.85rem; /* Hacemos la fuente más pequeña */
+  }
+
+  .dashboard-table tr td:last-child {
+    border-bottom: none;
+  }
+
+  /* La "etiqueta" (título de la columna) */
+  .dashboard-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--text-muted-color);
+    text-align: left;
+    margin-right: 0.5rem; /* Menos espacio */
+    padding-right: 0.5rem;
+  }
+  
+  /* Aseguramos que el contenido de la celda se ajuste y rompa línea si es necesario */
+   .dashboard-table td > * {
+       white-space: normal;
+       word-break: break-word;
+       text-align: right;
+       margin-left: auto; /* Empuja el contenido a la derecha */
+       flex-basis: 60%; /* Le da al contenido un espacio flexible para crecer */
+       flex-shrink: 1; /* Permite que el contenido se encoja si es necesario */
+   }
+   
+   /* Estilos específicos para botones dentro de las tarjetas */
+   .dashboard-table td .btn {
+       padding: 4px 8px;
+       font-size: 0.75rem;
+       white-space: nowrap; /* Evita que el texto del botón se rompa */
+   }
+}

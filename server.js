@@ -23,6 +23,7 @@ const rateLimit = require('express-rate-limit');
 const { JSDOM } = require('jsdom');
 const DOMPurify = require('dompurify');
 const cookieParser = require('cookie-parser');
+const compression = require('compression');
 
 // Configuración básica del servidor
 const app = express();
@@ -95,6 +96,15 @@ const userSchema = new mongoose.Schema({
     totalPurchases: { type: Number, default: 0 }
 }, { timestamps: true });
 
+// AÑADE ESTO EN LA SECCIÓN DE SCHEMAS
+const withdrawalSchema = new mongoose.Schema({
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    tusinimonedasAmount: { type: Number, required: true },
+    robuxAmount: { type: Number, required: true },
+    gamepassLink: { type: String, required: true },
+    status: { type: String, enum: ['Pendiente', 'Procesado', 'Rechazado'], default: 'Pendiente' }
+}, { timestamps: true });
+
 // --- Schema de Brainrots (Actualizado para subastas) ---
 const brainrotSchema = new mongoose.Schema({
     sellerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
@@ -140,6 +150,14 @@ const transactionSchema = new mongoose.Schema({
     chat: [messageSchema] // Chat embebido en la transacción
 }, { timestamps: true });
 
+
+// --- Schema de Recargas ---
+const rechargeSchema = new mongoose.Schema({
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    amount: { type: Number, required: true },
+    source: { type: String, default: 'Roblox', enum: ['Roblox', 'Admin'] }
+}, { timestamps: true });
+
 // --- Schema de Logs del Administrador ---
 const adminLogSchema = new mongoose.Schema({
     adminId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
@@ -154,7 +172,8 @@ const Brainrot = mongoose.model('Brainrot', brainrotSchema);
 const Transaction = mongoose.model('Transaction', transactionSchema);
 const AdminLog = mongoose.model('AdminLog', adminLogSchema);
 const Rating = mongoose.model('Rating', ratingSchema);
-
+const Recharge = mongoose.model('Recharge', rechargeSchema); 
+const Withdrawal = mongoose.model('Withdrawal', withdrawalSchema);
 
 // =============================================
 //               FIN DE LA PARTE 1
@@ -182,6 +201,7 @@ const loginLimiter = rateLimit({
     legacyHeaders: false,
 });
 
+app.use(compression());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -201,7 +221,9 @@ io.use((socket, next) => {
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'), {
+    maxAge: '1d' // Cachear por 1 día
+}));
 app.use(generalLimiter);
 
 // Middleware para pasar datos útiles a todas las vistas
@@ -214,21 +236,19 @@ app.use((req, res, next) => {
 });
 
 
-// =============================================
-// CONFIGURACIÓN DE PASSPORT (AUTENTICACIÓN)
-// =============================================
-passport.use(new LocalStrategy({ usernameField: 'email' }, async (email, password, done) => {
+// EN LA SECCIÓN DE CONFIGURACIÓN DE PASSPORT
+passport.use(new LocalStrategy({ usernameField: 'robloxUsername' }, async (robloxUsername, password, done) => {
     try {
-        const user = await User.findOne({ email: email.toLowerCase() });
+        const user = await User.findOne({ robloxUsername: robloxUsername.toLowerCase() });
         if (!user) {
-            return done(null, false, { message: 'El correo o la contraseña son incorrectos.' });
+            return done(null, false, { message: 'El usuario o la contraseña son incorrectos.' });
         }
         if (user.isBanned) {
             return done(null, false, { message: 'Esta cuenta ha sido suspendida.' });
         }
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return done(null, false, { message: 'El correo o la contraseña son incorrectos.' });
+            return done(null, false, { message: 'El usuario o la contraseña son incorrectos.' });
         }
         return done(null, user);
     } catch (err) {
@@ -282,24 +302,26 @@ app.get('/how-it-works', (req, res) => res.render('how-it-works')); // Página p
 // --- Registro ---
 app.get('/register', (req, res) => res.render('register', { error: null }));
 
+
+// EN LA RUTA DE REGISTRO app.post('/register', ...)
 app.post('/register', loginLimiter, async (req, res, next) => {
     try {
-        const { robloxUsername, email, password } = req.body;
-        if (!robloxUsername || !email || !password) {
+        const { robloxUsername, password } = req.body;
+        if (!robloxUsername || !password) {
             throw new Error("Todos los campos son obligatorios.");
         }
         if (password.length < 6) {
             throw new Error("La contraseña debe tener al menos 6 caracteres.");
         }
-        const existingUser = await User.findOne({
-            $or: [{ email: email.toLowerCase() }, { robloxUsername: robloxUsername.toLowerCase() }]
-        });
+        const existingUser = await User.findOne({ robloxUsername: robloxUsername.toLowerCase() });
         if (existingUser) {
-            throw new Error('El email o el nombre de usuario de Roblox ya están en uso.');
+            throw new Error('Ese nombre de usuario de Roblox ya está en uso.');
         }
 
         const hashedPassword = await bcrypt.hash(password, 12);
-        const user = new User({ robloxUsername, email, password: hashedPassword });
+        // Creamos un email falso para cumplir con el schema, pero no lo usamos
+        const fakeEmail = `${robloxUsername.toLowerCase().replace(/\s/g, '_')}@brainrot.marketplace`;
+        const user = new User({ robloxUsername, email: fakeEmail, password: hashedPassword });
         await user.save();
 
         req.login(user, (err) => {
@@ -404,7 +426,7 @@ app.post('/publish-brainrot', requireAuth, upload.single('image'), async (req, r
     }
 });
 
-// --- Mostrar la página de detalle de un Brainrot ---
+// Reemplaza la ruta completa de '/brainrot/:id' con esta
 app.get('/brainrot/:id', async (req, res, next) => {
     try {
         const brainrot = await Brainrot.findByIdAndUpdate(req.params.id, { $inc: { views: 1 } }, { new: true })
@@ -415,10 +437,25 @@ app.get('/brainrot/:id', async (req, res, next) => {
         }
         
         const isOwner = req.user && req.user._id.equals(brainrot.sellerId._id);
+
+        // --- INICIO DE CÓDIGO NUEVO PARA RECOMENDACIONES ---
+        
+        // Buscar hasta 4 artículos de la misma categoría, de otros vendedores, que estén disponibles.
+        const recommendations = await Brainrot.find({
+            _id: { $ne: brainrot._id }, // Excluir el artículo actual
+            sellerId: { $ne: brainrot.sellerId._id }, // Excluir artículos del mismo vendedor
+            category: brainrot.category, // Priorizar la misma categoría
+            status: 'available'
+        })
+        .populate('sellerId', 'robloxUsername')
+        .limit(4);
+
+        // --- FIN DE CÓDIGO NUEVO ---
         
         res.render('brainrot-detail', {
             brainrot,
             isOwner,
+            recommendations, // <-- Pasar las recomendaciones a la vista
             pageTitle: `${brainrot.title} - Brainrot Marketplace`
         });
     } catch (err) {
@@ -483,6 +520,109 @@ app.post('/brainrot/:id/buy', requireAuth, async (req, res, next) => {
         session.endSession();
     }
 });
+
+
+
+
+app.get('/withdraw', requireAuth, (req, res) => {
+    res.render('withdraw', { error: null, success: null });
+});
+
+app.post('/withdraw', requireAuth, async (req, res) => {
+    const { amount, gamepassLink } = req.body;
+    const tusinimonedasAmount = parseInt(amount, 10);
+
+    try {
+        if (!tusinimonedasAmount || !gamepassLink) {
+            throw new Error('Todos los campos son obligatorios.');
+        }
+        if (tusinimonedasAmount < 4000) {
+            throw new Error('El monto mínimo de retiro es de 4,000 tusinimonedas.');
+        }
+        if (tusinimonedasAmount % 10 !== 0) {
+            throw new Error('La cantidad debe ser un múltiplo de 10.');
+        }
+
+        const user = await User.findById(req.user._id);
+        if (user.tusinimonedas < tusinimonedasAmount) {
+            throw new Error('No tienes suficientes tusinimonedas para realizar este retiro.');
+        }
+
+        const robuxAmount = tusinimonedasAmount / 10;
+        
+        // Descontar monedas y crear la solicitud en una transacción
+        const session = await mongoose.startSession();
+        session.startTransaction();
+
+        try {
+            await User.findByIdAndUpdate(req.user._id, { $inc: { tusinimonedas: -tusinimonedasAmount } }, { session });
+            
+            const withdrawal = new Withdrawal({
+                userId: req.user._id,
+                tusinimonedasAmount,
+                robuxAmount,
+                gamepassLink
+            });
+            await withdrawal.save({ session });
+            
+            await session.commitTransaction();
+            res.render('withdraw', { success: '¡Solicitud de retiro enviada con éxito!', error: null });
+        } catch (e) {
+            await session.abortTransaction();
+            throw e;
+        } finally {
+            session.endSession();
+        }
+
+    } catch (err) {
+        res.render('withdraw', { error: err.message, success: null });
+    }
+});
+
+// AÑADE ESTAS RUTAS EN LA SECCIÓN DE ADMIN
+app.get('/admin/withdrawals', requireAdmin, async (req, res) => {
+    const withdrawals = await Withdrawal.find({ status: 'Pendiente' })
+        .populate('userId', 'robloxUsername')
+        .sort({ createdAt: 'desc' });
+    res.render('admin/withdrawals', { withdrawals });
+});
+
+app.post('/admin/withdrawals/:id/update', requireAdmin, async (req, res) => {
+    const { status } = req.body;
+    const { id } = req.params;
+
+    const session = await mongoose.startSession();
+    session.startTransaction();
+    try {
+        const withdrawal = await Withdrawal.findById(id).session(session);
+        if (!withdrawal) {
+            throw new Error('Solicitud no encontrada');
+        }
+
+        withdrawal.status = status;
+        
+        // Si se rechaza, devolver los fondos al usuario
+        if (status === 'Rechazado') {
+            await User.findByIdAndUpdate(withdrawal.userId, { $inc: { tusinimonedas: withdrawal.tusinimonedasAmount } }, { session });
+        }
+        
+        await withdrawal.save({ session });
+        await session.commitTransaction();
+        res.redirect('/admin/withdrawals');
+    } catch (err) {
+        await session.abortTransaction();
+        // Manejar el error apropiadamente
+        res.redirect('/admin/withdrawals');
+    } finally {
+        session.endSession();
+    }
+});
+
+
+
+// AÑADE ESTAS DOS LÍNEAS JUNTO A TUS OTRAS RUTAS GET SIMILARES
+app.get('/terms', (req, res) => res.render('terms'));
+app.get('/privacy', (req, res) => res.render('privacy'));
 
 // =============================================
 //               FIN DE LA PARTE 3
@@ -1086,67 +1226,59 @@ app.get('/admin/logs', requireAdmin, async (req, res, next) => {
 
 
 // --- Página de Movimientos y Estado de Cuenta del Usuario ---
+// Reemplaza tu ruta app.get('/my-movements', ...) con esta nueva versión
 app.get('/my-movements', requireAuth, async (req, res, next) => {
     try {
         const userId = req.user._id;
 
-        // 1. Calcular el total gastado en compras completadas
         const spentResult = await Transaction.aggregate([
             { $match: { buyerId: userId, status: 'completed' } },
             { $group: { _id: null, total: { $sum: "$amount" } } }
         ]);
         const totalSpent = spentResult.length > 0 ? spentResult[0].total : 0;
 
-        // 2. Calcular el total ganado por ventas completadas
         const earnedResult = await Transaction.aggregate([
             { $match: { sellerId: userId, status: 'completed' } },
             { $group: { _id: null, total: { $sum: "$amount" } } }
         ]);
         const totalEarned = earnedResult.length > 0 ? earnedResult[0].total : 0;
-        
-        // 3. Calcular el saldo pendiente de recibir (en escrow como vendedor)
+
         const escrowResult = await Transaction.aggregate([
             { $match: { sellerId: userId, status: 'pending_delivery' } },
             { $group: { _id: null, total: { $sum: "$amount" } } }
         ]);
         const pendingBalance = escrowResult.length > 0 ? escrowResult[0].total : 0;
 
-        // 4. Obtener una lista unificada de movimientos (compras y ventas)
-        const purchases = await Transaction.find({ buyerId: userId })
-            .populate('brainrotId', 'title')
-            .select('amount status createdAt')
-            .lean(); // .lean() para convertirlo en objeto JS simple
+        const purchases = await Transaction.find({ buyerId: userId }).populate('brainrotId', 'title').select('amount status createdAt').lean();
+        const sales = await Transaction.find({ sellerId: userId }).populate('brainrotId', 'title').select('amount status createdAt').lean();
+        const recharges = await Recharge.find({ userId: userId }).select('amount source createdAt').lean(); // <-- NUEVA LÍNEA
 
-        const sales = await Transaction.find({ sellerId: userId })
-            .populate('brainrotId', 'title')
-            .select('amount status createdAt')
-            .lean();
-
-        // Combinar y dar formato a los movimientos
         let movements = [];
         purchases.forEach(p => movements.push({
             date: p.createdAt,
             type: 'Compra',
             description: p.brainrotId ? p.brainrotId.title : 'Artículo eliminado',
-            amount: -p.amount, // Negativo porque es un gasto
+            amount: -p.amount,
             status: p.status
         }));
         sales.forEach(s => movements.push({
             date: s.createdAt,
             type: 'Venta',
             description: s.brainrotId ? s.brainrotId.title : 'Artículo eliminado',
-            amount: s.amount, // Positivo porque es un ingreso
+            amount: s.amount,
             status: s.status
         }));
-        
-        // Ordenar los movimientos por fecha, del más reciente al más antiguo
+        recharges.forEach(r => movements.push({ // <-- NUEVO BLOQUE
+            date: r.createdAt,
+            type: 'Recarga',
+            description: `Recarga desde ${r.source}`,
+            amount: r.amount,
+            status: 'completado'
+        }));
+
         movements.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-        const stats = {
-            totalSpent,
-            totalEarned,
-            pendingBalance
-        };
+        const stats = { totalSpent, totalEarned, pendingBalance };
 
         res.render('my-movements', { stats, movements });
 
@@ -1156,64 +1288,58 @@ app.get('/my-movements', requireAuth, async (req, res, next) => {
 });
 
 
-// ==========================================================
-//      ENDPOINT FINAL Y COMPLETO PARA RECIBIR COMPRAS DE ROBLOX
-// ==========================================================
+// Reemplaza tu ruta app.post('/api/recibir-compra-roblox', ...) con esta versión mejorada
 app.post('/api/recibir-compra-roblox', async (req, res) => {
-    
-    // Recibimos los datos que nos envía el script de Roblox
     const { claveSecreta, robloxUsername, monedasAAgregar } = req.body;
-
     console.log('Recibida petición de compra desde Roblox:', req.body);
 
-    // --- 1. Verificación de Seguridad ---
-    // Comparamos la clave secreta recibida con la que tenemos en el archivo .env
     if (claveSecreta !== process.env.ROBLOX_API_SECRET) {
         console.warn('¡ALERTA! Intento de acceso a la API con clave secreta incorrecta.');
         return res.status(403).json({ error: 'Acceso denegado.' });
     }
 
-    // --- 2. Validación de Datos ---
     if (!robloxUsername || !monedasAAgregar || monedasAAgregar <= 0) {
         console.error('ERROR: Petición de Roblox recibida con datos incompletos o inválidos.');
         return res.status(400).json({ error: 'Datos inválidos.' });
     }
 
+    const session = await mongoose.startSession();
+    session.startTransaction();
     try {
-        // --- 3. Buscar y Actualizar al Usuario ---
-        // Buscamos al usuario por su 'robloxUsername', convirtiéndolo a minúsculas para coincidir con cómo se guarda en la DB.
-        const user = await User.findOneAndUpdate(
-            { robloxUsername: robloxUsername.toLowerCase() },
-            { $inc: { tusinimonedas: monedasAAgregar } },
-            { new: true } // Esto nos devuelve el documento del usuario ya actualizado
-        );
+        const user = await User.findOne({ robloxUsername: robloxUsername.toLowerCase() }).session(session);
 
         if (!user) {
-            // Si no se encuentra un usuario con ese nombre en tu web, se registra el error.
             console.error(`ERROR: No se encontró un usuario con el Roblox Username: ${robloxUsername}`);
             return res.status(404).json({ error: 'Usuario no encontrado en la base de datos del marketplace.' });
         }
 
-        // --- 4. Registrar la Acción (opcional pero recomendado) ---
-        const log = new AdminLog({
-            action: 'acredito_monedas_roblox',
-            targetUserId: user._id,
-            details: `Acreditación automática de ${monedasAAgregar} tusinimonedas por compra en Roblox. Nuevo balance: ${user.tusinimonedas}.`
+        user.tusinimonedas += parseInt(monedasAAgregar);
+        await user.save({ session });
+
+        const newRecharge = new Recharge({
+            userId: user._id,
+            amount: parseInt(monedasAAgregar),
+            source: 'Roblox'
         });
-        await log.save();
+        await newRecharge.save({ session });
+
+        await session.commitTransaction();
 
         console.log(`ÉXITO: Se acreditaron ${monedasAAgregar} tusinimonedas a ${user.robloxUsername}.`);
-
-        // --- 5. Responder a Roblox ---
-        // Enviamos una respuesta exitosa para que Roblox sepa que todo salió bien.
         res.status(200).json({ message: 'Monedas acreditadas correctamente.' });
 
     } catch (error) {
+        await session.abortTransaction();
         console.error('ERROR CRÍTICO al procesar la compra de Roblox:', error);
         res.status(500).json({ error: 'Error interno del servidor al actualizar la base de datos.' });
+    } finally {
+        session.endSession();
     }
 });
 
+
+app.get('/how-it-works', (req, res) => res.render('how-it-works'));
+app.get('/how-it-works-general', (req, res) => res.render('how-it-works-general')); // <-- AÑADE ESTA LÍNEA
 
 // =============================================
 // MANEJADORES DE ERRORES Y ARRANQUE DEL SERVIDOR

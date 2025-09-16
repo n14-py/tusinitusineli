@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retirar Tusinimonedas - Brainrot Marketplace</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+<%- include('partials/header.html') %>
+<main class="container">
+    <div class="form-container" style="max-width: 600px;">
+        <h2><i class="fab fa-roblox"></i> Retirar Tusinimonedas a Robux</h2>
+        <p>Convierte tus ganancias en Robux. El pago se realiza a través de Game Pass en Roblox.</p>
+        <hr>
+
+        <div class="alert alert-info">
+            <h4>Reglas de Retiro</h4>
+            <ul>
+                <li>Tasa de cambio: <strong>10 Tusinimonedas = 1 Robux</strong>.</li>
+                <li>Mínimo de retiro: <strong>4,000 Tusinimonedas</strong> (para 400 Robux).</li>
+                <li>Debes tener un Game Pass a la venta por el monto exacto de Robux a recibir.</li>
+            </ul>
+        </div>
+
+        <% if (locals.error) { %>
+            <div class="alert alert-danger"><%= error %></div>
+        <% } %>
+        <% if (locals.success) { %>
+            <div class="alert alert-success"><%= success %></div>
+        <% } %>
+
+        <div class="stat-card" style="margin-bottom: 2rem; text-align: left; padding: 1rem;">
+            <h4>Saldo Actual:</h4>
+            <p class="stat-value" style="font-size: 1.8rem; color: var(--primary-color);">
+                <i class="fas fa-coins"></i> <%= currentUser.tusinimonedas.toLocaleString('es-PY') %>
+            </p>
+        </div>
+
+        <form action="/withdraw" method="POST">
+            <div class="form-group">
+                <label for="amount">Cantidad de Tusinimonedas a retirar</label>
+                <input type="number" id="amount" name="amount" class="form-control" required placeholder="Ej: 5000" min="4000" step="10">
+                <small class="form-text text-muted">Debe ser un múltiplo de 10.</small>
+            </div>
+            <div class="form-group">
+                <p>Recibirás aproximadamente: <strong id="robux-amount" style="font-size: 1.2rem;">0 Robux</strong></p>
+            </div>
+            <div class="form-group">
+                <label for="gamepassLink">Enlace a tu Game Pass</label>
+                <input type="url" id="gamepassLink" name="gamepassLink" class="form-control" required placeholder="https://www.roblox.com/game-pass/...">
+                <small class="form-text text-muted">Asegúrate de que el precio del Game Pass coincida con los Robux a recibir.</small>
+            </div>
+            <hr>
+            <button type="submit" class="btn btn-primary btn-block">Solicitar Retiro</button>
+        </form>
+    </div>
+</main>
+<%- include('partials/footer.html') %>
+<script>
+    document.getElementById('amount').addEventListener('input', function() {
+        const tusinimonedas = parseInt(this.value, 10) || 0;
+        if (tusinimonedas >= 4000) {
+            const robux = tusinimonedas / 10;
+            document.getElementById('robux-amount').textContent = `${robux.toLocaleString('en-US')} Robux`;
+        } else {
+            document.getElementById('robux-amount').textContent = '0 Robux';
+        }
+    });
+</script>
+</body>
+</html>

@@ -31,36 +31,36 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% transactions.forEach(transaction => { %>
-                            <tr>
-                                <td><%= new Date(transaction.createdAt).toLocaleDateString('es-PY') %></td>
-                                <td>
-                                    <% if (transaction.brainrotId) { %>
-                                        <a href="/brainrot/<%= transaction.brainrotId._id %>" style="font-weight: bold;"><%= transaction.brainrotId.title %></a>
-                                    <% } else { %>
-                                        <span class="text-muted">Artículo eliminado</span>
-                                    <% } %>
-                                </td>
-                                <td>
-                                    <% if (transaction.buyerId) { %>
-                                        <span><%= transaction.buyerId.robloxUsername %></span>
-                                    <% } else { %>
-                                        <span class="text-muted">Comprador eliminado</span>
-                                    <% } %>
-                                </td>
-                                <td>
-                                     <span class="badge status-<%= transaction.status %>">
-                                        <%= transaction.status.replace('_', ' ').toUpperCase() %>
-                                    </span>
-                                </td>
-                                <td>
-                                    <a href="/transaction/<%= transaction._id %>" class="btn btn-primary btn-sm">
-                                        <i class="fas fa-comments"></i> Ir al Chat
-                                    </a>
-                                </td>
-                            </tr>
-                        <% }); %>
-                    </tbody>
+    <% transactions.forEach(transaction => { %>
+        <tr>
+            <td data-label="Fecha"><%= new Date(transaction.createdAt).toLocaleDateString('es-PY') %></td>
+            <td data-label="Artículo">
+                <% if (transaction.brainrotId) { %>
+                    <a href="/brainrot/<%= transaction.brainrotId._id %>" style="font-weight: bold;"><%= transaction.brainrotId.title %></a>
+                <% } else { %>
+                    <span class="text-muted">Artículo eliminado</span>
+                <% } %>
+            </td>
+            <td data-label="Comprador">
+                <% if (transaction.buyerId) { %>
+                    <span><%= transaction.buyerId.robloxUsername %></span>
+                <% } else { %>
+                    <span class="text-muted">Comprador eliminado</span>
+                <% } %>
+            </td>
+            <td data-label="Estado">
+                 <span class="badge status-<%= transaction.status %>">
+                    <%= transaction.status.replace('_', ' ').toUpperCase() %>
+                </span>
+            </td>
+            <td data-label="Acciones">
+                <a href="/transaction/<%= transaction._id %>" class="btn btn-primary btn-sm">
+                    <i class="fas fa-comments"></i> Ir al Chat
+                </a>
+            </td>
+        </tr>
+    <% }); %>
+</tbody>
                 </table>
             </div>
         <% } else { %>

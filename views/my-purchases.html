@@ -30,29 +30,29 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% transactions.forEach(transaction => { %>
-                            <tr>
-                                <td><%= new Date(transaction.createdAt).toLocaleDateString('es-PY') %></td>
-                                <td>
-                                    <% if (transaction.brainrotId) { %>
-                                        <a href="/brainrot/<%= transaction.brainrotId._id %>" style="font-weight: bold;"><%= transaction.brainrotId.title %></a>
-                                    <% } else { %>
-                                        <span class="text-muted">Artículo eliminado</span>
-                                    <% } %>
-                                </td>
-                                <td>
-                                    <% if (transaction.sellerId) { %>
-                                        <span><%= transaction.sellerId.robloxUsername %></span>
-                                    <% } else { %>
-                                        <span class="text-muted">Vendedor eliminado</span>
-                                    <% } %>
-                                </td>
-                                <td>
-                                    <strong><%= new Intl.NumberFormat('es-PY').format(transaction.amount) %></strong> tusinimonedas
-                                </td>
-                            </tr>
-                        <% }); %>
-                    </tbody>
+    <% transactions.forEach(transaction => { %>
+        <tr>
+            <td data-label="Fecha"><%= new Date(transaction.createdAt).toLocaleDateString('es-PY') %></td>
+            <td data-label="Artículo">
+                <% if (transaction.brainrotId) { %>
+                    <a href="/brainrot/<%= transaction.brainrotId._id %>" style="font-weight: bold;"><%= transaction.brainrotId.title %></a>
+                <% } else { %>
+                    <span class="text-muted">Artículo eliminado</span>
+                <% } %>
+            </td>
+            <td data-label="Vendedor">
+                <% if (transaction.sellerId) { %>
+                    <span><%= transaction.sellerId.robloxUsername %></span>
+                <% } else { %>
+                    <span class="text-muted">Vendedor eliminado</span>
+                <% } %>
+            </td>
+            <td data-label="Precio">
+                <strong><%= new Intl.NumberFormat('es-PY').format(transaction.amount) %></strong> tusinimonedas
+            </td>
+        </tr>
+    <% }); %>
+</tbody>
                 </table>
             </div>
         <% } else { %>

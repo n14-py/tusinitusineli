@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brainrot Marketplace - Compra y Vende Items de Roblox</title>
+    <title>tusinitusineli - Compra y Vende Items de Roblox</title>
+    <meta name="description" content="El lugar más seguro para comprar y vender ítems de todos los juegos de Roblox. Usa tusinimonedas para conseguir los mejores ítems.">
     <meta name="description" content="El lugar más seguro para comprar y vender Brainrots del juego 'Roba un Brainrot' de Roblox. Usa tusinimonedas para conseguir los mejores ítems.">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -14,8 +14,8 @@
 
 <main class="container">
     <div class="hero-section">
-        <h1>El Marketplace de Brainrots</h1>
-        <p>Encuentra, compra y vende los Brainrots más raros de Roblox de forma segura.</p>
+        <h1>El Marketplace de Items de Roblox</h1>
+        <p>Encuentra, compra y vende los ítems más raros de Roblox de forma segura.</p>
     </div>
 
     <div class="search-filter-container">
@@ -49,6 +49,9 @@
                     <option value="Raro" <%= (query.rarity === 'Raro') ? 'selected' : '' %>>Raro</option>
                     <option value="Épico" <%= (query.rarity === 'Épico') ? 'selected' : '' %>>Épico</option>
                     <option value="Legendario" <%= (query.rarity === 'Legendario') ? 'selected' : '' %>>Legendario</option>
+                    <option value="Mítico" <%= (query.rarity === 'Mítico') ? 'selected' : '' %>>Mítico</option>
+                    <option value="Dios de Brainrot" <%= (query.rarity === 'Dios de Brainrot') ? 'selected' : '' %>>Dios de Brainrot</option>
+                    <option value="Secreto" <%= (query.rarity === 'Secreto') ? 'selected' : '' %>>Secreto</option>
                 </select>
             </div>
             <button type="submit" class="btn btn-primary">Aplicar</button>

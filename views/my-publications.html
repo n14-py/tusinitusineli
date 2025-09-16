@@ -31,28 +31,28 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% publications.forEach(item => { %>
-                            <tr>
-                                <td>
-                                    <a href="/brainrot/<%= item._id %>" style="font-weight: bold;"><%= item.title %></a>
-                                </td>
-                                <td>
-                                    <strong><%= new Intl.NumberFormat('es-PY').format(item.price) %></strong>
-                                </td>
-                                <td>
-                                    <% if (item.status === 'available') { %>
-                                        <span class="badge status-approved">Disponible</span>
-                                    <% } else { %>
-                                        <span class="badge status-sold">Vendido</span>
-                                    <% } %>
-                                </td>
-                                <td><%= new Date(item.createdAt).toLocaleDateString('es-PY') %></td>
-                                <td>
-                                    <a href="/brainrot/<%= item._id %>/edit" class="btn btn-secondary btn-sm">Editar</a>
-                                </td>
-                            </tr>
-                        <% }); %>
-                    </tbody>
+    <% publications.forEach(item => { %>
+        <tr>
+            <td data-label="Artículo">
+                <a href="/brainrot/<%= item._id %>" style="font-weight: bold;"><%= item.title %></a>
+            </td>
+            <td data-label="Precio">
+                <strong><%= new Intl.NumberFormat('es-PY').format(item.price) %></strong>
+            </td>
+            <td data-label="Estado">
+                <% if (item.status === 'available') { %>
+                    <span class="badge status-approved">Disponible</span>
+                <% } else { %>
+                    <span class="badge status-sold">Vendido</span>
+                <% } %>
+            </td>
+            <td data-label="Publicado el"><%= new Date(item.createdAt).toLocaleDateString('es-PY') %></td>
+            <td data-label="Acciones">
+                <a href="/brainrot/<%= item._id %>/edit" class="btn btn-secondary btn-sm">Editar</a>
+            </td>
+        </tr>
+    <% }); %>
+</tbody>
                 </table>
             </div>
         <% } else { %>

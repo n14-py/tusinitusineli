@@ -47,28 +47,30 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% movements.forEach(mov => { %>
-                            <tr>
-                                <td><%= new Date(mov.date).toLocaleString('es-PY') %></td>
-                                <td>
-                                    <% if (mov.type === 'Venta') { %>
-                                        <span class="badge status-approved"><%= mov.type %></span>
-                                    <% } else { %>
-                                        <span class="badge status-sold"><%= mov.type %></span>
-                                    <% } %>
-                                </td>
-                                <td><%= mov.description %></td>
-                                <td class="<%= mov.amount > 0 ? 'positive' : 'negative' %>">
-                                    <strong><%= mov.amount.toLocaleString('es-PY') %></strong>
-                                </td>
-                                <td>
-                                    <span class="badge status-<%= mov.status %>">
-                                        <%= mov.status.replace('_', ' ').toUpperCase() %>
-                                    </span>
-                                </td>
-                            </tr>
-                        <% }); %>
-                    </tbody>
+    <% movements.forEach(mov => { %>
+        <tr>
+            <td data-label="Fecha"><%= new Date(mov.date).toLocaleString('es-PY') %></td>
+            <td data-label="Tipo">
+                <% if (mov.type === 'Venta') { %>
+                    <span class="badge status-approved"><%= mov.type %></span>
+                <% } else if (mov.type === 'Compra') { %>
+                    <span class="badge status-sold"><%= mov.type %></span>
+                <% } else { %>
+                    <span class="badge" style="background-color: #d1ecf1; color: #0c5460;"><%= mov.type %></span>
+                <% } %>
+            </td>
+            <td data-label="Descripción"><%= mov.description %></td>
+            <td data-label="Monto" class="<%= mov.amount > 0 ? 'positive' : 'negative' %>">
+                <strong><%= mov.amount.toLocaleString('es-PY') %></strong>
+            </td>
+            <td data-label="Estado">
+                <span class="badge status-<%= mov.status %>">
+                    <%= mov.status.replace('_', ' ').toUpperCase() %>
+                </span>
+            </td>
+        </tr>
+    <% }); %>
+</tbody>
                 </table>
             </div>
         <% } else { %>

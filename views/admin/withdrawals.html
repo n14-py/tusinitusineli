@@ -12,41 +12,40 @@
 <div class="d-flex">
     <div class="sidebar">
         <div class="sidebar-content">
-            <div class="sidebar-header">DonaPY ADMIN</div>
+            <div class="sidebar-header">BRAINROT ADMIN</div>
             <ul class="nav flex-column">
-                <li class="nav-item"><a href="/admin/dashboard" class="nav-link"><i class="fa-solid fa-tachometer-alt fa-fw"></i> Dashboard</a></li>
-                <li class="nav-item"><a href="/admin/donations" class="nav-link"><i class="fa-solid fa-hand-holding-heart fa-fw"></i> Donaciones</a></li>
-                <li class="nav-item"><a href="/admin/campaigns" class="nav-link"><i class="fa-solid fa-bullhorn fa-fw"></i> Campañas</a></li>
-                <li class="nav-item"><a href="/admin/users" class="nav-link"><i class="fa-solid fa-users fa-fw"></i> Usuarios</a></li>
-                <li class="nav-item"><a href="/admin/withdrawals" class="nav-link active"><i class="fa-solid fa-money-bill-wave fa-fw"></i> Retiros</a></li>
-                <li class="nav-item"><a href="/admin/verifications" class="nav-link"><i class="fa-solid fa-id-card fa-fw"></i> Verificaciones</a></li>
-                <li class="nav-item"><a href="/admin/reports" class="nav-link"><i class="fa-solid fa-flag fa-fw"></i> Reportes</a></li>
-            </ul>
+    <li class="nav-item"><a href="/admin/dashboard" class="nav-link"><i class="fa-solid fa-tachometer-alt fa-fw"></i> Dashboard General</a></li>
+    <li class="nav-item"><a href="/admin/economic-dashboard" class="nav-link"><i class="fa-solid fa-chart-line fa-fw"></i> Dashboard Económico</a></li>
+    <li class="nav-item"><a href="/admin/users" class="nav-link"><i class="fa-solid fa-users fa-fw"></i> Usuarios</a></li>
+    <li class="nav-item"><a href="/admin/articles" class="nav-link"><i class="fa-solid fa-box-open fa-fw"></i> Artículos</a></li>
+    <li class="nav-item"><a href="/admin/transactions" class="nav-link"><i class="fa-solid fa-list-alt fa-fw"></i> Transacciones</a></li>
+    <li class="nav-item"><a href="/admin/withdrawals" class="nav-link active"><i class="fa-solid fa-money-bill-wave fa-fw"></i> Retiros</a></li>    
+    <li class="nav-item"><a href="/admin/disputes" class="nav-link"><i class="fa-solid fa-gavel fa-fw"></i> Disputas</a></li>
+    <li class="nav-item"><a href="/admin/logs" class="nav-link"><i class="fa-solid fa-file-alt fa-fw"></i> Logs</a></li>
+</ul>
         </div>
         <div class="sidebar-footer">
-            <a href="/campaigns" class="nav-link"><i class="fa-solid fa-arrow-left fa-fw"></i> Volver al Sitio</a>
+            <a href="/marketplace" class="nav-link"><i class="fa-solid fa-arrow-left fa-fw"></i> Volver al Marketplace</a>
         </div>
     </div>
 
     <main class="main-content">
         <div class="container-fluid">
-            <h1 class="h3 mb-2 text-gray-800">Gestión de Retiros</h1>
-            <p class="mb-4">Aprueba o rechaza las solicitudes de pago. Al rechazar, los fondos se devuelven a la campaña.</p>
+            <h1 class="h3 mb-2 text-gray-800">Gestionar Solicitudes de Retiro</h1>
+            <p class="mb-4">Procesa los pagos de Robux a los usuarios. Al rechazar, los fondos se devuelven al usuario.</p>
 
             <div class="card shadow mb-4">
-                <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">Solicitudes de Retiro</h6></div>
+                <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">Solicitudes Pendientes</h6></div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th>Organizador</th>
-                                    <th>Campaña</th>
-                                    <th>Monto (Gs.)</th>
-                                    <th>Método</th>
-                                    <th>Detalles de Pago</th>
+                                    <th>Usuario</th>
+                                    <th>Monto (Tusinimonedas)</th>
+                                    <th>Monto (Robux)</th>
+                                    <th>Game Pass</th>
                                     <th>Fecha</th>
-                                    <th>Estado</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
@@ -54,36 +53,23 @@
                                 <% if (withdrawals && withdrawals.length > 0) { %>
                                     <% withdrawals.forEach(w => { %>
                                         <tr>
-                                            <td><a href="/admin/user/<%= w.userId._id %>"><%= w.userId.username %></a></td>
-                                            <td><a href="/campaign/<%= w.campaignId._id %>" target="_blank"><%= w.campaignId.title %></a></td>
-                                            <td><strong><%= new Intl.NumberFormat('es-PY').format(w.amount) %></strong></td>
-                                            <td><%= w.method %></td>
-                                            <td>
-                                                <ul class="list-unstyled mb-0 small">
-                                                    <li><strong>Nombre:</strong> <%= w.details.fullName %></li>
-                                                    <li><strong>CI:</strong> <%= w.details.ci %></li>
-                                                    <% if (w.method === 'transferencia') { %>
-                                                        <li><strong>Banco:</strong> <%= w.details.bankName %></li>
-                                                        <li><strong>Cuenta:</strong> <%= w.details.accountNumber %></li>
-                                                    <% } else { %>
-                                                        <li><strong>Teléfono:</strong> <%= w.details.phone %></li>
-                                                    <% } %>
-                                                </ul>
-                                            </td>
-                                            <td><%= formatDate(w.createdAt) %></td>
-                                            <td><span class="badge bg-<%= w.status === 'Pendiente' ? 'warning text-dark' : (w.status === 'Procesado' ? 'success' : 'danger') %>"><%= w.status %></span></td>
+                                            <td><%= w.userId.robloxUsername %></td>
+                                            <td><%= w.tusinimonedasAmount.toLocaleString('es-PY') %></td>
+                                            <td><strong><%= w.robuxAmount.toLocaleString('en-US') %></strong></td>
+                                            <td><a href="<%= w.gamepassLink %>" target="_blank" class="btn btn-sm btn-info">Ver Game Pass</a></td>
+                                            <td><%= new Date(w.createdAt).toLocaleString('es-PY') %></td>
                                             <td>
                                                 <% if (w.status === 'Pendiente') { %>
                                                     <div class="d-flex gap-1">
-                                                        <form action="/admin/withdrawal/<%= w._id %>/update" method="POST"><input type="hidden" name="status" value="Procesado"><button type="submit" class="btn btn-sm btn-success" title="Marcar como Procesado"><i class="fas fa-check"></i></button></form>
-                                                        <form action="/admin/withdrawal/<%= w._id %>/update" method="POST"><input type="hidden" name="status" value="Rechazado"><button type="submit" class="btn btn-sm btn-danger" title="Rechazar"><i class="fas fa-times"></i></button></form>
+                                                        <form action="/admin/withdrawals/<%= w._id %>/update" method="POST"><input type="hidden" name="status" value="Procesado"><button type="submit" class="btn btn-sm btn-success">Procesado</button></form>
+                                                        <form action="/admin/withdrawals/<%= w._id %>/update" method="POST"><input type="hidden" name="status" value="Rechazado"><button type="submit" class="btn btn-sm btn-danger">Rechazar</button></form>
                                                     </div>
-                                                <% } else { %><span>--</span><% } %>
+                                                <% } else { %><span><%= w.status %></span><% } %>
                                             </td>
                                         </tr>
                                     <% }); %>
                                 <% } else { %>
-                                    <tr><td colspan="8" class="text-center">No hay solicitudes de retiro.</td></tr>
+                                    <tr><td colspan="6" class="text-center">No hay solicitudes de retiro pendientes.</td></tr>
                                 <% } %>
                             </tbody>
                         </table>

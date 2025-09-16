@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= pageTitle %></title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+
+<%- include('partials/header.html') %>
+
+<main class="container">
+    <% if (brainrot) { %>
+    <div class="anuncio-container">
+        <div class="anuncio-media">
+            <img src="<%= brainrot.imageUrl.replace('/upload/', '/upload/w_800,h_600,c_limit,q_auto,f_auto/') %>" alt="<%= brainrot.title %>">
+        </div>
+
+        <div class="anuncio-sidebar">
+            <div class="card">
+                <div class="card-body">
+                    <span class="badge" style="background-color: var(--primary-color-light); color: var(--primary-color-dark); margin-bottom: 1rem;"><%= brainrot.rarity %></span>
+                    <h1><%= brainrot.title %></h1>
+
+                    <% if (brainrot.sellerId) { %>
+                    <div class="organizer-info" style="margin-top: 1rem; margin-bottom: 1.5rem;">
+                        <img src="https://res.cloudinary.com/dmedd6w1q/image/upload/v1752519015/Gemini_Generated_Image_jafmcpjafmcpjafm_i5ptpl.png" alt="Vendedor" class="avatar-lg">
+                        <div>
+                            <span>Vendido por</span>
+                            <a href="/profile/<%= brainrot.sellerId.robloxUsername %>" style="font-weight: 600; font-size: 1.1rem;"><%= brainrot.sellerId.robloxUsername %></a>
+                            <div>
+                                <i class="fas fa-star" style="color: var(--warning-color);"></i>
+                                <strong><%= brainrot.sellerId.averageRating || 'Nuevo' %></strong>
+                                <span>(<%= brainrot.sellerId.totalSales %> ventas)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <% } %>
+
+                    <div class="price-display-detail">
+                        <i class="fas fa-coins"></i>
+                        <strong><%= brainrot.price.toLocaleString('es-PY') %></strong>
+                        <span>tusinimonedas</span>
+                    </div>
+
+                    <% if (currentUser && !isOwner && brainrot.status === 'available') { %>
+                        <form action="/brainrot/<%= brainrot._id %>/buy" method="POST">
+                            <button type="submit" class="btn btn-primary btn-block">Comprar Ahora</button>
+                        </form>
+                    <% } else if (isOwner) { %>
+                        <a href="/my-publications" class="btn btn-secondary btn-block">Gestionar Publicación</a>
+                    <% } else if (brainrot.status !== 'available') { %>
+                        <div class="alert alert-info">Este artículo no está disponible actualmente.</div>
+                    <% } else if (!currentUser) { %>
+                        <a href="/login" class="btn btn-primary btn-block">Inicia Sesión para Comprar</a>
+                    <% } %>
+                </div>
+            </div>
+
+            <% if (brainrot.description) { %>
+            <div class="card" style="margin-top: 2rem;">
+                 <div class="card-header">
+                    <h3>Descripción</h3>
+                </div>
+                <div class="card-body">
+                    <p><%= brainrot.description %></p>
+                </div>
+            </div>
+            <% } %>
+        </div>
+    </div>
+    <% } else { %>
+        <div class="no-results-card">
+            <h2>Artículo no encontrado</h2>
+            <p>El artículo que buscas no existe o ha sido eliminado.</p>
+            <a href="/marketplace" class="btn btn-primary">Volver al Marketplace</a>
+        </div>
+    <% } %>
+
+    <% if (locals.recommendations && recommendations.length > 0) { %>
+    <div class="recommendations-section" style="margin-top: 4rem;">
+        <hr>
+        <h2 style="text-align: center; margin-bottom: 2rem;">También te podría interesar</h2>
+        <div class="post-grid">
+            <% recommendations.forEach(brainrot => { %>
+                <%- include('partials/brainrot-card.html', { brainrot: brainrot }) %>
+            <% }); %>
+        </div>
+    </div>
+    <% } %>
+    </main>
+
+<%- include('partials/footer.html') %>
+
+</body>
+</html>

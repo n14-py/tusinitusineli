@@ -86,7 +86,7 @@ const userSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true, lowercase: true, trim: true },
     password: { type: String, required: true },
     tusinimonedas: { type: Number, default: 0 },
-    profilePic: { type: String, default: 'https://res.cloudinary.com/dmedd6w1q/image/upload/v1752519015/Gemini_Generated_Image_jafmcpjafmcpjafm_i5ptpl.png' },
+    profilePic: { type: String, default: 'https://tr.rbxcdn.com/30DAY-Avatar-1053C4A77532A086F25AA2CAB5C42D6F-Png/352/352/Avatar/Webp/noFilter' },
     isBanned: { type: Boolean, default: false },
     role: { type: String, enum: ['User', 'Admin'], default: 'User' },
     // Campos para el sistema de reputación

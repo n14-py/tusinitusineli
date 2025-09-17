@@ -1,7 +1,7 @@
 {
-  "name": "donaparaguay",
+  "name": "TusiniTusineli",
   "version": "1.0.0",
-  "description": "Plataforma de Crowdfunding para Causas Solidarias en Paraguay.",
+  "description": "Plataforma de brainrot",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

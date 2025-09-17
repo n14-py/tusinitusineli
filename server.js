@@ -681,21 +681,17 @@ app.post('/transaction/:id/confirm-delivery', requireAuth, async (req, res, next
             throw new Error('Esta transacción no está esperando confirmación.');
         }
 
-        // 1. Actualizar el estado de la transacción
         transaction.status = 'completed';
         
-        // 2. Liberar el pago al vendedor
         const seller = await User.findById(transaction.sellerId).session(session);
         seller.tusinimonedas += transaction.amount;
         seller.totalSales += 1;
         await seller.save({ session });
 
-        // 3. Actualizar estadísticas del comprador
         const buyer = await User.findById(transaction.buyerId).session(session);
         buyer.totalPurchases += 1;
         await buyer.save({ session });
         
-        // 4. Añadir mensaje del sistema al chat
         transaction.chat.push({
             senderId: null,
             text: `¡Entrega confirmada! Se han liberado ${transaction.amount} tusinimonedas al vendedor. La transacción ha sido completada.`
@@ -703,21 +699,11 @@ app.post('/transaction/:id/confirm-delivery', requireAuth, async (req, res, next
         await transaction.save({ session });
 
         await session.commitTransaction();
-
-        // Si es una petición de JavaScript (AJAX), responde con JSON. Si no, redirige.
-        if (req.xhr || req.headers.accept.includes('json')) {
-            return res.json({ success: true, message: 'Entrega confirmada exitosamente.' });
-        } else {
-            return res.redirect(`/transaction/${transaction._id}`);
-        }
+        res.redirect(`/transaction/${transaction._id}`);
 
     } catch (err) {
         await session.abortTransaction();
-        if (req.xhr || req.headers.accept.includes('json')) {
-            return res.status(400).json({ success: false, message: err.message });
-        } else {
-            next(err);
-        }
+        next(err);
     } finally {
         session.endSession();
     }
@@ -881,26 +867,23 @@ app.post('/transaction/:id/rate', requireAuth, async (req, res, next) => {
             throw new Error('Solo puedes calificar transacciones completadas.');
         }
 
-        // Validar que el calificador sea parte de la transacción
         const raterId = req.user._id;
         const isParticipant = raterId.equals(transaction.buyerId) || raterId.equals(transaction.sellerId);
         if (!isParticipant) {
             throw new Error('No eres parte de esta transacción.');
         }
 
-        // Validar que el usuario calificado también sea parte de la transacción
-        const isRatedUserParticipant = ratedUserId.equals(transaction.buyerId.toString()) || ratedUserId.equals(transaction.sellerId.toString());
-        if (!isRatedUserParticipant || raterId.equals(ratedUserId)) {
+        // CORRECCIÓN: Se compara como texto simple
+        const isRatedUserParticipant = ratedUserId === transaction.buyerId.toString() || ratedUserId === transaction.sellerId.toString();
+        if (!isRatedUserParticipant || raterId.toString() === ratedUserId) {
             throw new Error('No puedes calificar a este usuario en esta transacción.');
         }
 
-        // Revisar si ya existe una calificación para esta transacción por este usuario
         const existingRating = await Rating.findOne({ transactionId, raterId }).session(session);
         if (existingRating) {
             throw new Error('Ya has calificado esta transacción.');
         }
         
-        // Crear la nueva calificación
         const newRating = new Rating({
             raterId,
             ratedUserId,
@@ -910,7 +893,6 @@ app.post('/transaction/:id/rate', requireAuth, async (req, res, next) => {
         });
         await newRating.save({ session });
 
-        // Actualizar el promedio del usuario calificado
         const ratedUser = await User.findById(ratedUserId).session(session);
         const allRatingsForUser = await Rating.find({ ratedUserId: ratedUserId }).session(session);
         const totalStars = allRatingsForUser.reduce((acc, r) => acc + r.stars, 0);
@@ -928,7 +910,6 @@ app.post('/transaction/:id/rate', requireAuth, async (req, res, next) => {
         session.endSession();
     }
 });
-
 
 // --- Página para ver las ventas realizadas por el usuario actual ---
 app.get('/my-sales', requireAuth, async (req, res, next) => {

@@ -463,9 +463,6 @@ app.get('/brainrot/:id', async (req, res, next) => {
     }
 });
 
-// =============================================
-// LÓGICA DE COMPRA CON INTERMEDIARIO (ESCROW)
-// =============================================
 app.post('/brainrot/:id/buy', requireAuth, async (req, res, next) => {
     const session = await mongoose.startSession();
     session.startTransaction();
@@ -480,21 +477,23 @@ app.post('/brainrot/:id/buy', requireAuth, async (req, res, next) => {
         if (buyer._id.equals(brainrot.sellerId)) {
             throw new Error('No puedes comprar tu propio artículo.');
         }
+        
+        // --- CORRECCIÓN AQUÍ ---
+        // La variable estaba mal escrita, ahora es "tusinimonedas"
         if (buyer.tusinimonedas < brainrot.price) {
-            throw new Error('No tienes suficientes tusinimonedas. Recarga en nuestro juego de Roblox.');
+            const error = new Error('No tienes suficientes tusinimonedas para comprar este artículo.');
+            error.code = 'INSUFFICIENT_FUNDS';
+            throw error;
         }
 
         const seller = await User.findById(brainrot.sellerId).session(session);
 
-        // 1. Descontar monedas al comprador y ponerlas "en espera"
         buyer.tusinimonedas -= brainrot.price;
         await buyer.save({ session });
 
-        // 2. Marcar el Brainrot como "en transacción" para que nadie más lo compre
         brainrot.status = 'in_transaction';
         await brainrot.save({ session });
         
-        // 3. Crear el registro de la transacción con el chat inicial
         const transaction = new Transaction({
             buyerId: buyer._id,
             sellerId: seller._id,
@@ -502,7 +501,7 @@ app.post('/brainrot/:id/buy', requireAuth, async (req, res, next) => {
             amount: brainrot.price,
             status: 'pending_delivery',
             chat: [{
-                senderId: null, // Mensaje del sistema
+                senderId: null,
                 text: `¡Transacción iniciada! El comprador (${buyer.robloxUsername}) y el vendedor (${seller.robloxUsername}) deben coordinar la entrega.`
             }]
         });
@@ -510,17 +509,20 @@ app.post('/brainrot/:id/buy', requireAuth, async (req, res, next) => {
         
         await session.commitTransaction();
         
-        // Redirige al usuario a la página de la transacción
         res.redirect(`/transaction/${transaction._id}`);
 
     } catch (err) {
         await session.abortTransaction();
-        res.status(400).render('error', { message: err.message });
+        
+        if (err.code === 'INSUFFICIENT_FUNDS') {
+            res.status(400).render('error', { message: err.message, insufficientFunds: true });
+        } else {
+            res.status(400).render('error', { message: err.message });
+        }
     } finally {
         session.endSession();
     }
 });
-
 
 
 

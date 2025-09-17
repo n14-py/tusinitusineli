@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Publicar un Brainrot - Marketplace</title>
+    <title>Publicar un Ítem - tusinitusineli</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
@@ -13,17 +13,17 @@
 
 <main class="container">
     <div class="form-container" style="max-width: 600px;">
-        <h2>Publicar un Brainrot</h2>
-        <p>Sube una foto de tu Brainrot, establece un precio en tusinimonedas y ponlo a la venta en el marketplace.</p>
+        <h2>Publicar un Ítem</h2>
+        <p>Sube una foto de tu ítem, establece un precio en tusinimonedas y ponlo a la venta en el marketplace.</p>
         <hr>
 
         <% if (locals.error) { %>
             <div class="alert alert-danger"><%= error %></div>
         <% } %>
 
-        <form action="/publish-brainrot" method="POST" enctype="multipart/form-data">
+        <form action="/publish-item" method="POST" enctype="multipart/form-data">
             <div class="form-group">
-                <label for="title">Nombre del Brainrot</label>
+                <label for="title">Nombre del Ítem</label>
                 <input type="text" id="title" name="title" class="form-control" required placeholder="Ej: Espada de Fuego Legendaria">
             </div>
 
@@ -51,11 +51,15 @@
             </div>
             
             <div class="form-group">
-                <label for="image">Imagen del Brainrot</label>
+                <label for="image">Imagen del Ítem</label>
                 <input type="file" id="image" name="image" class="form-control" required accept="image/jpeg, image/png, image/jpg">
                 <small class="form-text text-muted">Asegúrate de que la imagen sea clara y muestre bien el ítem.</small>
             </div>
 
+            <div class="form-group" id="image-preview-container" style="display: none; text-align: center;">
+                <label>Vista Previa:</label>
+                <img id="image-preview" src="#" alt="Vista previa de la imagen" style="max-width: 100%; height: auto; margin-top: 10px; border-radius: var(--border-radius-soft); border: 1px solid var(--border-color);"/>
+            </div>
             <hr>
             <button type="submit" class="btn btn-primary btn-block">Poner a la Venta</button>
         </form>
@@ -64,5 +68,30 @@
 
 <%- include('partials/footer.html') %>
 
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const imageInput = document.getElementById('image');
+        const imagePreviewContainer = document.getElementById('image-preview-container');
+        const imagePreview = document.getElementById('image-preview');
+
+        imageInput.addEventListener('change', function(event) {
+            if (event.target.files && event.target.files[0]) {
+                // Mostrar el contenedor de la vista previa
+                imagePreviewContainer.style.display = 'block';
+                
+                // Crear una URL para el archivo seleccionado y mostrarla en la imagen
+                imagePreview.src = URL.createObjectURL(event.target.files[0]);
+                
+                // Liberar memoria cuando la imagen ya no es necesaria
+                imagePreview.onload = function() {
+                    URL.revokeObjectURL(imagePreview.src); // free memory
+                }
+            } else {
+                // Ocultar el contenedor si no se selecciona ningún archivo
+                imagePreviewContainer.style.display = 'none';
+            }
+        });
+    });
+</script>
 </body>
 </html>

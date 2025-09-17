@@ -703,11 +703,21 @@ app.post('/transaction/:id/confirm-delivery', requireAuth, async (req, res, next
         await transaction.save({ session });
 
         await session.commitTransaction();
-        res.redirect(`/transaction/${transaction._id}`);
+
+        // Si es una petición de JavaScript (AJAX), responde con JSON. Si no, redirige.
+        if (req.xhr || req.headers.accept.includes('json')) {
+            return res.json({ success: true, message: 'Entrega confirmada exitosamente.' });
+        } else {
+            return res.redirect(`/transaction/${transaction._id}`);
+        }
 
     } catch (err) {
         await session.abortTransaction();
-        next(err);
+        if (req.xhr || req.headers.accept.includes('json')) {
+            return res.status(400).json({ success: false, message: err.message });
+        } else {
+            next(err);
+        }
     } finally {
         session.endSession();
     }

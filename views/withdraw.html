@@ -20,7 +20,7 @@
             <ul>
                 <li><strong>Requisito Obligatorio:</strong> Debes unirte a nuestra <a href="https://www.roblox.com/es/communities/729942304/TUSINITUSINELI#!/about" target="_blank" rel="noopener noreferrer">comunidad de Roblox</a> y permanecer en ella por <strong>al menos 14 días</strong> para poder recibir el pago.</li>
                 <li>Tasa de cambio: <strong>10 Tusinimonedas = 1 Robux</strong>.</li>
-                <li>Mínimo de retiro: <strong>4,000 Tusinimonedas</strong> (para 400 Robux).</li>
+                <li>Mínimo de retiro: <strong>1,000 Tusinimonedas</strong> (para 100 Robux).</li>
             </ul>
         </div>
 
@@ -41,7 +41,7 @@
         <form action="/withdraw" method="POST">
             <div class="form-group">
                 <label for="amount">Cantidad de Tusinimonedas a retirar</label>
-                <input type="number" id="amount" name="amount" class="form-control" required placeholder="Ej: 5000" min="4000" step="10">
+                <input type="number" id="amount" name="amount" class="form-control" required placeholder="Ej: 1000" min="1000" step="10">
                 <small class="form-text text-muted">Debe ser un múltiplo de 10.</small>
             </div>
             <div class="form-group">
@@ -56,7 +56,7 @@
 <script>
     document.getElementById('amount').addEventListener('input', function() {
         const tusinimonedas = parseInt(this.value, 10) || 0;
-        if (tusinimonedas >= 4000) {
+        if (tusinimonedas >= 1000) {
             const robux = tusinimonedas / 10;
             document.getElementById('robux-amount').textContent = `${robux.toLocaleString('en-US')} Robux`;
         } else {

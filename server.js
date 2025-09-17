@@ -535,8 +535,8 @@ app.post('/withdraw', requireAuth, async (req, res) => {
         if (!tusinimonedasAmount) { // Se quita la validación de gamepassLink
             throw new Error('Todos los campos son obligatorios.');
         }
-        if (tusinimonedasAmount < 4000) {
-            throw new Error('El monto mínimo de retiro es de 4,000 tusinimonedas.');
+       if (tusinimonedasAmount < 1000) {
+            throw new Error('El monto mínimo de retiro es de 1,000 tusinimonedas.');
         }
         if (tusinimonedasAmount % 10 !== 0) {
             throw new Error('La cantidad debe ser un múltiplo de 10.');

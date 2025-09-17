@@ -379,7 +379,7 @@ app.get('/marketplace', async (req, res, next) => {
         const totalItems = await Brainrot.countDocuments(query);
         const totalPages = Math.ceil(totalItems / itemsPerPage);
         const brainrots = await Brainrot.find(query)
-            .populate('sellerId', 'robloxUsername')
+            .populate('sellerId', 'robloxUsername profilePic')
             .sort({ createdAt: -1 })
             .skip((page - 1) * itemsPerPage)
             .limit(itemsPerPage);

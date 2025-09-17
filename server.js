@@ -361,7 +361,7 @@ app.get('/logout', (req, res, next) => {
 // RUTAS DEL MARKETPLACE Y GESTIÓN DE BRAINROTS
 // =============================================
 
-// --- Mostrar la página principal del Marketplace ---
+/// --- Mostrar la página principal del Marketplace ---
 app.get('/marketplace', async (req, res, next) => {
     try {
         const page = parseInt(req.query.page) || 1;
@@ -370,6 +370,7 @@ app.get('/marketplace', async (req, res, next) => {
         const { q, category, rarity } = req.query;
 
         if (q) {
+            // ESTA LÍNEA ACTIVA LA BÚSQUEDA POR TÍTULO
             query.title = { $regex: q, $options: 'i' };
         }
         if (category) query.category = category;
@@ -1400,6 +1401,18 @@ app.get('/api/verificar-usuario/:username', async (req, res) => {
         console.error('Error en la verificación de usuario:', error);
         res.status(500).json({ exists: false, message: 'Error interno del servidor.' });
     }
+});
+
+
+app.get('/robots.txt', (req, res) => {
+    res.type('text/plain');
+    res.render('robots.txt');
+});
+
+
+app.get('/sitemap.xml', (req, res) => {
+    res.header('Content-Type', 'application/xml');
+    res.render('sitemap.xml');
 });
 
 // =============================================

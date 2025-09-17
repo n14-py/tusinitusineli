@@ -1,10 +1,9 @@
 User-agent: *
-Disallow: /settings/
-Disallow: /chat/
-Disallow: /my-videos
-Disallow: /my-likes
-Disallow: /notifications
-Disallow: /add-funds
 Disallow: /admin/
+Disallow: /my-purchases
+Disallow: /my-sales
+Disallow: /my-movements
+Disallow: /my-publications
+Disallow: /transaction/
 
-Sitemap: https://tusinitusineli.com/sitemap.xml
+Sitemap: https://www.tusinitusineli.com/sitemap.xml

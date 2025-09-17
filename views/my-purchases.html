@@ -22,13 +22,14 @@
             <div class="table-responsive">
                 <table class="dashboard-table">
                     <thead>
-                        <tr>
-                            <th>Fecha de Compra</th>
-                            <th>Artículo</th>
-                            <th>Vendedor</th>
-                            <th>Precio Pagado</th>
-                        </tr>
-                    </thead>
+    <tr>
+        <th>Fecha de Compra</th>
+        <th>Artículo</th>
+        <th>Vendedor</th>
+        <th>Precio Pagado</th>
+        <th>Acciones</th>
+    </tr>
+</thead>
                     <tbody>
     <% transactions.forEach(transaction => { %>
         <tr>
@@ -49,6 +50,11 @@
             </td>
             <td data-label="Precio">
                 <strong><%= new Intl.NumberFormat('es-PY').format(transaction.amount) %></strong> tusinimonedas
+            </td>
+            <td data-label="Acciones">
+                <a href="/transaction/<%= transaction._id %>" class="btn btn-primary btn-sm">
+                    <i class="fas fa-comments"></i> Ir al Chat
+                </a>
             </td>
         </tr>
     <% }); %>

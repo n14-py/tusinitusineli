@@ -26,17 +26,17 @@
 
                     <% if (brainrot.sellerId) { %>
                     <div class="organizer-info" style="margin-top: 1rem; margin-bottom: 1.5rem;">
-                        <img src="https://res.cloudinary.com/dmedd6w1q/image/upload/v1752519015/Gemini_Generated_Image_jafmcpjafmcpjafm_i5ptpl.png" alt="Vendedor" class="avatar-lg">
-                        <div>
-                            <span>Vendido por</span>
-                            <a href="/profile/<%= brainrot.sellerId.robloxUsername %>" style="font-weight: 600; font-size: 1.1rem;"><%= brainrot.sellerId.robloxUsername %></a>
-                            <div>
-                                <i class="fas fa-star" style="color: var(--warning-color);"></i>
-                                <strong><%= brainrot.sellerId.averageRating || 'Nuevo' %></strong>
-                                <span>(<%= brainrot.sellerId.totalSales %> ventas)</span>
-                            </div>
-                        </div>
-                    </div>
+    <img src="<%= brainrot.sellerId.profilePic %>" alt="Vendedor" class="avatar-lg">
+    <div>
+        <span>Vendido por</span>
+        <a href="/profile/<%= brainrot.sellerId.robloxUsername %>" style="font-weight: 600; font-size: 1.1rem;"><%= brainrot.sellerId.robloxUsername %></a>
+        <div>
+            <i class="fas fa-star" style="color: var(--warning-color);"></i>
+            <strong><%= brainrot.sellerId.averageRating || 'Nuevo' %></strong>
+            <span>(<%= brainrot.sellerId.totalSales %> ventas)</span>
+        </div>
+    </div>
+</div>
                     <% } %>
 
                     <div class="price-display-detail">

@@ -46,8 +46,36 @@
                     </div>
                 </div>
             </div>
+        </div>
 
+        <div class="transaction-chat">
             <div class="card">
+                <div class="card-header">
+                    <h3>Chat de la Transacción</h3>
+                </div>
+                <div class="chat-box" id="chat-box">
+                    <% transaction.chat.forEach(msg => { %>
+                        <% if (msg.senderId) { %>
+                            <div class="chat-message <%= currentUser._id.equals(msg.senderId) ? 'sent' : 'received' %>">
+                                <div class="message-content">
+                                    <strong><%= currentUser._id.equals(msg.senderId) ? 'Tú' : (transaction.buyerId._id.equals(msg.senderId) ? transaction.buyerId.robloxUsername : transaction.sellerId.robloxUsername) %>:</strong>
+                                    <p><%= msg.text %></p>
+                                </div>
+                            </div>
+                        <% } else { %>
+                            <div class="system-message"><span><%= msg.text %></span></div>
+                        <% } %>
+                    <% }); %>
+                </div>
+                <div class="chat-input">
+                    <form id="chat-form">
+                        <input type="text" id="message-input" class="form-control" placeholder="Escribe tu mensaje..." autocomplete="off">
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 2rem;">
                 <div class="card-header">
                     <h3>Acciones</h3>
                 </div>
@@ -83,34 +111,6 @@
                             </form>
                         </div>
                     <% } %>
-                </div>
-            </div>
-        </div>
-
-        <div class="transaction-chat">
-            <div class="card">
-                <div class="card-header">
-                    <h3>Chat de la Transacción</h3>
-                </div>
-                <div class="chat-box" id="chat-box">
-                    <% transaction.chat.forEach(msg => { %>
-                        <% if (msg.senderId) { %>
-                            <div class="chat-message <%= currentUser._id.equals(msg.senderId) ? 'sent' : 'received' %>">
-                                <div class="message-content">
-                                    <strong><%= currentUser._id.equals(msg.senderId) ? 'Tú' : (transaction.buyerId._id.equals(msg.senderId) ? transaction.buyerId.robloxUsername : transaction.sellerId.robloxUsername) %>:</strong>
-                                    <p><%= msg.text %></p>
-                                </div>
-                            </div>
-                        <% } else { %>
-                            <div class="system-message"><span><%= msg.text %></span></div>
-                        <% } %>
-                    <% }); %>
-                </div>
-                <div class="chat-input">
-                    <form id="chat-form">
-                        <input type="text" id="message-input" class="form-control" placeholder="Escribe tu mensaje..." autocomplete="off">
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i></button>
-                    </form>
                 </div>
             </div>
         </div>
@@ -177,7 +177,7 @@
 .transaction-container { display: grid; grid-template-columns: 1fr; gap: 2rem; }
 @media (min-width: 992px) { .transaction-container { grid-template-columns: 1fr 1.2fr; } }
 
-.card { background: var(--surface-color); border-radius: var(--border-radius); box-shadow: var(--shadow-sm); margin-bottom: 2rem; }
+.card { background: var(--surface-color); border-radius: var(--border-radius); box-shadow: var(--shadow-sm); }
 .card-header { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border-color); }
 .card-body { padding: 1.5rem; }
 .item-summary { display: flex; align-items: center; gap: 1rem; }

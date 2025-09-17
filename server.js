@@ -101,7 +101,6 @@ const withdrawalSchema = new mongoose.Schema({
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     tusinimonedasAmount: { type: Number, required: true },
     robuxAmount: { type: Number, required: true },
-    gamepassLink: { type: String, required: true },
     status: { type: String, enum: ['Pendiente', 'Procesado', 'Rechazado'], default: 'Pendiente' }
 }, { timestamps: true });
 
@@ -529,11 +528,11 @@ app.get('/withdraw', requireAuth, (req, res) => {
 });
 
 app.post('/withdraw', requireAuth, async (req, res) => {
-    const { amount, gamepassLink } = req.body;
+    const { amount } = req.body; // Ya no se recibe gamepassLink
     const tusinimonedasAmount = parseInt(amount, 10);
 
     try {
-        if (!tusinimonedasAmount || !gamepassLink) {
+        if (!tusinimonedasAmount) { // Se quita la validación de gamepassLink
             throw new Error('Todos los campos son obligatorios.');
         }
         if (tusinimonedasAmount < 4000) {
@@ -550,7 +549,6 @@ app.post('/withdraw', requireAuth, async (req, res) => {
 
         const robuxAmount = tusinimonedasAmount / 10;
         
-        // Descontar monedas y crear la solicitud en una transacción
         const session = await mongoose.startSession();
         session.startTransaction();
 
@@ -560,8 +558,7 @@ app.post('/withdraw', requireAuth, async (req, res) => {
             const withdrawal = new Withdrawal({
                 userId: req.user._id,
                 tusinimonedasAmount,
-                robuxAmount,
-                gamepassLink
+                robuxAmount // Ya no se guarda gamepassLink
             });
             await withdrawal.save({ session });
             

@@ -39,17 +39,38 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered" width="100%" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th>Usuario</th>
-                                    <th>Monto (Tusinimonedas)</th>
-                                    <th>Monto (Robux)</th>
-                                    <th>Game Pass</th>
-                                    <th>Fecha</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+    <thead>
+        <tr>
+            <th>Usuario</th>
+            <th>Monto (Tusinimonedas)</th>
+            <th>Monto (Robux)</th>
+            <th>Fecha</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% if (withdrawals && withdrawals.length > 0) { %>
+            <% withdrawals.forEach(w => { %>
+                <tr>
+                    <td><%= w.userId.robloxUsername %></td>
+                    <td><%= w.tusinimonedasAmount.toLocaleString('es-PY') %></td>
+                    <td><strong><%= w.robuxAmount.toLocaleString('en-US') %></strong></td>
+                    <td><%= new Date(w.createdAt).toLocaleString('es-PY') %></td>
+                    <td>
+                        <% if (w.status === 'Pendiente') { %>
+                            <div class="d-flex gap-1">
+                                <form action="/admin/withdrawals/<%= w._id %>/update" method="POST"><input type="hidden" name="status" value="Procesado"><button type="submit" class="btn btn-sm btn-success">Procesado</button></form>
+                                <form action="/admin/withdrawals/<%= w._id %>/update" method="POST"><input type="hidden" name="status" value="Rechazado"><button type="submit" class="btn btn-sm btn-danger">Rechazar</button></form>
+                            </div>
+                        <% } else { %><span><%= w.status %></span><% } %>
+                    </td>
+                </tr>
+            <% }); %>
+        <% } else { %>
+            <tr><td colspan="5" class="text-center">No hay solicitudes de retiro pendientes.</td></tr>
+        <% } %>
+    </tbody>
+</table>
                                 <% if (withdrawals && withdrawals.length > 0) { %>
                                     <% withdrawals.forEach(w => { %>
                                         <tr>

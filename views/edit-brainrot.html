@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Ítem - tusinitusineli</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+
+<%- include('partials/header.html') %>
+
+<main class="container">
+    <div class="form-container" style="max-width: 600px;">
+        <h2>Editar Ítem</h2>
+        <p>Actualiza los detalles de tu publicación.</p>
+        <hr>
+
+        <% if (locals.error) { %>
+            <div class="alert alert-danger"><%= error %></div>
+        <% } %>
+
+        <form action="/brainrot/<%= brainrot._id %>/edit" method="POST">
+            <div class="form-group">
+                <label for="title">Nombre del Ítem</label>
+                <input type="text" id="title" name="title" class="form-control" required value="<%= brainrot.title %>">
+            </div>
+
+            <div class="form-group">
+                <label for="description">Descripción (opcional)</label>
+                <textarea id="description" name="description" rows="4" class="form-control"><%= brainrot.description %></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="price">Precio en tusinimonedas</label>
+                <input type="number" id="price" name="price" class="form-control" required value="<%= brainrot.price %>" min="1">
+            </div>
+
+            <div class="form-group">
+                <label for="rarity">Rareza</label>
+                <select id="rarity" name="rarity" class="form-control" required>
+                    <option value="Común" <%= brainrot.rarity === 'Común' ? 'selected' : '' %>>Común</option>
+                    <option value="Raro" <%= brainrot.rarity === 'Raro' ? 'selected' : '' %>>Raro</option>
+                    <option value="Épico" <%= brainrot.rarity === 'Épico' ? 'selected' : '' %>>Épico</option>
+                    <option value="Legendario" <%= brainrot.rarity === 'Legendario' ? 'selected' : '' %>>Legendario</option>
+                    <option value="Mítico" <%= brainrot.rarity === 'Mítico' ? 'selected' : '' %>>Mítico</option>
+                    <option value="Dios de Brainrot" <%= brainrot.rarity === 'Dios de Brainrot' ? 'selected' : '' %>>Dios de Brainrot</option>
+                    <option value="Secreto" <%= brainrot.rarity === 'Secreto' ? 'selected' : '' %>>Secreto</option>
+                </select>
+            </div>
+            
+            <hr>
+            <button type="submit" class="btn btn-primary btn-block">Guardar Cambios</button>
+        </form>
+    </div>
+</main>
+
+<%- include('partials/footer.html') %>
+
+</body>
+</html>

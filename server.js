@@ -616,6 +616,45 @@ app.post('/admin/withdrawals/:id/update', requireAdmin, async (req, res) => {
 });
 
 
+// --- Ruta para MOSTRAR el formulario de edición ---
+app.get('/brainrot/:id/edit', requireAuth, async (req, res, next) => {
+    try {
+        const brainrot = await Brainrot.findById(req.params.id);
+        if (!brainrot || !brainrot.sellerId.equals(req.user._id)) {
+            return res.status(404).render('error', { message: 'No puedes editar este artículo.' });
+        }
+        res.render('edit-brainrot', { brainrot, error: null });
+    } catch (err) {
+        next(err);
+    }
+});
+
+// --- Ruta para PROCESAR la edición del formulario ---
+app.post('/brainrot/:id/edit', requireAuth, async (req, res, next) => {
+    try {
+        const { title, description, price, rarity } = req.body;
+        const brainrot = await Brainrot.findById(req.params.id);
+
+        if (!brainrot || !brainrot.sellerId.equals(req.user._id)) {
+            return res.status(403).render('error', { message: 'No tienes permiso para editar este artículo.' });
+        }
+
+        brainrot.title = purify.sanitize(title);
+        brainrot.description = purify.sanitize(description);
+        brainrot.price = parseInt(price);
+        brainrot.rarity = purify.sanitize(rarity);
+
+        await brainrot.save();
+        res.redirect('/my-publications');
+
+    } catch (err) {
+        const brainrot = req.body;
+        brainrot._id = req.params.id; // Para repoblar el form
+        res.render('edit-brainrot', { brainrot, error: err.message });
+    }
+});
+
+
 
 // AÑADE ESTAS DOS LÍNEAS JUNTO A TUS OTRAS RUTAS GET SIMILARES
 app.get('/terms', (req, res) => res.render('terms'));

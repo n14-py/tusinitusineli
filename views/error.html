@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error - Dona Paraguay</title>
+    <title>Error - Brainrot Marketplace</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -11,10 +11,19 @@
 <div class="form-container" style="text-align: center; margin-top: 4rem;">
     <h1 style="font-size: 4rem; margin-bottom: 0; color: var(--danger-color);">Oops!</h1>
     <h2>Ha ocurrido un error</h2>
+    
     <% if (locals.message) { %>
         <div class="alert alert-danger" style="margin-top: 1.5rem;"><%= message %></div>
     <% } %>
-    <a href="javascript:history.back()" class="btn btn-primary" style="margin-top: 2rem;">Volver a la página anterior</a>
+
+    <% if (locals.insufficientFunds) { %>
+        <a href="/how-it-works" class="btn btn-primary" style="margin-top: 1.5rem;">
+            <i class="fas fa-coins"></i> Ir a Recargar Monedas
+        </a>
+        <a href="javascript:history.back()" class="btn btn-secondary" style="margin-top: 1rem;">Volver</a>
+    <% } else { %>
+        <a href="javascript:history.back()" class="btn btn-primary" style="margin-top: 2rem;">Volver a la página anterior</a>
+    <% } %>
 </div>
 <%- include('partials/footer.html') %>
 </body>

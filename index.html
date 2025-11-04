@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TusiniTusineli.com - Juegos Gratis Online</title>
+    <meta name="description" content="Juega miles de juegos gratis online. Los mejores juegos de acción, puzzle, .io y más, con nuevas reseñas de IA todos los días.">
+    
+    <!-- AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5461370198299696" crossorigin="anonymous"></script>
+    
+    <!-- Fuentes y CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Favicon y Manifest (de tus archivos) -->
+    <link rel="icon" type="image/png" href="https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tusinitusineli.com?v=1749935984757">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tusinitusineli.com?v=1749935984757">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#e84393">
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">TusiniTusineli.com</a>
+        <div class="user-info">
+            <button class="menu-btn" id="menu-btn">
+                <div class="menu-dot"></div>
+                <div class="menu-dot"></div>
+                <div class="menu-dot"></div>
+            </button>
+        </div>
+        <div class="menu" id="menu">
+            <!-- Menú actualizado a tus páginas estáticas reales -->
+            <a class="menu-item" href="que-es-tusinitusineli.html">
+                <i class="fas fa-question-circle"></i>
+                <span>¿Qué es esto?</span>
+            </a>
+            <a class="menu-item" href="galeria.html">
+                <i class="fas fa-images"></i>
+                <span>Galería Brainrot</span>
+            </a>
+            <a class="menu-item" href="descargar.html">
+                <i class="fas fa-download"></i>
+                <span>Descargar App</span>
+            </a>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <!-- Bloque de AdSense Superior -->
+        <div class="ad-container">
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5461370198299696"
+                 crossorigin="anonymous"></script>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-5461370198299696"
+                 data-ad-slot="TU-AD-SLOT-ID" 
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <!-- Buscador -->
+        <div class="search-container">
+            <input type="text" class="search-input" id="search-input" placeholder="Buscar juegos...">
+            <button class="search-btn" id="search-btn">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+
+        <!-- Categorías (se llenarán automáticamente) -->
+        <div class="categories" id="categories-container">
+            <div class="category active" data-category="all">Todos</div>
+            <!-- app.js llenará esto -->
+        </div>
+
+        <!-- Título de la sección -->
+        <h2 class="section-title" id="section-title">Nuevos Juegos</h2>
+        
+        <!-- Parrilla de Juegos (se llenará automáticamente) -->
+        <div class="games-grid" id="games-grid">
+            <!-- Loader inicial -->
+            <div class="loading-container">
+                <div class="loading-spinner"></div>
+            </div>
+        </div>
+
+        <!-- Paginación (controlada por app.js) -->
+        <div class="pagination-container" id="pagination-container" style="display: none;">
+            <button class="btn btn-secondary" id="prev-page">Anterior</button>
+            <span id="page-info"></span>
+            <button class="btn btn-secondary" id="next-page">Siguiente</button>
+        </div>
+
+        <!-- Bloque de AdSense Inferior -->
+        <div class="ad-container" style="margin-top: 20px;">
+             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5461370198299696"
+                 crossorigin="anonymous"></script>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-5461370198299696"
+                 data-ad-slot="TU-OTRO-AD-SLOT-ID" 
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+    </div>
+
+    <!-- Overlay para el menú y el visor de juegos -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Visor de Juego (Modal) -->
+    <div class="game-viewer" id="game-viewer">
+        <div class="viewer-header">
+            <div class="viewer-title" id="viewer-title">Cargando...</div>
+            <button class="viewer-close" id="viewer-close">&times;</button>
+        </div>
+        <iframe class="game-iframe" id="game-iframe" frameborder="0" allow="gamepad *;" allowfullscreen></iframe>
+    </div>
+
+    <!-- El script que hace toda la magia -->
+    <script src="app.js" defer></script>
+</body>
+</html>

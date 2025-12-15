@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     
     // --- 1. CONFIGURACIÓN Y ELEMENTOS ---
-    const API_URL = 'https://lfaftechapi.onrender.com/api'; // ¡Tu API!
+    const API_URL = 'https://lfaftechapi-7nrb.onrender.com'; // ¡Tu API!
     
     // Elementos del DOM
     const gamesGrid = document.getElementById('games-grid');

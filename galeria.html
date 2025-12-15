@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería Brainrot - El Museo de lo Absurdo | TusiniTusineli</title>
+    <meta name="description" content="Explora el museo del Brainrot: sonidos virales, memes de TusiniTusineli, Periquini Loquini y la colección más grande de cultura de internet.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tusinitusineli.com?v=1749935984757">
+
+    <style>
+        /* Estilos específicos para la Galería (Incrustados para que funcione directo) */
+        
+        .gallery-hero {
+            background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+            border-radius: 20px;
+            padding: 60px 20px;
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(108, 92, 231, 0.3);
+        }
+
+        .gallery-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjwvc3ZnPg==');
+            opacity: 0.3;
+        }
+
+        .section-separator {
+            margin: 60px 0 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .section-separator span {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--dark);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .line { height: 4px; width: 50px; background: #eee; border-radius: 2px; }
+
+        /* --- CARDS DE PERSONAJES --- */
+        .character-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .char-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+            position: relative;
+        }
+
+        .char-card:hover { transform: translateY(-10px); }
+
+        .char-img-box {
+            height: 250px;
+            background: #eee;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .char-img-box img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .char-card:hover .char-img-box img { transform: scale(1.1); }
+
+        .char-info { padding: 25px; }
+        .char-name { font-size: 22px; font-weight: 700; color: var(--dark); margin-bottom: 5px; }
+        .char-role { font-size: 14px; color: var(--primary); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; }
+        .char-bio { font-size: 14px; color: #666; line-height: 1.6; }
+
+        /* --- SOUNDBOARD --- */
+        .soundboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+        }
+
+        .sound-btn {
+            background: white;
+            border: 2px solid #eee;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sound-btn:hover {
+            border-color: var(--primary);
+            background: #fff9fa;
+            transform: scale(1.05);
+        }
+
+        .sound-btn:active { transform: scale(0.95); }
+
+        .sound-icon {
+            width: 50px; height: 50px;
+            background: linear-gradient(45deg, #fdcb6e, #fab1a0);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 20px;
+        }
+
+        .sound-name { font-weight: 600; font-size: 14px; color: var(--dark); }
+
+        /* --- VIDEO WALL --- */
+        .video-wall {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .video-placeholder {
+            background: #000;
+            border-radius: 15px;
+            aspect-ratio: 9/16; /* Formato TikTok */
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .video-placeholder img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
+        .play-icon {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            font-size: 40px; color: white; opacity: 0.8;
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        /* --- CALCULADORA BRAINROT --- */
+        .brainrot-calc {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .range-slider { width: 100%; margin: 20px 0; }
+        
+        .result-box {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f1f2f6;
+            border-radius: 10px;
+            font-weight: 700;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo"><i class="fas fa-gamepad"></i> TusiniTusineli</a>
+        <button class="menu-btn" id="menu-btn"><i class="fas fa-bars"></i></button>
+        <nav class="menu" id="menu">
+            <a href="index.html" class="menu-item">Inicio</a>
+            <a href="juego.html" class="menu-item">Jugar Random</a>
+            <a href="descargar.html" class="menu-item">App</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        
+        <div class="gallery-hero">
+            <h1 style="font-size: 3rem; margin-bottom: 10px; text-shadow: 2px 2px 0 rgba(0,0,0,0.1);">MUSEO DEL BRAINROT</h1>
+            <p style="font-size: 1.2rem; max-width: 700px; margin: 0 auto;">
+                Bienvenido al archivo digital definitivo. Aquí guardamos lo mejor de la cultura TusiniTusineli, los memes más quemados y los personajes que nos quitan el sueño.
+            </p>
+            <div style="margin-top: 30px;">
+                <button class="btn" style="background: white; color: var(--primary); padding: 12px 30px; border-radius: 50px; font-weight: 700;" onclick="document.getElementById('sonidos').scrollIntoView({behavior: 'smooth'})">
+                    <i class="fas fa-volume-up"></i> Ir a la Botonera
+                </button>
+            </div>
+        </div>
+
+        <div class="section-separator">
+            <div class="line"></div>
+            <span><i class="fas fa-crown"></i> Personajes Míticos</span>
+            <div class="line"></div>
+        </div>
+
+        <div class="character-grid">
+            <div class="char-card">
+                <div class="char-img-box">
+                    <img src="https://via.placeholder.com/400x300/e84393/ffffff?text=Periquini" alt="Periquini">
+                    <div style="position: absolute; bottom: 10px; right: 10px; background: #ffeaa7; padding: 5px 10px; border-radius: 20px; font-size: 12px; font-weight: bold;">LVL 9999</div>
+                </div>
+                <div class="char-info">
+                    <div class="char-name">Periquini Loquini</div>
+                    <div class="char-role">El Anfitrión Supremo</div>
+                    <p class="char-bio">Líder indiscutible de los directos. Se dice que si dices su nombre 3 veces frente al espejo, te aparecen monedas en la cuenta.</p>
+                </div>
+            </div>
+
+            <div class="char-card">
+                <div class="char-img-box">
+                    <img src="https://via.placeholder.com/400x300/fdcb6e/ffffff?text=Chimpazini" alt="Chimpazini">
+                </div>
+                <div class="char-info">
+                    <div class="char-name">Chimpazini Bananini</div>
+                    <div class="char-role">Ministro de Potasio</div>
+                    <p class="char-bio">Experto en acrobacias y robos de frutas. Su risa es el sonido de notificación predeterminado en el infierno Brainrot.</p>
+                </div>
+            </div>
+
+            <div class="char-card">
+                <div class="char-img-box">
+                    <img src="https://via.placeholder.com/400x300/00b894/ffffff?text=Bombardilo" alt="Bombardilo">
+                </div>
+                <div class="char-info">
+                    <div class="char-name">Bombardilo Cocodrilo</div>
+                    <div class="char-role">Agente del Caos</div>
+                    <p class="char-bio">Nadie sabe de dónde vino, pero cuando llega, todo explota. Literalmente.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-separator" id="sonidos">
+            <div class="line"></div>
+            <span><i class="fas fa-music"></i> Soundboard Viral</span>
+            <div class="line"></div>
+        </div>
+        
+        <p style="text-align: center; margin-bottom: 30px; color: #666;">Haz clic para reproducir los sonidos más icónicos (Simulación).</p>
+
+        <div class="soundboard-grid">
+            <div class="sound-btn" onclick="playSound('tralala')">
+                <div class="sound-icon"><i class="fas fa-music"></i></div>
+                <div class="sound-name">Tralalero</div>
+            </div>
+            <div class="sound-btn" onclick="playSound('vine')">
+                <div class="sound-icon" style="background: linear-gradient(45deg, #74b9ff, #0984e3);"><i class="fas fa-bomb"></i></div>
+                <div class="sound-name">Vine Boom</div>
+            </div>
+            <div class="sound-btn" onclick="playSound('gogogo')">
+                <div class="sound-icon" style="background: linear-gradient(45deg, #55efc4, #00b894);"><i class="fas fa-running"></i></div>
+                <div class="sound-name">GO GO GO</div>
+            </div>
+            <div class="sound-btn" onclick="playSound('bruh')">
+                <div class="sound-icon" style="background: linear-gradient(45deg, #a29bfe, #6c5ce7);"><i class="fas fa-sad-cry"></i></div>
+                <div class="sound-name">Bruh Effect</div>
+            </div>
+            <div class="sound-btn" onclick="playSound('notif')">
+                <div class="sound-icon" style="background: linear-gradient(45deg, #ff7675, #d63031);"><i class="fas fa-bell"></i></div>
+                <div class="sound-name">Notificación</div>
+            </div>
+            <div class="sound-btn" onclick="playSound('wow')">
+                <div class="sound-icon" style="background: linear-gradient(45deg, #ffeaa7, #fdcb6e);"><i class="fas fa-star"></i></div>
+                <div class="sound-name">Anime WOW</div>
+            </div>
+        </div>
+
+        <div class="section-separator">
+            <div class="line"></div>
+            <span><i class="fas fa-book"></i> Diccionario de la Grasa</span>
+            <div class="line"></div>
+        </div>
+
+        <div style="background: white; padding: 30px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.05);">
+            <div style="margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #eee;">
+                <h3 style="color: var(--primary); margin-bottom: 5px;">Brainrot</h3>
+                <p style="color: #555; font-size: 14px;">Estado mental alcanzado tras ver demasiados videos cortos sin sentido. Síntoma principal: reírse de un pan cayendo.</p>
+            </div>
+            <div style="margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #eee;">
+                <h3 style="color: var(--primary); margin-bottom: 5px;">NPC</h3>
+                <p style="color: #555; font-size: 14px;">"Non Playable Character". Persona que actúa de forma extraña o repetitiva en los directos, como si estuviera programada.</p>
+            </div>
+            <div style="margin-bottom: 0;">
+                <h3 style="color: var(--primary); margin-bottom: 5px;">Rizz</h3>
+                <p style="color: #555; font-size: 14px;">Carisma extremo. Si Periquini te saluda en el live, has aumentado tu Rizz en +100 puntos.</p>
+            </div>
+        </div>
+
+        <div class="section-separator">
+            <div class="line"></div>
+            <span><i class="fas fa-video"></i> Muro de la Vergüenza</span>
+            <div class="line"></div>
+        </div>
+
+        <div class="video-wall">
+            <div class="video-placeholder" onclick="alert('Reproduciendo video viral...')">
+                <img src="https://via.placeholder.com/300x533/333/fff?text=Tralalero+Remix" alt="Video">
+                <i class="fas fa-play-circle play-icon"></i>
+            </div>
+            <div class="video-placeholder" onclick="alert('Reproduciendo video viral...')">
+                <img src="https://via.placeholder.com/300x533/444/fff?text=Caidas+Graciosas" alt="Video">
+                <i class="fas fa-play-circle play-icon"></i>
+            </div>
+            <div class="video-placeholder" onclick="alert('Reproduciendo video viral...')">
+                <img src="https://via.placeholder.com/300x533/555/fff?text=Periquini+Moments" alt="Video">
+                <i class="fas fa-play-circle play-icon"></i>
+            </div>
+            <div class="video-placeholder" onclick="alert('Reproduciendo video viral...')">
+                <img src="https://via.placeholder.com/300x533/666/fff?text=Meme+Review" alt="Video">
+                <i class="fas fa-play-circle play-icon"></i>
+            </div>
+        </div>
+
+        <div class="section-separator">
+            <div class="line"></div>
+            <span><i class="fas fa-calculator"></i> Test de Brainrot</span>
+            <div class="line"></div>
+        </div>
+
+        <div class="brainrot-calc">
+            <h3>¿Qué tan quemado está tu cerebro?</h3>
+            <p style="color: #666; font-size: 14px; margin-bottom: 20px;">¿Cuántas horas pasas en TikTok al día?</p>
+            
+            <input type="range" min="0" max="24" value="2" class="range-slider" id="hoursInput" oninput="document.getElementById('hoursVal').textContent = this.value + ' horas'">
+            <div style="font-weight: bold; color: var(--primary); margin-bottom: 20px;" id="hoursVal">2 horas</div>
+
+            <button class="btn btn-primary" onclick="calculateBrainrot()">Calcular Diagnóstico</button>
+
+            <div class="result-box" id="resultBox">
+                </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="container" style="text-align: center;">
+            <p>&copy; 2025 TusiniTusineli.com - Galería Oficial</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        // Scripts exclusivos para la galería
+        function playSound(soundName) {
+            // Simulamos sonido
+            const btn = event.currentTarget;
+            btn.style.transform = 'scale(0.9)';
+            setTimeout(() => btn.style.transform = 'scale(1)', 100);
+            
+            // Aquí podrías poner new Audio('file.mp3').play();
+            console.log('Reproduciendo: ' + soundName);
+            alert('🔊 REPRODUCIENDO SONIDO: ' + soundName.toUpperCase() + ' 🎵');
+        }
+
+        function calculateBrainrot() {
+            const hours = document.getElementById('hoursInput').value;
+            const resultBox = document.getElementById('resultBox');
+            let diagnosis = "";
+            let color = "";
+
+            if (hours < 2) {
+                diagnosis = "🟢 NIVEL BAJO: Estás demasiado sano. ¡Ve a jugar un rato!";
+                color = "#00b894";
+            } else if (hours < 5) {
+                diagnosis = "🟡 NIVEL MEDIO: Empiezas a tararear canciones raras.";
+                color = "#fdcb6e";
+            } else if (hours < 10) {
+                diagnosis = "🟠 NIVEL ALTO: Tu vocabulario es 50% memes.";
+                color = "#e17055";
+            } else {
+                diagnosis = "🔴 NIVEL CRÍTICO: Eres uno con el algoritmo. ¡Bienvenido a casa!";
+                color = "#d63031";
+            }
+
+            resultBox.style.display = 'block';
+            resultBox.style.background = color;
+            resultBox.style.color = 'white';
+            resultBox.textContent = diagnosis;
+        }
+    </script>
+</body>
+</html>

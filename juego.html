@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cargando juego... - TusiniTusineli</title>
+    <meta name="description" content="Juega gratis los mejores juegos virales en TusiniTusineli.">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5461370198299696" crossorigin="anonymous"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="icon" type="image/png" href="https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tusinitusineli.com?v=1749935984757">
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">
+            <i class="fas fa-gamepad"></i> TusiniTusineli
+        </a>
+        <button class="menu-btn" id="menu-btn"><i class="fas fa-bars"></i></button>
+        
+        <nav class="menu" id="menu">
+            <a href="index.html" class="menu-item"><i class="fas fa-home"></i> Inicio</a>
+            <a href="galeria.html" class="menu-item"><i class="fas fa-photo-video"></i> Galería</a>
+            <a href="descargar.html" class="menu-item"><i class="fas fa-download"></i> App</a>
+            <hr style="margin: 10px 0; border:0; border-top:1px solid #eee;">
+            <a href="sobre-nosotros.html" class="menu-item" style="font-size:14px; color:#888;">Sobre Nosotros</a>
+        </nav>
+    </header>
+
+    <div class="game-page-container">
+        
+        <div class="game-layout">
+            
+            <main style="width: 100%;">
+                
+                <div class="game-frame-wrapper" id="iframe-wrapper">
+                    <div class="loading-spinner"></div>
+                </div>
+                
+                <div class="game-info-modern">
+                    <h1 id="game-title-display" class="game-title-modern">Cargando...</h1>
+                    
+                    <div class="game-tags" id="game-tags">
+                        </div>
+
+                    <div class="action-buttons-row">
+                        <button class="btn-action-modern btn-fullscreen" onclick="toggleFullScreen()">
+                            <i class="fas fa-expand"></i> Pantalla Completa
+                        </button>
+                        <button class="btn-action-modern btn-share" onclick="shareGame()">
+                            <i class="fas fa-share-alt"></i> Compartir
+                        </button>
+                        <button class="btn-action-modern btn-report" onclick="alert('Gracias. Revisaremos este juego.')">
+                            <i class="fas fa-flag"></i> Reportar
+                        </button>
+                    </div>
+
+                    <div class="game-desc-box">
+                        <p id="game-desc-display">Cargando detalles del juego...</p>
+                    </div>
+                </div>
+
+            </main>
+
+            <aside class="sidebar">
+                
+                <div class="sidebar-section" style="text-align: center; min-height: 280px; display: flex; align-items: center; justify-content: center; background: #f8f9fa; position: relative;">
+                    <span style="font-size: 10px; color: #ccc; position: absolute; top: 5px; right: 10px;">PUBLICIDAD</span>
+                    
+                    <ins class="adsbygoogle"
+                         style="display:block; width: 100%;"
+                         data-ad-client="ca-pub-5461370198299696"
+                         data-ad-slot="TU-AD-SLOT-SIDEBAR" 
+                         data-ad-format="rectangle"
+                         data-full-width-responsive="true"></ins>
+                    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title"><i class="fas fa-star" style="color:#fdcb6e; margin-right:8px;"></i> Similares</h3>
+                    <div id="recommended-games">
+                        <div class="loading-spinner" style="width: 30px; height: 30px;"></div>
+                    </div>
+                </div>
+
+            </aside>
+        </div>
+
+        <div class="bottom-games-section">
+            <h2 class="bottom-section-title">
+                <i class="fas fa-fire-alt"></i> Más Juegos Divertidos
+            </h2>
+            <div class="bottom-grid" id="bottom-games-grid">
+                <div class="loading-spinner"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>TusiniTusineli</h3>
+                    <p style="color:#666; font-size:13px; line-height:1.6;">
+                        La mejor plataforma de juegos online gratis. Actualizamos cada día con contenido viral, brainrot y los mejores títulos .io y multijugador.
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="politica.html">Política de Privacidad</a></li>
+                        <li><a href="terminos.html">Términos y Condiciones</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 TusiniTusineli.com - Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="overlay" id="overlay"></div>
+
+    <script>
+        function toggleFullScreen() {
+            const elem = document.querySelector('iframe');
+            if (!elem) return;
+            if (!document.fullscreenElement) {
+                if (elem.requestFullscreen) { elem.requestFullscreen(); }
+                else if (elem.webkitRequestFullscreen) { elem.webkitRequestFullscreen(); }
+            } else {
+                if (document.exitFullscreen) { document.exitFullscreen(); }
+            }
+        }
+
+        function shareGame() {
+            if (navigator.share) {
+                navigator.share({ title: document.title, url: window.location.href })
+                    .catch(console.error);
+            } else {
+                // Fallback: Copiar al portapapeles
+                const dummy = document.createElement('input');
+                document.body.appendChild(dummy);
+                dummy.value = window.location.href;
+                dummy.select();
+                document.execCommand('copy');
+                document.body.removeChild(dummy);
+                alert('¡Enlace copiado al portapapeles!');
+            }
+        }
+    </script>
+    
+    <script src="app.js"></script>
+</body>
+</html>

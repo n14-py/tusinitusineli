@@ -2,513 +2,88 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Descargar TusiniTusineli App</title>
-    <meta name="theme-color" content="#e84393">
-    <link rel="manifest" href="/manifest.json">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descargar App - TusiniTusineli</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tusinitusineli.com?v=1749935984757">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tusinitusineli.com?v=1749935984757">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tusinitusineli.com?v=1749935984757">
-    <style>
-        :root {
-            --primary: #e84393;
-            --secondary: #fd79a8;
-            --accent: #fab1a0;
-            --dark: #2d3436;
-            --light: #fff9fa;
-            --success: #00b894;
-            --warning: #fdcb6e;
-            --danger: #d63031;
-            --shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            background-color: var(--light);
-            color: var(--dark);
-            min-height: 100vh;
-            padding-top: 70px;
-            padding-bottom: 80px;
-            touch-action: manipulation;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            background-color: var(--light);
-            box-shadow: var(--shadow);
-            z-index: 100;
-        }
-
-        .logo {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--primary);
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        .menu-btn {
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: var(--primary);
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            padding: 5px;
-        }
-
-        .menu-dot {
-            width: 5px;
-            height: 5px;
-            background-color: var(--primary);
-            border-radius: 50%;
-        }
-
-        .menu {
-            position: fixed;
-            top: 70px;
-            right: 20px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-            padding: 15px;
-            z-index: 101;
-            display: none;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .menu.active {
-            display: block;
-        }
-
-        .menu-item {
-            padding: 10px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            white-space: nowrap;
-        }
-
-        .menu-item:hover {
-            background-color: rgba(232, 67, 147, 0.1);
-            color: var(--primary);
-        }
-
-        .menu-item i {
-            font-size: 18px;
-        }
-
-        .app-info {
-            text-align: center;
-            margin: 30px 0;
-            background-color: white;
-            padding: 30px 20px;
-            border-radius: 15px;
-            box-shadow: var(--shadow);
-        }
-
-        .app-icon {
-            width: 120px;
-            height: 120px;
-            border-radius: 25px;
-            object-fit: cover;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            border: 4px solid var(--primary);
-        }
-
-        .app-title {
-            font-size: 24px;
-            color: var(--primary);
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-
-        .app-description {
-            color: var(--dark);
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-
-        .features {
-            background-color: white;
-            padding: 25px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: var(--shadow);
-            display: none;
-        }
-
-        .features-title {
-            font-size: 20px;
-            color: var(--primary);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .features-list {
-            list-style: none;
-        }
-
-        .features-list li {
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .features-list li:last-child {
-            border-bottom: none;
-        }
-
-        .features-list i {
-            color: var(--primary);
-            width: 25px;
-            text-align: center;
-        }
-
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            margin: 15px 0;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            text-align: center;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow);
-        }
-
-        .btn-primary {
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(232, 67, 147, 0.3);
-        }
-
-        .install-btn {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: calc(100% - 40px);
-            max-width: 400px;
-            z-index: 100;
-            animation: pulse 1.5s infinite;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.7);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background-color: white;
-            border-radius: 15px;
-            padding: 20px;
-            width: 90%;
-            max-width: 400px;
-            animation: modalFadeIn 0.3s ease;
-        }
-
-        @keyframes modalFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--secondary);
-        }
-
-        .modal-header h3 {
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .ios-steps {
-            margin: 20px 0;
-        }
-
-        .ios-steps p {
-            margin-bottom: 10px;
-            padding-left: 30px;
-            position: relative;
-            line-height: 1.6;
-        }
-
-        .ios-steps p:before {
-            content: "";
-            position: absolute;
-            left: 10px;
-            top: 8px;
-            width: 8px;
-            height: 8px;
-            background-color: var(--primary);
-            border-radius: 50%;
-        }
-
-        @keyframes pulse {
-            0% { transform: translateX(-50%) scale(1); }
-            50% { transform: translateX(-50%) scale(1.05); }
-            100% { transform: translateX(-50%) scale(1); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @media (min-width: 768px) {
-            .app-icon {
-                width: 150px;
-                height: 150px;
-            }
-            
-            .app-title {
-                font-size: 28px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" type="image/png" href="https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tusinitusineli.com?v=1749935984757">
 </head>
 <body>
-    <!-- Barra superior -->
+
     <header>
-        <a href="index.html" class="logo">TusiniTusineli</a>
-        <button class="menu-btn" id="menu-btn">
-            <div class="menu-dot"></div>
-            <div class="menu-dot"></div>
-            <div class="menu-dot"></div>
-        </button>
-        <div class="menu" id="menu">
-            <div class="menu-item" onclick="location.href='index.html'">
-                <i class="fas fa-home"></i>
-                <span>Inicio</span>
-            </div>
-            <div class="menu-item" onclick="location.href='games.html'">
-                <i class="fas fa-gamepad"></i>
-                <span>Juegos</span>
-            </div>
-            <div class="menu-item" onclick="location.href='videos.html'">
-                <i class="fas fa-video"></i>
-                <span>Videos</span>
-            </div>
-            <div class="menu-item" onclick="location.href='coins.html'">
-                <i class="fas fa-coins"></i>
-                <span>Monedas</span>
-            </div>
-        </div>
+        <a href="index.html" class="logo"><i class="fas fa-gamepad"></i> TusiniTusineli</a>
+        <button class="menu-btn" id="menu-btn"><i class="fas fa-bars"></i></button>
+        <nav class="menu" id="menu">
+            <a href="index.html" class="menu-item">Inicio</a>
+            <a href="galeria.html" class="menu-item">Galería</a>
+        </nav>
     </header>
 
-    <!-- Contenido principal -->
-    <main class="container">
-        <div class="app-info">
-            <img src="https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tusinitusineli.com?v=1749935984757" alt="TusiniTusineli" class="app-icon">
-            <h1 class="app-title">TusiniTusineli App</h1>
-            <p class="app-description">La mejor app para disfrutar de videos divertidos, juegos emocionantes y ganar monedas para interactuar en el live de TikTok.</p>
+    <div class="container" style="text-align: center; padding-top: 40px;">
+        
+        <div class="content-wrapper" style="background: white; padding: 50px 30px; border-radius: 20px; box-shadow: 0 10px 40px rgba(232, 67, 147, 0.15); max-width: 600px; margin: 0 auto;">
             
-            <button class="btn btn-primary" onclick="showFeatures()">
-                <i class="fas fa-star"></i> Ver Características
-            </button>
-        </div>
-
-        <div class="features" id="features">
-            <h2 class="features-title">
-                <i class="fas fa-magic"></i> Características Principales
-            </h2>
-            <ul class="features-list">
-                <li>
-                    <i class="fas fa-video"></i> Envía videos divertidos al live
-                </li>
-                <li>
-                    <i class="fas fa-gamepad"></i> Juegos emocionantes
-                </li>
-                <li>
-                    <i class="fas fa-coins"></i> Sistema de monedas
-                </li>
-                <li>
-                    <i class="fas fa-comments"></i> Interacción en directo
-                </li>
-                <li>
-                    <i class="fas fa-gem"></i> Contenido exclusivo
-                </li>
+            <img src="https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tusinitusineli.com?v=1749935984757" alt="Icono App" style="width: 120px; height: 120px; border-radius: 25px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+            
+            <h1 style="font-size: 28px; margin-bottom: 10px; color: var(--primary);">Instalar TusiniTusineli</h1>
+            <p style="color: #666; margin-bottom: 30px;">Lleva la diversión en tu bolsillo. Acceso directo a todos los juegos, sin publicidad intrusiva y con carga ultra rápida.</p>
+            
+            <ul style="text-align: left; margin-bottom: 30px; list-style: none; padding: 0 20px;">
+                <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--success); margin-right: 10px;"></i> Acceso instantáneo desde tu inicio</li>
+                <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--success); margin-right: 10px;"></i> Menos consumo de datos</li>
+                <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--success); margin-right: 10px;"></i> Pantalla completa inmersiva</li>
             </ul>
-        </div>
 
-        <!-- Botón de instalación -->
-        <button id="installBtn" class="install-btn btn btn-primary">
-            <i class="fas fa-download"></i> Instalar App
-        </button>
-    </main>
-
-    <!-- Modal iOS -->
-    <div class="modal" id="iosModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3><i class="fas fa-mobile-alt"></i> Instalar en iPhone</h3>
-                <button class="menu-btn" onclick="closeIOSModal()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="ios-steps">
-                <p>Toca el ícono de compartir (↑) en la barra de navegación</p>
-                <p>Selecciona la opción "Agregar a inicio"</p>
-                <p>Presiona "Agregar" en la esquina superior derecha</p>
-                <p>¡Listo! La app estará en tu pantalla de inicio</p>
-            </div>
-            <button class="btn btn-primary" onclick="closeIOSModal()">
-                <i class="fas fa-check"></i> Entendido
+            <button id="installBtn" class="btn btn-primary" style="width: 100%; padding: 15px; font-size: 18px; display: none;">
+                <i class="fas fa-download"></i> Instalar Ahora
             </button>
+            
+            <p id="ios-instructions" style="display: none; font-size: 14px; color: #888; margin-top: 20px; background: #f9f9f9; padding: 15px; border-radius: 10px;">
+                <strong>Para iOS (iPhone/iPad):</strong><br>
+                1. Toca el botón <strong>Compartir</strong> <i class="fas fa-share-square"></i> abajo.<br>
+                2. Selecciona <strong>"Agregar al Inicio"</strong> <i class="fas fa-plus-square"></i>.
+            </p>
+
         </div>
+
     </div>
 
     <script>
-        // Control del menú
-        const menuBtn = document.getElementById('menu-btn');
-        const menu = document.getElementById('menu');
-        
-        menuBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            menu.classList.toggle('active');
-        });
-        
-        document.addEventListener('click', () => {
-            menu.classList.remove('active');
-        });
-        
-        menu.addEventListener('click', (e) => {
-            e.stopPropagation();
-        });
-
-        // Mostrar características
-        function showFeatures() {
-            const features = document.getElementById('features');
-            features.style.display = features.style.display === 'none' ? 'block' : 'none';
-            
-            // Scroll suave a las características si se muestran
-            if (features.style.display === 'block') {
-                setTimeout(() => {
-                    features.scrollIntoView({ behavior: 'smooth' });
-                }, 100);
-            }
-        }
-
-        // Control de instalación PWA
         let deferredPrompt;
+        const installBtn = document.getElementById('installBtn');
+        const iosMsg = document.getElementById('ios-instructions');
+        const isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+        if (isIos) {
+            iosMsg.style.display = 'block';
+        }
 
         window.addEventListener('beforeinstallprompt', (e) => {
-            if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-                e.preventDefault();
-                document.getElementById('installBtn').onclick = showIOSInstructions;
-            } else {
-                e.preventDefault();
-                deferredPrompt = e;
-                document.getElementById('installBtn').style.display = 'block';
-            }
-        });
+            e.preventDefault();
+            deferredPrompt = e;
+            installBtn.style.display = 'inline-block';
 
-        document.getElementById('installBtn').addEventListener('click', async () => {
-            if (deferredPrompt) {
+            installBtn.addEventListener('click', () => {
+                installBtn.style.display = 'none';
                 deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
-                if (outcome === 'accepted') {
-                    document.getElementById('installBtn').style.display = 'none';
-                }
-            }
-        });
-
-        // Instrucciones iOS
-        function showIOSInstructions() {
-            document.getElementById('iosModal').style.display = 'flex';
-        }
-
-        function closeIOSModal() {
-            document.getElementById('iosModal').style.display = 'none';
-        }
-
-        // Inicialización
-        document.addEventListener('DOMContentLoaded', () => {
-            // Ocultar botón instalación si ya está instalado
-            if (window.matchMedia('(display-mode: standalone)').matches) {
-                document.getElementById('installBtn').style.display = 'none';
-            }
-            
-            // Mostrar características si hay hash en la URL
-            if (window.location.hash === '#features') {
-                showFeatures();
-            }
-        });
-
-        // Service Worker
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                    .then(reg => {
-                        console.log('Service Worker registrado');
-                        reg.update();
-                    })
-                    .catch(err => console.log('Error SW:', err));
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the install prompt');
+                    }
+                    deferredPrompt = null;
+                });
             });
+        });
+
+        // Si ya está instalada
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+            installBtn.style.display = 'none';
+            iosMsg.innerHTML = '<i class="fas fa-check-circle"></i> ¡Ya tienes la app instalada!';
+            iosMsg.style.display = 'block';
         }
     </script>
+    <script src="app.js"></script>
 </body>
 </html>

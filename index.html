@@ -3,56 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TusiniTusineli.com - Juegos Gratis Online</title>
-    <meta name="description" content="Juega miles de juegos gratis online. Los mejores juegos de acción, puzzle, .io y más, con nuevas reseñas de IA todos los días.">
-    
-    <!-- AdSense -->
+    <title>TusiniTusineli - Juegos Gratis, Brainrot y Diversión Viral</title>
+    <meta name="description" content="Juega miles de juegos gratis online en TusiniTusineli. Disfruta de los mejores juegos .io, Roblox, acción y descubre la galería Brainrot más viral de internet.">
+    <meta name="keywords" content="juegos gratis, juegos online, brainrot, tusinitusineli, roblox, juegos .io, videos virales">
+    <meta name="author" content="TusiniTusineli Team">
+    <meta name="theme-color" content="#e84393">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tusinitusineli.com/">
+    <meta property="og:title" content="TusiniTusineli - Juegos Gratis y Brainrot">
+    <meta property="og:description" content="La mejor colección de juegos y memes virales de internet. ¡Juega ahora sin descargas!">
+    <meta property="og:image" content="https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tusinitusineli.com?v=1749935984757">
+
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5461370198299696" crossorigin="anonymous"></script>
     
-    <!-- Fuentes y CSS -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     
-    <!-- Favicon y Manifest (de tus archivos) -->
     <link rel="icon" type="image/png" href="https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tusinitusineli.com?v=1749935984757">
-    <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tusinitusineli.com?v=1749935984757">
+    <link rel="apple-touch-icon" href="https://cdn.glitch.global/4fe52089-bb45-4dcf-9012-fc1190060bb8/tusinitusineli.com?v=1749935984757">
     <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#e84393">
 </head>
 <body>
+
     <header>
-        <a href="index.html" class="logo">TusiniTusineli.com</a>
-        <div class="user-info">
-            <button class="menu-btn" id="menu-btn">
-                <div class="menu-dot"></div>
-                <div class="menu-dot"></div>
-                <div class="menu-dot"></div>
-            </button>
-        </div>
-        <div class="menu" id="menu">
-            <!-- Menú actualizado a tus páginas estáticas reales -->
-            <a class="menu-item" href="que-es-tusinitusineli.html">
-                <i class="fas fa-question-circle"></i>
-                <span>¿Qué es esto?</span>
+        <a href="index.html" class="logo">
+            <i class="fas fa-gamepad"></i> TusiniTusineli
+        </a>
+        
+        <button class="menu-btn" id="menu-btn" aria-label="Menú">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <nav class="menu" id="menu">
+            <a href="index.html" class="menu-item">
+                <i class="fas fa-home"></i> Inicio
             </a>
-            <a class="menu-item" href="galeria.html">
-                <i class="fas fa-images"></i>
-                <span>Galería Brainrot</span>
+            <a href="sobre-nosotros.html" class="menu-item">
+                <i class="fas fa-info-circle"></i> Sobre Nosotros
             </a>
-            <a class="menu-item" href="descargar.html">
-                <i class="fas fa-download"></i>
-                <span>Descargar App</span>
+            <a href="galeria.html" class="menu-item">
+                <i class="fas fa-photo-video"></i> Galería Brainrot
             </a>
-        </div>
+            <a href="descargar.html" class="menu-item">
+                <i class="fas fa-download"></i> Instalar App
+            </a>
+            <hr style="margin: 10px 0; border: 0; border-top: 1px solid #eee;">
+            <a href="politica.html" class="menu-item" style="font-size: 14px; color: #888;">
+                <i class="fas fa-shield-alt"></i> Privacidad
+            </a>
+        </nav>
     </header>
 
-    <div class="container">
+    <main class="container">
         
-        <!-- Bloque de AdSense Superior -->
-        <div class="ad-container">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5461370198299696"
-                 crossorigin="anonymous"></script>
+        <div style="text-align: center; margin: 40px 0;">
+            <h1 style="font-size: 2rem; color: var(--dark); margin-bottom: 10px;">¡Encuentra tu próximo juego favorito!</h1>
+            <p style="color: var(--text-light); margin-bottom: 30px;">Miles de juegos gratis seleccionados para ti</p>
+            
+            <div class="search-wrapper">
+                <input type="text" class="search-input" id="search-input" placeholder="Buscar juegos (ej: Minecraft, Roblox, .io)...">
+                <button class="search-btn" id="search-btn" aria-label="Buscar">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="ad-container" style="text-align: center; margin-bottom: 30px; min-height: 90px; background: #f8f9fa; border-radius: 10px; overflow: hidden;">
+            <p style="font-size: 10px; color: #ccc; padding-top: 5px;">PUBLICIDAD</p>
             <ins class="adsbygoogle"
                  style="display:block"
                  data-ad-client="ca-pub-5461370198299696"
@@ -64,46 +83,36 @@
             </script>
         </div>
 
-        <!-- Buscador -->
-        <div class="search-container">
-            <input type="text" class="search-input" id="search-input" placeholder="Buscar juegos...">
-            <button class="search-btn" id="search-btn">
-                <i class="fas fa-search"></i>
+        <div class="categories-wrapper">
+            <div class="categories" id="categories-container">
+                <button class="category active" data-category="all">🔥 Todo</button>
+                </div>
+        </div>
+
+        <div class="section-header">
+            <h2 class="section-title" id="section-title">Juegos Destacados</h2>
+        </div>
+        
+        <div class="games-grid" id="games-grid">
+            <div class="loading-spinner"></div>
+        </div>
+
+        <div class="pagination-container" id="pagination-container" style="display: none; justify-content: center; gap: 15px; margin: 40px 0;">
+            <button class="btn btn-secondary" id="prev-page">
+                <i class="fas fa-chevron-left"></i> Anterior
+            </button>
+            <span id="page-info" style="align-self: center; font-weight: 600;"></span>
+            <button class="btn btn-secondary" id="next-page">
+                Siguiente <i class="fas fa-chevron-right"></i>
             </button>
         </div>
 
-        <!-- Categorías (se llenarán automáticamente) -->
-        <div class="categories" id="categories-container">
-            <div class="category active" data-category="all">Todos</div>
-            <!-- app.js llenará esto -->
-        </div>
-
-        <!-- Título de la sección -->
-        <h2 class="section-title" id="section-title">Nuevos Juegos</h2>
-        
-        <!-- Parrilla de Juegos (se llenará automáticamente) -->
-        <div class="games-grid" id="games-grid">
-            <!-- Loader inicial -->
-            <div class="loading-container">
-                <div class="loading-spinner"></div>
-            </div>
-        </div>
-
-        <!-- Paginación (controlada por app.js) -->
-        <div class="pagination-container" id="pagination-container" style="display: none;">
-            <button class="btn btn-secondary" id="prev-page">Anterior</button>
-            <span id="page-info"></span>
-            <button class="btn btn-secondary" id="next-page">Siguiente</button>
-        </div>
-
-        <!-- Bloque de AdSense Inferior -->
-        <div class="ad-container" style="margin-top: 20px;">
-             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5461370198299696"
-                 crossorigin="anonymous"></script>
+        <div class="ad-container" style="text-align: center; margin-top: 40px; min-height: 90px; background: #f8f9fa; border-radius: 10px; overflow: hidden;">
+            <p style="font-size: 10px; color: #ccc; padding-top: 5px;">PUBLICIDAD</p>
             <ins class="adsbygoogle"
                  style="display:block"
                  data-ad-client="ca-pub-5461370198299696"
-                 data-ad-slot="TU-OTRO-AD-SLOT-ID" 
+                 data-ad-slot="TU-AD-SLOT-ID-2" 
                  data-ad-format="auto"
                  data-full-width-responsive="true"></ins>
             <script>
@@ -111,21 +120,53 @@
             </script>
         </div>
 
-    </div>
+    </main>
 
-    <!-- Overlay para el menú y el visor de juegos -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>TusiniTusineli</h3>
+                    <p style="color: #636e72; font-size: 14px; line-height: 1.6;">
+                        Tu destino número uno para juegos gratis online y entretenimiento viral. 
+                        Actualizamos diariamente con los mejores títulos de la web.
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <h3>Explorar</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Juegos Nuevos</a></li>
+                        <li><a href="galeria.html">Galería Viral</a></li>
+                        <li><a href="sobre-nosotros.html">Nuestra Historia</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="politica.html">Política de Privacidad</a></li>
+                        <li><a href="terminos.html">Términos de Uso</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 TusiniTusineli.com - Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
     <div class="overlay" id="overlay"></div>
 
-    <!-- Visor de Juego (Modal) -->
-    <div class="game-viewer" id="game-viewer">
-        <div class="viewer-header">
-            <div class="viewer-title" id="viewer-title">Cargando...</div>
-            <button class="viewer-close" id="viewer-close">&times;</button>
-        </div>
-        <iframe class="game-iframe" id="game-iframe" frameborder="0" allow="gamepad *;" allowfullscreen></iframe>
-    </div>
-
-    <!-- El script que hace toda la magia -->
     <script src="app.js" defer></script>
+    <script>
+        // Registro del Service Worker para PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('SW registrado'))
+                    .catch(err => console.log('SW error', err));
+            });
+        }
+    </script>
 </body>
 </html>
